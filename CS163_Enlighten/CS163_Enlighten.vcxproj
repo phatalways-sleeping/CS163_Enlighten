@@ -147,6 +147,7 @@
   <ItemGroup>
     <ClCompile Include="CS163_Enlighten.cpp" />
     <ClCompile Include="view.cpp" />
+    <ClCompile Include="view_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.h" />
