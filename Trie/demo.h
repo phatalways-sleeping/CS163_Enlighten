@@ -47,3 +47,32 @@ void trie_testing(string fileName){
     while (word != "");
 }
 
+void binaryFileTesting(string fileName) {
+    Trie T;
+    if(!inputTxtFile(T, fileName)) {
+        cout << "Can't open file\n";
+        return;
+    }
+
+    if(!outputBinaryFile(T, "trie_eng_to_vie.txt")) {
+        cout << "Can't write the binary file\n";
+        return;
+    }
+
+    Trie bT;
+    if(!inputBinaryFile(bT, "trie_eng_to_vie.txt")){
+        cout << "Can't read the binary file\n";
+        return;
+    }
+
+    string word;
+    do {
+        cout << "Search: "; cin >> word;
+        Node *it = search(bT, word);
+        if (it == NULL || it -> def.empty()) cout << word << " not found!\n";
+        else{
+            cout << word << ": " << it -> def[0] << endl;
+        }
+    }
+    while (word != "");
+}

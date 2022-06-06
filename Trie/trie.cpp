@@ -40,6 +40,67 @@ bool inputTxtFile(Trie &T, string fileName){
     return true;
 }
 
+void writeBinaryFile(ofstream &f, Node* node) {
+    if(!node) return;
+    int defSize = node->def.size();
+    f.write((char*) &defSize, sizeof(int));
+    for(int i = 0; i < defSize; i++) {
+        string s = node->def[i];
+        f.write(s.c_str(), s.size());
+        f.write("\0", sizeof(char));
+    }
+    for(int i = 0; i < 256; i++) {
+        if(node->child[i]) {
+            f.write((char*) &i, sizeof(int));
+            writeBinaryFile(f, node->child[i]);
+        }
+    }
+    int delim = -1;
+    f.write((char*) &delim, sizeof(int));
+}
+
+bool outputBinaryFile(Trie T, string fileName) {
+    ofstream f(fileName, ios::binary);
+    if(!f.is_open()) {
+        f.close();
+        return false;
+    }
+    writeBinaryFile(f, T.root);
+    f.close();
+    return true;
+}
+
+void readBinaryFile(ifstream &f, Node* &node) {
+    int defSize;
+    f.read((char *) &defSize, sizeof(int));
+    for(int i = 0; i < defSize; i++) {
+        string def;
+        getline(f, def, '\0');
+        node->def.push_back(def);
+    }
+
+    int cur = 0;
+    while(1) {
+        f.read((char*) &cur, sizeof(int));
+        if(cur == -1) break;
+        if(!node->child[cur]) node->child[cur] = new Node;
+        readBinaryFile(f, node->child[cur]);
+    }
+}
+
+bool inputBinaryFile(Trie& T, string fileName) {
+    ifstream f(fileName, ios::binary);
+    if(!f.is_open()) {
+        f.close();
+        return false;
+    }
+    clock_t start = clock();
+    readBinaryFile(f, T.root);
+    cout << "Read data from " << fileName << " in " << getTime(start, clock()) << " ms\n";
+    f.close();
+    return true;
+}
+
 Node *search(Trie T, string word){
     Node *root = T.root;
     for (int i = 0; i < word.size(); i++){
