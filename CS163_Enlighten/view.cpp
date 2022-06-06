@@ -43,39 +43,39 @@ bool isHere(FloatRect& bound, Vector2f& mouse)
 	return bound.contains(mouse);
 }
 
-Info createInfo(string s, float x, float y, float size)
+Info createInfo(string s, float x, float y, unsigned int size)
 {
 	Info a;
 	a.font.loadFromFile(s);
 	a.text.setFont(a.font);
 	a.text.setCharacterSize(size);
 	a.text.setPosition(x, y);
-	a.text.setFillColor(Color(46, 68, 112, 255));
+	a.text.setFillColor(Color(53, 84, 87, 255));
 	a.bound = a.text.getGlobalBounds();
 	return a;
 }
 
-Info createInfo(string s, string info, float x, float y, float size)
+Info createInfo(string s, string info, float x, float y, unsigned int size)
 {
 	Info a;
 	a.font.loadFromFile(s);
 	a.text.setFont(a.font);
 	a.text.setCharacterSize(size);
 	a.text.setPosition(x, y);
-	a.text.setFillColor(Color(46, 68, 112, 255));
+	a.text.setFillColor(Color(53, 84, 87, 255));
 	a.text.setString(info);
 	a.bound = a.text.getGlobalBounds();
 	return a;
 }
 
-Info* createInfoTest(string s, string info, float x, float y, float size)
+Info* createInfoTest(string s, string info, float x, float y, unsigned int size)
 {
 	Info* a = new Info;
 	a->font.loadFromFile(s);
 	a->text.setFont(a->font);
 	a->text.setCharacterSize(size);
 	a->text.setPosition(x, y);
-	a->text.setFillColor(Color(46, 68, 112, 255));
+	a->text.setFillColor(Color(53, 84, 87, 255));
 	a->text.setString(info);
 	a->bound = a->text.getGlobalBounds();
 	return a;

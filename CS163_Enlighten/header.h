@@ -23,9 +23,9 @@ Object createObject(string s, float x, float y);
 Object *createObjectTest(string s, float x, float y);
 Object createObject(string s);
 Object *createObjectTest(string s);
-Info createInfo(string s, float x, float y, float size);
-Info createInfo(string s, string info, float x, float y, float size);
-Info *createInfoTest(string s, string info, float x, float y, float size);
+Info createInfo(string s, float x, float y, unsigned int size);
+Info createInfo(string s, string info, float x, float y, unsigned int size);
+Info* createInfoTest(string s, string info, float x, float y, unsigned int size);
 
 //-------------------Features--------------------------
 bool isHere(FloatRect &bound, Vector2f &mouse);
@@ -41,3 +41,4 @@ void texting(Info *&text, Uint32 unicode, unsigned int limit);
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page);
 void setRole(RenderWindow &window, int &page, bool &is_admin);
+void logIn(RenderWindow &window, int &page, bool is_admin);

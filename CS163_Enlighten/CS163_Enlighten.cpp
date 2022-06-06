@@ -1,24 +1,29 @@
-#include <SFML/Graphics.hpp>
+#include "header.h"
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "CS163_Project");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
 
+    RenderWindow window;
+    window.create(VideoMode(1112, 769), "CS163-Project", Style::Close);
+
+    int page = 1;
+    bool is_admin = false;
     while (window.isOpen())
     {
-        sf::Event event;
-        while (window.pollEvent(event))
+        switch (page)
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+        case 1:
+            Scene1(window, page);
+            break;
+        case 2:
+            setRole(window, page, is_admin);
+            break;
+        case 3:
+            logIn(window, page, is_admin);
+            break;
+        default:
+            return 0;
         }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
     }
-
     return 0;
 }
