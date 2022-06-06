@@ -19,6 +19,10 @@ struct Trie{
 };
 
 bool inputTxtFile(Trie &T, string fileName);
+void writeBinaryFile(ofstream &f, Node* node);
+bool outputBinaryFile(Trie T,  string fileName);
+void readBinaryFile(ifstream &f, Node* &node);
+bool inputBinaryFile(Trie &T, string fileName);
 
 Node *search(Trie T, string keyword); // return all definitions
 bool insert(Trie &T, string word, string def);
