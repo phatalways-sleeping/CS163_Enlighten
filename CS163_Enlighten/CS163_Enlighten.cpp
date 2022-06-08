@@ -4,7 +4,7 @@ int main()
 {
 
     RenderWindow window;
-    window.create(VideoMode(1112, 769), "CS163-Project", Style::Close);
+    window.create(VideoMode(1112, 769), "CS163-Project");
 
     int page = 1;
     bool is_admin = false;
