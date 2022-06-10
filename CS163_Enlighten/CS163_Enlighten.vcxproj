@@ -156,7 +156,10 @@
     <ClCompile Include="view_scene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="header.h" />
+    <ClInclude Include="Login.h" />
+    <ClInclude Include="Node.h" />
     <ClInclude Include="struct_and_dependencies.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
