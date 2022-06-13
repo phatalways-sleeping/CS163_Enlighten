@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CS163_Enlighten.cpp" />
+    <ClCompile Include="Login.cpp" />
+    <ClCompile Include="Node.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="view_scene.cpp" />
   </ItemGroup>

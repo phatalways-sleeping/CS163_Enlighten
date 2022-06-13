@@ -8,6 +8,11 @@ void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, Node *list, string path);
 
+bool contains(Node *head, string value);
+void insert(Node *&head, string value);
+void remove(Node *&head, string value);
+
+
 //-------------------Objects/Text to draw---------------
 Object createObject(string s, float x, float y);
 Object *createObjectTest(string s, float x, float y);
