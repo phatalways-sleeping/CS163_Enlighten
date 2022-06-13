@@ -2,90 +2,163 @@
 
 void Scene1(RenderWindow &window, int &page)
 {
-    Object screen = createObject("Graphic/p1.png");
-    Object b1 = createObject("Graphic/p1_search.png", 478.0f, 540.0f);
-    Object b1_here = createObject("Graphic/p1_search_here.png", 478.0f, 540.0f);
-    Event event;
-    while (page == 1)
-    {
-        Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
-        while (window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case Event::Closed:
-            {
-                window.close();
-                return;
-            }
-            case Event::MouseButtonReleased:
-            {
-                if (event.mouseButton.button == Mouse::Left)
-                {
-                    switchPage(b1.bound, mouse, 2, page);
-                }
-                break;
-            }
-            default:
-                break;
-            }
-        }
-        window.clear();
-        window.draw(screen.draw);
-        drawWhich(window, b1_here, b1, mouse);
-        window.display();
-    }
+	Object screen = createObject("Graphic/p1.png");
+	pair<Object *, Object *> b1 = createElement("p1_search", 478.0f, 540.0f);
+	Event event;
+	while (page == 1)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				deallocate(b1);
+				return;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					switchPage(b1.first->bound, mouse, 2, page);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		drawWhich(window, b1, mouse);
+		window.display();
+	}
+	deallocate(b1);
 }
 
 void setRole(RenderWindow &window, int &page, bool &is_admin)
 {
-    Object screen = createObject("Graphic/p3.png");
-    Object admin = createObject("Graphic/p3_admin.png", 572.0f, 262.0f);
-    Object admin_here = createObject("Graphic/p3_admin_here.png", 572.0f, 262.0f);
-    Object user = createObject("Graphic/p3_user.png", 222.0f, 262.0f);
-    Object user_here = createObject("Graphic/p3_user_here.png", 222.0f, 262.0f);
-    Event event;
-    while (page == 2)
-    {
-        Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
-        while (window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case Event::Closed:
-            {
-                window.close();
-                return;
-            }
-            case Event::MouseButtonReleased:
-            {
-                if (event.mouseButton.button == Mouse::Left)
-                {
-                    if (isHere(admin.bound, mouse))
-                    {
-                        page = 3;
-                        is_admin = true;
-                        return;
-                    }
-                    if (isHere(user.bound, mouse))
-                    {
-                        page = 3;
-                        is_admin = false;
-                        return;
-                    }
-                }
-                break;
-            }
-            default:
-                break;
-            }
-        }
-        window.clear();
-        window.draw(screen.draw);
-        drawWhich(window, admin_here, admin, mouse);
-        drawWhich(window, user_here, user, mouse);
-        window.display();
-    }
+	Object screen = createObject("Graphic/p3.png");
+	pair<Object *, Object *> admin = createElement("p3_admin", 572.0f, 263.0f);
+	pair<Object *, Object *> user = createElement("p3_user", 222.0f, 263.0f);
+	Event event;
+	while (page == 2)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				deallocate(admin);
+				deallocate(user);
+				window.close();
+				return;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					if (isHere(admin, mouse))
+					{
+						page = 3;
+						is_admin = true;
+						return;
+					}
+					if (isHere(user, mouse))
+					{
+						page = 3;
+						is_admin = false;
+						return;
+					}
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		drawWhich(window, admin, mouse);
+		drawWhich(window, user, mouse);
+		window.display();
+	}
+	deallocate(admin);
+	deallocate(user);
+}
+
+void home(RenderWindow &window, int &page, bool &is_admin)
+{
+	Object screen = createObject("Graphic/p4.png");
+	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
+	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
+	Info welcome = createInfo("Graphic/bahnschrift.ttf", "Welcome, username", 354.0f, 186.0f, 64);
+	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
+	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
+	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
+	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
+	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
+	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
+	pair<Object *, Object *> left = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> right = createElement("right", 376.0f, 130.0f);
+	Event event;
+	changePos(add.second, 260.0f, 26.0f);
+	while (page == 4)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				delete fav.first, fav.second;
+				return;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					//switchPage(fav.first->bound, mouse, x, page);
+					switchPage(del.first->bound, mouse, 1, page);
+					//switchPage(search_history.first->bound, mouse, x, page);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		window.draw(home1.draw);
+		// draw left-right
+		//
+		drawWhich(window, settings, mouse);
+		drawWhich(window, revision, mouse);
+		drawWhich(window, fav, mouse);
+		drawWhich(window, change, mouse);
+		drawWhich(window, add, mouse);
+		drawWhich(window, user, mouse);
+		drawWhich(window, search_history, mouse);
+		drawWhich(window, del, mouse);
+		drawWhich(window, left, mouse);
+		drawWhich(window, right, mouse);
+		window.draw(search_bar.draw);
+		window.draw(welcome.text);
+		window.display();
+	}
+	// delete ;
 }
 
 void logIn(RenderWindow &window, int &page, bool is_admin)
