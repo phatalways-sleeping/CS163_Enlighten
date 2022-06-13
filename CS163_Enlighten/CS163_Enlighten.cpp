@@ -5,8 +5,7 @@ int main()
 
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
-
-    int page = 1;
+    int page = 4;
     bool is_admin = false;
     while (window.isOpen())
     {
@@ -20,6 +19,9 @@ int main()
             break;
         case 3:
             logIn(window, page, is_admin);
+            break;
+        case 4:
+            home(window, page, is_admin);
             break;
         default:
             return 0;

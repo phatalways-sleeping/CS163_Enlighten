@@ -10,9 +10,23 @@ Object createObject(string s, float x, float y)
 	return me;
 }
 
-Object* createObjectTest(string s, float x, float y)
+pair<Object *, Object *> createElement(string s, float x, float y)
 {
-	Object* me = new Object;
+	Object *a = createObjectTest("Graphic/" + s + ".png", x, y);
+	Object *b = createObjectTest("Graphic/" + s + "_here.png", x, y);
+	pair<Object *, Object *> cur = {a, b};
+	return cur;
+}
+
+void deallocate(pair<Object *, Object *> &p)
+{
+	delete p.first, p.second;
+	return;
+}
+
+Object *createObjectTest(string s, float x, float y)
+{
+	Object *me = new Object;
 	me->txt.loadFromFile(s);
 	me->draw.setTexture(me->txt);
 	me->draw.setPosition(x, y);
@@ -29,16 +43,16 @@ Object createObject(string s)
 	return me;
 }
 
-Object* createObjectTest(string s)
+Object *createObjectTest(string s)
 {
-	Object* me = new Object;
+	Object *me = new Object;
 	me->txt.loadFromFile(s);
 	me->draw.setTexture(me->txt);
 	me->bound = me->draw.getGlobalBounds();
 	return me;
 }
 
-bool isHere(FloatRect& bound, Vector2f& mouse)
+bool isHere(FloatRect &bound, Vector2f &mouse)
 {
 	return bound.contains(mouse);
 }
@@ -68,9 +82,9 @@ Info createInfo(string s, string info, float x, float y, unsigned int size)
 	return a;
 }
 
-Info* createInfoTest(string s, string info, float x, float y, unsigned int size)
+Info *createInfoTest(string s, string info, float x, float y, unsigned int size)
 {
-	Info* a = new Info;
+	Info *a = new Info;
 	a->font.loadFromFile(s);
 	a->text.setFont(a->font);
 	a->text.setCharacterSize(size);
@@ -81,7 +95,7 @@ Info* createInfoTest(string s, string info, float x, float y, unsigned int size)
 	return a;
 }
 
-bool drawWhich(RenderWindow& window, Object a, Object b, Vector2f& mouse)
+bool drawWhich(RenderWindow &window, Object a, Object b, Vector2f &mouse)
 {
 	if (isHere(a.bound, mouse))
 	{
@@ -92,7 +106,7 @@ bool drawWhich(RenderWindow& window, Object a, Object b, Vector2f& mouse)
 	return false;
 }
 
-bool drawWhich(RenderWindow& window, Object* a, Object* b, Vector2f& mouse)
+bool drawWhich(RenderWindow &window, Object *a, Object *b, Vector2f &mouse)
 {
 	if (isHere(a->bound, mouse))
 	{
@@ -103,7 +117,7 @@ bool drawWhich(RenderWindow& window, Object* a, Object* b, Vector2f& mouse)
 	return false;
 }
 
-bool switchPage(FloatRect& bound, Vector2f& mouse, int k, int& page)
+bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page)
 {
 	if (isHere(bound, mouse))
 	{
@@ -113,7 +127,7 @@ bool switchPage(FloatRect& bound, Vector2f& mouse, int k, int& page)
 	return false;
 }
 
-void changePos(Object* a, Object* b, float x, float y)
+void changePos(Object *a, Object *b, float x, float y)
 {
 	a->draw.setPosition(x, y);
 	a->bound = a->draw.getGlobalBounds();
@@ -121,19 +135,19 @@ void changePos(Object* a, Object* b, float x, float y)
 	b->bound = b->draw.getGlobalBounds();
 }
 
-void changePos(Object* a, float x, float y)
+void changePos(Object *a, float x, float y)
 {
 	a->draw.setPosition(x, y);
 	a->bound = a->draw.getGlobalBounds();
 }
 
-void changePos(Info* a, float x, float y)
+void changePos(Info *a, float x, float y)
 {
 	a->text.setPosition(x, y);
 	a->bound = a->text.getGlobalBounds();
 }
 
-void texting(Info& text, Uint32 unicode, unsigned int limit)
+void texting(Info &text, Uint32 unicode, unsigned int limit)
 {
 	if (text.check && (text.s.size() < limit || unicode == 8))
 	{
@@ -150,7 +164,7 @@ void texting(Info& text, Uint32 unicode, unsigned int limit)
 	}
 }
 
-void texting(Info*& text, Uint32 unicode, unsigned int limit)
+void texting(Info *&text, Uint32 unicode, unsigned int limit)
 {
 	if (text->check && (text->s.size() < limit || unicode == 8))
 	{
@@ -164,5 +178,24 @@ void texting(Info*& text, Uint32 unicode, unsigned int limit)
 			text->s += unicode;
 		}
 		text->text.setString(text->s);
+	}
+}
+
+bool isHere(const pair<Object *, Object *> &a, Vector2f &mouse)
+{
+	return a.first->bound.contains(mouse);
+}
+
+bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f &mouse)
+{
+	if (isHere(a, mouse))
+	{
+		window.draw(a.second->draw);
+		return true;
+	}
+	else
+	{
+		window.draw(a.first->draw);
+		return false;
 	}
 }
