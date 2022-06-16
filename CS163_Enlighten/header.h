@@ -7,12 +7,9 @@ bool login(string username, string password, string path, Node *&search_history,
 void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, Node *list, string path);
-
 bool contains(Node *head, string value);
 void insert(Node *&head, string value);
 void remove(Node *&head, string value);
-
-
 //-------------------Objects/Text to draw---------------
 Object createObject(string s, float x, float y);
 Object *createObjectTest(string s, float x, float y);
@@ -35,9 +32,13 @@ void changePos(Object *a, float x, float y);
 void changePos(Info *a, float x, float y);
 void texting(Info &text, Uint32 unicode, unsigned int limit);
 void texting(Info *&text, Uint32 unicode, unsigned int limit);
-
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page);
 void setRole(RenderWindow &window, int &page, bool &is_admin);
 void logIn(RenderWindow &window, int &page, bool is_admin);
 void home(RenderWindow &window, int &page, bool &is_admin);
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin);
+void myList(RenderWindow &window, int &page, bool is_fav);
+void revision(RenderWindow &window, int &page);
+
+
