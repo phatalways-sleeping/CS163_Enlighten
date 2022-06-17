@@ -1,6 +1,6 @@
 #include "header.h"
 
-bool login(string username, string password, string path, Node *&search_history, Node *&favorite_list)
+bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list)
 {
     fstream file(path, ios::in);
     vector<vector<string>> v;
@@ -24,10 +24,10 @@ bool login(string username, string password, string path, Node *&search_history,
         {
             int j = 3;
             while (v[i][j] != "favorite_list")
-                insert(search_history, v[i][j++]);
+                search_history.push_back(v[i][j++]);
             j += 1;
             while (j < v[i].size())
-                insert(favorite_list, v[i][j++]);
+                favorite_list.push_back(v[i][j++]);
             return true;
         }
     }
@@ -123,7 +123,7 @@ bool createNewAccount(string username, string password, string path)
     return true;
 }
 
-void update(string username, int CASE, Node *list, string path)
+void update(string username, int CASE, vector<string> &list, string path)
 {
     ifstream file(path, ios::in);
     vector<vector<string>> v;
@@ -153,11 +153,7 @@ void update(string username, int CASE, Node *list, string path)
                 if (v[i][0] == username)
                 {
                     f << v[i][0] << ',' << v[i][1] << ',' << "search_history" << ',';
-                    while (list)
-                    {
-                        f << list->data << ',';
-                        list = list->next;
-                    }
+                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
                     bool check = false;
                     for (int j = 3; j < v[i].size(); j++)
                     {
@@ -193,11 +189,7 @@ void update(string username, int CASE, Node *list, string path)
                         if (v[i][j] == "favorite_list")
                             break;
                     }
-                    while (list)
-                    {
-                        f << list->data << ',';
-                        list = list->next;
-                    }
+                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
                 }
                 else
                 {

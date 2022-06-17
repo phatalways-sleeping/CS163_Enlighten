@@ -21,17 +21,6 @@ const int SEARCH_HISTORY = 1;
 const string USERS = "Data//users.csv";
 const string ADMIN = "Data//admins.csv";
 
-struct Node
-{
-    string data;
-    Node *next = nullptr;
-    Node(string value, Node *next_)
-    {
-        data = value;
-        next = next_;
-    }
-};
-
 struct Object
 {
 	Sprite draw;

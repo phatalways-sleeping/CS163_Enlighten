@@ -3,15 +3,10 @@
 #include "struct_and_dependencies.h"
 
 //------------------Login Functions---------------------
-bool login(string username, string password, string path, Node *&search_history, Node *&favorite_list);
+bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
-void update(string username, int CASE, Node *list, string path);
-
-bool contains(Node *head, string value);
-void insert(Node *&head, string value);
-void remove(Node *&head, string value);
-
+void update(string username, int CASE, vector<string>& list, string path);
 
 //-------------------Objects/Text to draw---------------
 Object createObject(string s, float x, float y);

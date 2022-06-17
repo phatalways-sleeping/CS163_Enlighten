@@ -153,7 +153,6 @@
   <ItemGroup>
     <ClCompile Include="CS163_Enlighten.cpp" />
     <ClCompile Include="Login.cpp" />
-    <ClCompile Include="Node.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="view_scene.cpp" />
   </ItemGroup>
@@ -161,7 +160,6 @@
     <ClInclude Include="Constants.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="Login.h" />
-    <ClInclude Include="Node.h" />
     <ClInclude Include="struct_and_dependencies.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
