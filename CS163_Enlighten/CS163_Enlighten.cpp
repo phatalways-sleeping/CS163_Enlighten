@@ -5,7 +5,7 @@ int main()
 
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
-    int page = 4;
+    int page = 6;
     bool is_admin = false;
     while (window.isOpen())
     {
@@ -23,6 +23,16 @@ int main()
         case 4:
             home(window, page, is_admin);
             break;
+        case 5:
+            wordDisplay(window, page, is_admin);
+            break;
+        case 6:
+            myList(window, page, true);
+            break;
+        case 7:
+            revision(window, page);
+            break;
+
         default:
             return 0;
         }

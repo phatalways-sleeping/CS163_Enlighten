@@ -38,6 +38,135 @@ void Scene1(RenderWindow &window, int &page)
 	deallocate(b1);
 }
 
+void revision(RenderWindow &window, int &page)
+{
+	Object screen = createObject("Graphic/p7.png");
+	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
+	Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
+	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
+	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+
+	Event event;
+	while (page == 7)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				page = 0;
+				break;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					// switchPage(b1.first->bound, mouse, 2, page);
+					switchPage(home.first->bound, mouse, 4, page);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		drawWhich(window, del, mouse);
+		drawWhich(window, settings, mouse);
+		drawWhich(window, fav, mouse);
+		drawWhich(window, home, mouse);
+		drawWhich(window, user, mouse);
+		window.draw(revision1.draw);
+		drawWhich(window, b1, mouse);
+		drawWhich(window, pLeft, mouse);
+		drawWhich(window, pRight, mouse);
+		window.display();
+	}
+	deallocate(b1);
+	deallocate(del);
+	deallocate(settings);
+	deallocate(fav);
+	deallocate(home);
+	deallocate(pLeft);
+	deallocate(pRight);
+	deallocate(user);
+}
+
+// chua co xong nheeeee
+void settings(RenderWindow &window, int &page, const bool& is_admin)
+{
+	Object screen = createObject("Graphic/border.png");
+	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
+	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
+	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
+	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
+	Info word = createInfo("Graphic/bahnschrift.ttf", "Settings", 402.0f, 127.0f, 21);
+
+	Event event;
+	while (page == 8)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				page = 0;
+				break;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					// switchPage(b1.first->bound, mouse, 2, page);
+					switchPage(home.first->bound, mouse, 4, page);
+					switchPage(revision.first->bound, mouse, 7, page);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		drawWhich(window, del, mouse);
+		drawWhich(window, revision, mouse);
+		drawWhich(window, fav, mouse);
+		drawWhich(window, home, mouse);
+		drawWhich(window, user, mouse);
+		window.draw(settings1.draw);
+		drawWhich(window, b1, mouse);
+		drawWhich(window, pLeft, mouse);
+		drawWhich(window, pRight, mouse);
+		window.display();
+	}
+	deallocate(b1);
+	deallocate(del);
+	deallocate(settings);
+	deallocate(fav);
+	deallocate(home);
+	deallocate(pLeft);
+	deallocate(pRight);
+	deallocate(user);
+}
+
 void setRole(RenderWindow &window, int &page, bool &is_admin)
 {
 	Object screen = createObject("Graphic/p3.png");
@@ -96,7 +225,7 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	Object screen = createObject("Graphic/p4.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
-	Info welcome = createInfo("Graphic/bahnschrift.ttf", "Welcome, username", 354.0f, 186.0f, 64);
+	Info welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, username", 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -108,8 +237,8 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
 	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
 	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object *, Object *> left = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> right = createElement("right", 376.0f, 130.0f);
+	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
 	while (page == 4)
@@ -129,9 +258,10 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					//switchPage(fav.first->bound, mouse, x, page);
+					// switchPage(fav.first->bound, mouse, x, page);
 					switchPage(del.first->bound, mouse, 1, page);
-					//switchPage(search_history.first->bound, mouse, x, page);
+					// switchPage(search_history.first->bound, mouse, x, page);
+					switchPage(revision.first->bound, mouse, 7, page);
 				}
 				break;
 			}
@@ -142,8 +272,6 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);
-		// draw left-right
-		//
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
@@ -152,13 +280,23 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 		drawWhich(window, user, mouse);
 		drawWhich(window, search_history, mouse);
 		drawWhich(window, del, mouse);
-		drawWhich(window, left, mouse);
-		drawWhich(window, right, mouse);
+		drawWhich(window, pLeft, mouse);
+		drawWhich(window, pRight, mouse);
 		window.draw(search_bar.draw);
 		window.draw(welcome.text);
 		window.display();
 	}
-	// delete ;
+	deallocate(home);
+	deallocate(settings);
+	deallocate(revision);
+	deallocate(fav);
+	deallocate(user);
+	deallocate(del);
+	deallocate(search_history);
+	deallocate(add);
+	deallocate(change);
+	deallocate(pLeft);
+	deallocate(pRight);
 }
 
 void logIn(RenderWindow &window, int &page, bool is_admin)
@@ -308,5 +446,244 @@ void logIn(RenderWindow &window, int &page, bool is_admin)
 		}
 		drawWhich(window, out_here, out, mouse);
 		window.display();
+	}
+}
+
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
+{
+	Object screen = createObject("Graphic/p5_border.png");
+	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
+	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
+	Info word = createInfo("Graphic/Roboto-Regular.ttf", "demo word here", 380.0f, 180.0f, 64);
+	Info definition = createInfo("Graphic/Roboto-Regular.ttf", "demo definition here", 380.0f, 264.0f, 26);
+	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
+	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
+	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
+	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
+	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
+	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	pair<Object *, Object *> qLeft = createElement("left1", 1005.0f, 195.0f);
+	pair<Object *, Object *> qRight = createElement("right1", 1035.0f, 195.0f);
+	pair<Object *, Object *> rLeft = createElement("left1", 688.0f, 717.0f);
+	pair<Object *, Object *> rRight = createElement("right1", 718.0f, 717.0f);
+	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
+	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object *border[3];
+	Info *name[3], *defi[3];
+	bool is_fav = true;
+	for (int i = 0; i < 3; i++)
+	{
+		border[i] = createObjectTest("Graphic/p5_info_bar.png", 397.0f, 378.0f + 110.0f * i);
+		name[i] = createInfoTest("Graphic/Roboto-Regular.ttf", "demo username", 426.0f, 396.0f + 110.0f * i, 18);
+		defi[i] = createInfoTest("Graphic/RobotoCondensed-Bold.ttf", "demo definition here", 426.0f, 420.0f + 110.0f * i, 25);
+	}
+	Event event;
+	changePos(add.second, 260.0f, 26.0f);
+	while (page == 5)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				page = 0;
+				break;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					// switchPage(fav.first->bound, mouse, x, page);
+					switchPage(del.first->bound, mouse, 1, page);
+					// switchPage(search_history.first->bound, mouse, x, page);
+					switchPage(revision.first->bound, mouse, 7, page);
+				}
+				if (isHere(rem_fav.first->bound, mouse))
+				{
+					is_fav = !is_fav;
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		window.draw(home1.draw);
+		drawWhich(window, settings, mouse);
+		drawWhich(window, revision, mouse);
+		drawWhich(window, fav, mouse);
+		drawWhich(window, change, mouse);
+		drawWhich(window, add, mouse);
+		drawWhich(window, user, mouse);
+		drawWhich(window, del, mouse);
+		drawWhich(window, pLeft, mouse);
+		drawWhich(window, pRight, mouse);
+		drawWhich(window, qLeft, mouse);
+		drawWhich(window, qRight, mouse);
+		drawWhich(window, rLeft, mouse);
+		drawWhich(window, rRight, mouse);
+		if (is_fav)
+		{
+			drawWhich(window, add_to_fav, mouse);
+		}
+		else
+		{
+			drawWhich(window, rem_fav, mouse);
+		}
+		window.draw(search_bar.draw);
+		window.draw(word.text);
+		window.draw(definition.text);
+		for (int i = 0; i < 3; i++)
+		{
+			window.draw(border[i]->draw);
+			window.draw(name[i]->text);
+			window.draw(defi[i]->text);
+		}
+		window.display();
+	}
+	deallocate(home);
+	deallocate(settings);
+	deallocate(revision);
+	deallocate(fav);
+	deallocate(user);
+	deallocate(del);
+	deallocate(add);
+	deallocate(change);
+	deallocate(pLeft);
+	deallocate(pRight);
+	deallocate(qLeft);
+	deallocate(qRight);
+	deallocate(rLeft);
+	deallocate(rRight);
+	deallocate(add_to_fav);
+	deallocate(rem_fav);
+	for (int i = 0; i < 3; i++)
+	{
+		delete border[i], name[i], defi[i];
+	}
+}
+
+void myList(RenderWindow &window, int &page, bool is_fav)
+{
+	Object screen = createObject("Graphic/border.png");
+	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
+	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
+	Info *word;
+	if (is_fav)
+		word = createInfoTest("Graphic/bahnschrift.ttf", "Favorite", 402.0f, 127.0f, 21);
+	else
+		word = createInfoTest("Graphic/bahnschrift.ttf", "Search History", 402.0f, 127.0f, 21);
+	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
+	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
+	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
+	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
+	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
+	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	pair<Object *, Object *> rLeft = createElement("left1", 660.0f, 726.0f);
+	pair<Object *, Object *> rRight = createElement("right1", 690.0f, 726.0f);
+	pair<Object *, Object *> clear = createElement("clear", 886.0f, 120.0f);
+	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object *border[5];
+	pair<Object *, Object *> rem[5];
+	Info *name[5], *defi[5];
+	for (int i = 0; i < 5; i++)
+	{
+		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
+		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);
+		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "demo username", 390.0f, 190.0f + 110.0f * i, 23);
+		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "demo definition here", 390.0f, 225.0f + 110.0f * i, 17);
+	}
+	Event event;
+	changePos(add.second, 260.0f, 26.0f);
+	while (page == 6)
+	{
+		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
+		while (window.pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case Event::Closed:
+			{
+				window.close();
+				page = 0;
+				break;
+			}
+			case Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					// switchPage(fav.first->bound, mouse, x, page);
+					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(revision.first->bound, mouse, 7, page);
+
+					// switchPage(search_history.first->bound, mouse, x, page);
+				}
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		window.clear();
+		window.draw(screen.draw);
+		window.draw(home1.draw);
+		drawWhich(window, settings, mouse);
+		drawWhich(window, revision, mouse);
+		drawWhich(window, fav, mouse);
+		drawWhich(window, change, mouse);
+		drawWhich(window, add, mouse);
+		drawWhich(window, user, mouse);
+		drawWhich(window, del, mouse);
+		drawWhich(window, pLeft, mouse);
+		drawWhich(window, pRight, mouse);
+		drawWhich(window, rLeft, mouse);
+		drawWhich(window, rRight, mouse);
+		drawWhich(window, clear, mouse);
+		window.draw(search_bar.draw);
+		for (int i = 0; i < 5; i++)
+		{
+			window.draw(border[i]->draw);
+			window.draw(name[i]->text);
+			window.draw(defi[i]->text);
+			drawWhich(window, rem[i], mouse);
+		}
+		window.draw(word->text);
+		window.display();
+	}
+	deallocate(home);
+	deallocate(settings);
+	deallocate(revision);
+	deallocate(fav);
+	deallocate(user);
+	deallocate(del);
+	deallocate(add);
+	deallocate(change);
+	deallocate(pLeft);
+	deallocate(pRight);
+	deallocate(rLeft);
+	deallocate(rRight);
+	deallocate(clear);
+	deallocate(rem_fav);
+	delete word;
+	for (int i = 0; i < 5; i++)
+	{
+		delete border[i], name[i], defi[i], rem[i];
 	}
 }

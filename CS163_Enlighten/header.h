@@ -30,9 +30,13 @@ void changePos(Object *a, float x, float y);
 void changePos(Info *a, float x, float y);
 void texting(Info &text, Uint32 unicode, unsigned int limit);
 void texting(Info *&text, Uint32 unicode, unsigned int limit);
-
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page);
 void setRole(RenderWindow &window, int &page, bool &is_admin);
 void logIn(RenderWindow &window, int &page, bool is_admin);
 void home(RenderWindow &window, int &page, bool &is_admin);
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin);
+void myList(RenderWindow &window, int &page, bool is_fav);
+void revision(RenderWindow &window, int &page);
+
+
