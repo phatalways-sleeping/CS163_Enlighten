@@ -18,8 +18,8 @@ using namespace std;
 
 const int FAVORITE_LIST = 2;
 const int SEARCH_HISTORY = 1;
-const string USERS = "Data//users.csv";
-const string ADMIN = "Data//admins.csv";
+const string USERS = "Data//USERS INFORMATIONS//users.csv";
+const string ADMIN = "Data//USERS INFORMATIONS//admins.csv";
 
 struct Object
 {
