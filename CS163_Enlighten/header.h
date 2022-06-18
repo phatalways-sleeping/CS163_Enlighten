@@ -39,4 +39,3 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin);
 void myList(RenderWindow &window, int &page, bool is_fav);
 void revision(RenderWindow &window, int &page);
 
-

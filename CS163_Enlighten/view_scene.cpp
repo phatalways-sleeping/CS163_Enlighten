@@ -41,6 +41,8 @@ void Scene1(RenderWindow &window, int &page)
 void revision(RenderWindow &window, int &page)
 {
 	Object screen = createObject("Graphic/p7.png");
+	Object* text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
+	Object* text2 = createObjectTest("Graphic/p7_text2.png", 360.0f, 278.0f);
 	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
 	Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -50,7 +52,10 @@ void revision(RenderWindow &window, int &page)
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
 	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
-
+	pair<Object *, Object *> easy = createElement("easy", 360.0f, 360.0f);
+	pair<Object *, Object *> medium = createElement("med", 360.0f, 467.0f);
+	pair<Object *, Object *> hard = createElement("hard", 360.0f, 574.0f);
+	bool difficulty = true;
 	Event event;
 	while (page == 7)
 	{
@@ -71,6 +76,11 @@ void revision(RenderWindow &window, int &page)
 				{
 					// switchPage(b1.first->bound, mouse, 2, page);
 					switchPage(home.first->bound, mouse, 4, page);
+
+					if (isHere(b1, mouse) && difficulty)
+					{
+						difficulty = false;
+					}
 				}
 				break;
 			}
@@ -89,8 +99,24 @@ void revision(RenderWindow &window, int &page)
 		drawWhich(window, b1, mouse);
 		drawWhich(window, pLeft, mouse);
 		drawWhich(window, pRight, mouse);
+		if (!difficulty)
+		{
+			window.draw(text2->draw);
+			drawWhich(window, easy, mouse);
+			drawWhich(window, hard, mouse);
+			drawWhich(window, medium, mouse);
+		}
+		else
+		{
+			drawWhich(window, b1, mouse);
+			window.draw(text->draw);
+		}
 		window.display();
 	}
+	deallocate(easy);
+	deallocate(hard);
+	deallocate(medium);
+	delete text, text2;
 	deallocate(b1);
 	deallocate(del);
 	deallocate(settings);
@@ -159,7 +185,6 @@ void settings(RenderWindow &window, int &page, const bool& is_admin)
 	}
 	deallocate(b1);
 	deallocate(del);
-	deallocate(settings);
 	deallocate(fav);
 	deallocate(home);
 	deallocate(pLeft);
