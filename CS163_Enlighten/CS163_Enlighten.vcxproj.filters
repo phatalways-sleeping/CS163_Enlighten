@@ -30,6 +30,9 @@
     <ClCompile Include="autocomplete_word.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TRIE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct_and_dependencies.h">

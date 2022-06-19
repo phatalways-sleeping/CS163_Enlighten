@@ -154,6 +154,7 @@
     <ClCompile Include="autocomplete_word.cpp" />
     <ClCompile Include="CS163_Enlighten.cpp" />
     <ClCompile Include="Login.cpp" />
+    <ClCompile Include="TRIE.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="view_scene.cpp" />
   </ItemGroup>
