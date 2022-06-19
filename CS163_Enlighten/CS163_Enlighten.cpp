@@ -1,5 +1,10 @@
 #include "header.h"
 
+void helloworld() {
+
+    printf(":O\n");
+}
+
 int main()
 {
 
@@ -7,6 +12,7 @@ int main()
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 6;
     bool is_admin = false;
+
     while (window.isOpen())
     {
         switch (page)
