@@ -36,3 +36,17 @@ struct Info
 	bool check = false;
 	string s = "";
 };
+
+struct Node 
+{
+	vector <string> def;
+	Node* child[256];
+	Node() {
+		for (int i = 0; i < 256; i++) child[i] = NULL;
+	}
+};
+
+struct Trie 
+{
+	Node* root = new Node();
+};

@@ -8,6 +8,10 @@ void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string>& list, string path);
 
+//--------------Autocomplete Word Functions-------------
+void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
+vector<string> autocomplete(Trie T, string word, int limit);
+
 //-------------------Objects/Text to draw---------------
 Object createObject(string s, float x, float y);
 Object *createObjectTest(string s, float x, float y);
