@@ -1,5 +1,4 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 //#include <SFML/>
 #include <fstream>
@@ -12,6 +11,8 @@
 #include <ctime>
 #include <algorithm>
 #include <vector>
+#include"JSON/json-develop/single_include/nlohmann/json.hpp"
+using json = nlohmann::json;
 using std::string;
 using namespace sf;
 using namespace std;
