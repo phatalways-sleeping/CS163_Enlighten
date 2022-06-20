@@ -5,7 +5,7 @@ int main()
 
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
-    int page = 6;
+    int page = 4;
     bool is_admin = false;
 
     while (window.isOpen())
@@ -33,6 +33,8 @@ int main()
         case 7:
             revision(window, page);
             break;
+        case 8:
+            settings(window, page, true);
 
         default:
             return 0;

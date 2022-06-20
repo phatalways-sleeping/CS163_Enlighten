@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+CS163_Enlighten/CS163_Enlighten.vcxproj
+CS163_Enlighten/JSON
+
 # User-specific files
 *.rsuser
 *.suo

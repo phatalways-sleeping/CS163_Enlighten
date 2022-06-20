@@ -42,8 +42,8 @@ void Scene1(RenderWindow &window, int &page)
 void revision(RenderWindow &window, int &page)
 {
 	Object screen = createObject("Graphic/p7.png");
-	Object* text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
-	Object* text2 = createObjectTest("Graphic/p7_text2.png", 360.0f, 278.0f);
+	Object *text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
+	Object *text2 = createObjectTest("Graphic/p7_text2.png", 360.0f, 278.0f);
 	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
 	Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -129,10 +129,9 @@ void revision(RenderWindow &window, int &page)
 }
 
 // chua co xong nheeeee
-void settings(RenderWindow &window, int &page, const bool& is_admin)
+void settings(RenderWindow &window, int &page, const bool &is_admin)
 {
 	Object screen = createObject("Graphic/border.png");
-	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
 	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
@@ -141,9 +140,15 @@ void settings(RenderWindow &window, int &page, const bool& is_admin)
 	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
 	Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object *, Object *> bar[3];
 	Info word = createInfo("Graphic/bahnschrift.ttf", "Settings", 402.0f, 127.0f, 21);
-
+	Confirmation confirm = create();
+	for (int i = 0; i < 3; i++)
+	{
+		bar[i] = createElement("p8_" + to_string(i + 1), 360.0f, 267.0f + 125.0f * i);
+	}
 	Event event;
+	int check = 0;
 	while (page == 8)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -163,7 +168,11 @@ void settings(RenderWindow &window, int &page, const bool& is_admin)
 				{
 					// switchPage(b1.first->bound, mouse, 2, page);
 					switchPage(home.first->bound, mouse, 4, page);
-					switchPage(revision.first->bound, mouse, 7, page);
+					// switchPage(revision.first->bound, mouse, 7, page);
+					if (isHere(bar[0], mouse) && check == 0)
+					{
+						check = -1;
+					}
 				}
 				break;
 			}
@@ -173,24 +182,43 @@ void settings(RenderWindow &window, int &page, const bool& is_admin)
 		}
 		window.clear();
 		window.draw(screen.draw);
+		window.draw(word.text);
 		drawWhich(window, del, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
 		drawWhich(window, home, mouse);
 		drawWhich(window, user, mouse);
 		window.draw(settings1.draw);
-		drawWhich(window, b1, mouse);
+		if (!check)
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				drawWhich(window, bar[i], mouse);
+			}
+		}
+		else
+		{
+			for (int i = 0; i < 3; i++)
+			{
+				window.draw(bar[i].first->draw);
+			}
+		}
 		drawWhich(window, pLeft, mouse);
 		drawWhich(window, pRight, mouse);
+		checkConfirmation(window, check, confirm, mouse);
 		window.display();
 	}
-	deallocate(b1);
+	for (int i = 0; i < 3; i++)
+	{
+		deallocate(bar[i]);
+	}
 	deallocate(del);
 	deallocate(fav);
 	deallocate(home);
 	deallocate(pLeft);
 	deallocate(pRight);
 	deallocate(user);
+	deallocate(confirm);
 }
 
 void setRole(RenderWindow &window, int &page, bool &is_admin)
@@ -246,6 +274,8 @@ void setRole(RenderWindow &window, int &page, bool &is_admin)
 	deallocate(user);
 }
 
+
+
 void home(RenderWindow &window, int &page, bool &is_admin)
 {
 	Object screen = createObject("Graphic/p4.png");
@@ -253,7 +283,6 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	Info welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, username", 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
-	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
 	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
 	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
@@ -261,12 +290,11 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
-	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
-	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
 	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	SearchBar do_search;
+	int search_status = 0, add_status = 0;
 	Event event;
-	changePos(add.second, 260.0f, 26.0f);
 	while (page == 4)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -288,6 +316,7 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 					switchPage(del.first->bound, mouse, 1, page);
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(settings.first->bound, mouse, 8, page);
 				}
 				break;
 			}
@@ -301,15 +330,13 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
-		drawWhich(window, change, mouse);
-		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, search_history, mouse);
 		drawWhich(window, del, mouse);
 		drawWhich(window, pLeft, mouse);
 		drawWhich(window, pRight, mouse);
-		window.draw(search_bar.draw);
 		window.draw(welcome.text);
+		searching(window, search_status, do_search, mouse, add_status);
 		window.display();
 	}
 	deallocate(home);
@@ -319,10 +346,9 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	deallocate(user);
 	deallocate(del);
 	deallocate(search_history);
-	deallocate(add);
-	deallocate(change);
 	deallocate(pLeft);
 	deallocate(pRight);
+	deallocate(do_search);
 }
 
 void logIn(RenderWindow &window, int &page, bool is_admin)
