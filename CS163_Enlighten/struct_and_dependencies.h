@@ -5,15 +5,14 @@
 #include <iostream>
 #include <math.h>
 #include <sstream>
-#include <string.h>
 #include <string>
 #include <iomanip>
 #include <ctime>
 #include <algorithm>
 #include <vector>
+#include<utility>
 #include"JSON/json-develop/single_include/nlohmann/json.hpp"
 using json = nlohmann::json;
-using std::string;
 using namespace sf;
 using namespace std;
 
@@ -65,6 +64,6 @@ struct MEANINGS {
 	MEANINGS() { for (int i = 0; i < 256; i++) child[i] = nullptr; }
 };
 
-struct TRIE {
+struct AVD_TRIE {
 	MEANINGS* root = new MEANINGS();
 };

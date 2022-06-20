@@ -1,10 +1,5 @@
+#pragma once
 #include "header.h"
-
-void helloworld() {
-
-    printf(":O\n");
-}
-
 int main()
 {
 

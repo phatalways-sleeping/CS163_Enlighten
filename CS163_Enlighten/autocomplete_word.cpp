@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit) 

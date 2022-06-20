@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list)

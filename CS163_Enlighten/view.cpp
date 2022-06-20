@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 Object createObject(string s, float x, float y)

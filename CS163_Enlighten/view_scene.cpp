@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 void Scene1(RenderWindow &window, int &page)

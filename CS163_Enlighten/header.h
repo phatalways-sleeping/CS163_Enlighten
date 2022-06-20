@@ -8,6 +8,13 @@ void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string>& list, string path);
 
+//------------------Trie for English Definitions-----------
+void clear(MEANINGS& m);
+MEANINGS* search(AVD_TRIE T, string word);
+bool insert(AVD_TRIE& T, string word, const MEANINGS& current);
+bool remove(AVD_TRIE& T, string word);
+void convert(json data, AVD_TRIE& root);
+
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
 vector<string> autocomplete(Trie T, string word, int limit);
