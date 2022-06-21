@@ -27,7 +27,7 @@ vector <string> correct_words(Trie T, string word, int nums){
     }
 
     /// insert 1 char
-    for (int i = word.size() - 1; i >= 0; i--){
+    for (int i = word.size(); i >= 0; i--){
 
         for (char ch = 'a'; ch <= 'z'; ch++){
             new_word = word;
