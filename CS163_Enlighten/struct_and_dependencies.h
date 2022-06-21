@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-//#include <SFML/>
 #include <fstream>
 #include <iostream>
 #include <math.h>
@@ -10,7 +9,7 @@
 #include <ctime>
 #include <algorithm>
 #include <vector>
-#include<utility>
+#include <utility>
 #include"JSON/json-develop/single_include/nlohmann/json.hpp"
 using json = nlohmann::json;
 using namespace sf;
@@ -20,7 +19,7 @@ using namespace std;
  const int SEARCH_HISTORY = 1;
  const string USERS = "Data//USERS INFORMATIONS//users.csv";
  const string ADMIN = "Data//USERS INFORMATIONS//admins.csv";
- string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
+ const string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
 						"DH.json", "DI.json", "DJ.json", "DK.json", "DL.json", "DM.json", "DN.json", "DO.json", "DP.json",
 									"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
  const string JSONPATH = "Data//ENGLISH DEFINITIONS//";
