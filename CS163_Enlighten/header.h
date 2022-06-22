@@ -8,17 +8,6 @@ void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string>& list, string path);
 
-//------------------Trie for English Definitions-----------
-void clear(MEANINGS& m);
-MEANINGS* search(AVD_TRIE T, string word);
-bool insert(AVD_TRIE& T, string word, const MEANINGS& current);
-bool remove(AVD_TRIE& T, string word);
-void convert(json data, AVD_TRIE& root);
-
-//--------------Autocomplete Word Functions-------------
-void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
-vector<string> autocomplete(Trie T, string word, int limit);
-
 //-------------------Objects/Text to draw---------------
 Object createObject(string s, float x, float y);
 Object *createObjectTest(string s, float x, float y);
@@ -75,3 +64,51 @@ struct SearchBar
 		changePos(add.second, 260.0f, 26.0f);
 	}
 };
+
+//------------------ timing---------------------------------
+double getTime(auto start, auto end) {
+	double time = (double)(end - start) / CLOCKS_PER_SEC * 1000.0;
+	return time;
+}
+//------------------ Data Structures------------------------
+//-------------------Basic Trie-----------------------------
+bool inputTxtFile(Trie& T, string fileName);
+void writeBinaryFile(ofstream& f, Node* node);
+bool outputBinaryFile(Trie T, string fileName);
+void readBinaryFile(ifstream& f, Node*& node);
+bool inputBinaryFile(Trie& T, string fileName);
+
+bool getstr(string s, string& word, string& def);
+Node* search(Trie T, string keyword); // return all definitions
+bool insert(Trie& T, string word, string def);
+bool edit(Trie& T, string word, int id, string def); // edit the id-th definition of word
+bool remove(Trie& T, string word);
+bool reset(Trie& T);
+//-------------------Search---------------------------------
+
+//-------------------Search for definition------------------
+vector <string> splitword(string str);
+vector <string> search_def(Trie T, string def, int nums);
+bool build_definition_trie_TxtFile(Trie& T_def, string fileName);
+bool cmp(pair <int, string> x, pair <int, string> y);
+//-------------------Auto correct---------------------------
+vector <string> correct_words(Trie T, string word, int nums);
+double EV(string input, vector<string> v);
+
+//------------------Trie for English Definitions-----------
+void clear(MEANINGS& m);
+MEANINGS* search(AVD_TRIE T, string word);
+bool insert(AVD_TRIE& T, string word, const MEANINGS& current);
+bool remove(AVD_TRIE& T, string word);
+void convert(json data, AVD_TRIE& root);
+
+//--------------Autocomplete Word Functions-------------
+void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
+vector<string> autocomplete(Trie T, string word, int limit);
+
+//-------------------Demo trie function------------------------
+long long Rand(long long l, long long r);
+void genWords(int nums_word, int len_def, string fileName);
+void trie_testing(string fileName);
+void trie_definition_testing(string fileName);
+void trie_autocorrect(string fileName);

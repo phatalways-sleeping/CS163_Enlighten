@@ -2,7 +2,7 @@
 #include "header.h"
 int main()
 {
-
+    //trie_autocorrect("eng_to_vie.txt");
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 4;

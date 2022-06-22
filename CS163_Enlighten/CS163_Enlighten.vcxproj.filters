@@ -30,7 +30,19 @@
     <ClCompile Include="autocomplete_word.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TRIE.cpp">
+    <ClCompile Include="__TRIE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie_autocorrect.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie_definition.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie_demo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -41,5 +53,8 @@
     <ClInclude Include="header.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataStructure\readme.md" />
   </ItemGroup>
 </Project>

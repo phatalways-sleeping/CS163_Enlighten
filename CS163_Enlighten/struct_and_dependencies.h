@@ -10,6 +10,16 @@
 #include <algorithm>
 #include <vector>
 #include <utility>
+#include <time.h>
+#include <map>
+#include <queue>
+/*
+#include "DataStructure/demo.h"
+#include "DataStructure/clock.h"
+#include "DataStructure/trie.h"
+#include "DataStructure/trie_autocorrect.h"
+#include "DataStructure/trie_definition.h"
+*/
 #include"JSON/json-develop/single_include/nlohmann/json.hpp"
 using json = nlohmann::json;
 using namespace sf;
