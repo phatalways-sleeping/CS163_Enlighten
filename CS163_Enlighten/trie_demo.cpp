@@ -84,3 +84,29 @@ void trie_autocorrect(string fileName) {
         cout << endl << endl;
     }
 }
+
+void trie_revision_testing(string fileName) {
+    Trie T;
+    if (!inputTxtFile(T, fileName)) {
+        cout << "Can't open file\n";
+        return;
+    }
+    srand(time(NULL));
+    vector<string> Empty;
+    vector<vector<string>> listWord = revisionWord(T, 3, Empty, Empty);
+    for (auto i : listWord) {
+        cout << i[0] << ":\n";
+        int correctAns;
+        for (int j = 2; j <= 5; ++j) {
+            cout << char('A' + j - 2) << ". " << i[j] << '\n';
+            if (i[j] == i[1]) correctAns = j;
+        }
+        cout << "Answer: ";
+        char ans;
+        cin >> ans;
+        if (ans - 'A' + 2 != correctAns) cout << "Incorrect, answer is: " << char('A' + correctAns - 2);
+        else cout << "Correct";
+
+        cout << "\n\n";
+    }
+}
