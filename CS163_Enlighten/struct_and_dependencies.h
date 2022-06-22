@@ -20,6 +20,7 @@
 #include "DataStructure/trie_autocorrect.h"
 #include "DataStructure/trie_definition.h"
 */
+#include <string.h>
 #include"JSON/json-develop/single_include/nlohmann/json.hpp"
 using json = nlohmann::json;
 using namespace sf;
@@ -59,6 +60,8 @@ struct Confirmation
 };
 
 struct SearchBar;
+
+struct LeftRight;
 
 struct Node
 {

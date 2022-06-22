@@ -15,7 +15,7 @@ Confirmation create()
 {
 	Confirmation root;
 	root.board = createElement("p0", 200.0f, 271.0f);
-	root.nah = createElement("p0_nah", 328.0f, 470.0f);
+	root.nah = createElement("p0_cancel", 328.0f, 470.0f);
 	root.of_course = createElement("p0_of_course", 590.0f, 470.0f);
 	root.out = createElement("p0_return", 450.0f, 470.0f);
 	return root;
@@ -54,7 +54,7 @@ void deallocate(pair<Object *, Object *> &p)
 	return;
 }
 
-void deallocate(SearchBar& p)
+void deallocate(SearchBar &p)
 {
 	delete p.search_info;
 	deallocate(p.change);
@@ -167,6 +167,17 @@ bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page)
 	return false;
 }
 
+bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page, bool &change, bool true_or_false)
+{
+	if (isHere(bound, mouse))
+	{
+		page = k;
+		change = true_or_false;
+		return true;
+	}
+	return false;
+}
+
 void changePos(Object *a, Object *b, float x, float y)
 {
 	a->draw.setPosition(x, y);
@@ -240,9 +251,6 @@ bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f
 	}
 }
 
-
-
-
 void checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse)
 {
 	if (check == 0)
@@ -276,10 +284,7 @@ void checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 	return;
 }
 
-
-
-
-void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int& add_status)
+void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status)
 {
 	switch (status)
 	{
@@ -336,4 +341,47 @@ void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &
 		break;
 	}
 	}
+}
+
+void LeftRight::draw(RenderWindow &window, Vector2f &mouse)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		drawWhich(window, left[i], mouse);
+		drawWhich(window, right[i], mouse);
+	}
+}
+
+void LeftRight::draw(RenderWindow &window, Vector2f &mouse, int x)
+{
+	drawWhich(window, left[x], mouse);
+	drawWhich(window, right[x], mouse);
+}
+
+void LeftRight::deleteLR()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		deallocate(left[i]);
+		deallocate(right[i]);
+	}
+}
+
+LeftRight::LeftRight()
+{
+	left[0] = createElement("left", 352.0f, 130.0f);
+	right[0] = createElement("right", 376.0f, 130.0f);
+	left[1] = createElement("left1", 1005.0f, 195.0f);
+	right[1] = createElement("right1", 1035.0f, 195.0f);
+	left[2] = createElement("left1", 688.0f, 717.0f);
+	right[2] = createElement("right1", 718.0f, 717.0f);
+}
+LeftRight::LeftRight(int x)
+{
+	left[0] = createElement("left", 352.0f, 130.0f);
+	right[0] = createElement("right", 376.0f, 130.0f);
+	left[1] = createElement("left1", 1005.0f, 195.0f);
+	right[1] = createElement("right1", 1035.0f, 195.0f);
+	left[2] = createElement("left1", 660.0f, 726.0f);
+	right[2] = createElement("right1", 690.0f, 726.0f);
 }

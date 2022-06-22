@@ -245,18 +245,8 @@ void setRole(RenderWindow &window, int &page, bool &is_admin)
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					if (isHere(admin, mouse))
-					{
-						page = 3;
-						is_admin = true;
-						return;
-					}
-					if (isHere(user, mouse))
-					{
-						page = 3;
-						is_admin = false;
-						return;
-					}
+					switchPage(user.first->bound, mouse, 3, page, is_admin, false);
+					switchPage(admin.first->bound, mouse, 3, page, is_admin, true);
 				}
 				break;
 			}
@@ -274,14 +264,12 @@ void setRole(RenderWindow &window, int &page, bool &is_admin)
 	deallocate(user);
 }
 
-
-
-void home(RenderWindow &window, int &page, bool &is_admin)
+void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history)
 {
 	Object screen = createObject("Graphic/p4.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
-	Info welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, username", 354.0f, 186.0f, 64);
+	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
 	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
@@ -290,9 +278,19 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	LeftRight left_right;
 	SearchBar do_search;
+	for (int i = 0; i < 12; i++)
+	{
+		if (history.empty())
+		{
+			sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", "", 464.0f, 510.0f, 20);
+			continue;
+		}
+		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history.back(), 464.0f, 510.0f, 20);
+		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 510.0f + 44.0f * (i % 7));
+		history.pop_back();
+	}
 	int search_status = 0, add_status = 0;
 	Event event;
 	while (page == 4)
@@ -312,11 +310,13 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					// switchPage(fav.first->bound, mouse, x, page);
 					switchPage(del.first->bound, mouse, 1, page);
-					// switchPage(search_history.first->bound, mouse, x, page);
+					switchPage(search_history.first->bound, mouse, 6, page, is_fav, false);
+					switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false);
+					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+
 				}
 				break;
 			}
@@ -333,9 +333,9 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 		drawWhich(window, user, mouse);
 		drawWhich(window, search_history, mouse);
 		drawWhich(window, del, mouse);
-		drawWhich(window, pLeft, mouse);
-		drawWhich(window, pRight, mouse);
+		left_right.draw(window, mouse, 0);
 		window.draw(welcome.text);
+		for (int i = 0; i < 12; i++) window.draw(sh[i]->text);
 		searching(window, search_status, do_search, mouse, add_status);
 		window.display();
 	}
@@ -345,16 +345,18 @@ void home(RenderWindow &window, int &page, bool &is_admin)
 	deallocate(fav);
 	deallocate(user);
 	deallocate(del);
-	deallocate(search_history);
-	deallocate(pLeft);
-	deallocate(pRight);
+	left_right.deleteLR();
 	deallocate(do_search);
+	for (int i = 0; i < 12; i++)
+	{
+		delete sh[i];
+	}
 }
 
-void logIn(RenderWindow &window, int &page, bool is_admin)
+void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite)
 {
 	Event event;
-	bool see = false, entered = false, change = false, wrong_password = true;
+	bool see = false, entered = false, change = false, wrong_password = false;
 	Object screen = createObject("Graphic/p2.png");
 	Object l1 = createObject("Graphic/p2_login.png", 458.0f, 516.0f);
 	Object l2 = createObject("Graphic/p2_login_here.png", 458.0f, 516.0f);
@@ -462,34 +464,26 @@ void logIn(RenderWindow &window, int &page, bool is_admin)
 
 		if (change && !wrong_password)
 		{
-			// if (is_staff)
-			// {
-			// 	user = searchStudentNode(staff_list, username.s);
-			// 	if (user && user->student.password == pw.s)
-			// 	{
-			// 		page = 4;
-			// 		wrong_password = false;
-			// 	}
-			// 	else
-			// 		wrong_password = true;
-			// }
-			// else
-			// {
-			// 	check_class = class_list;
-			// 	user = nullptr;
-			// 	while (!user && check_class)
-			// 	{
-			// 		user = searchStudentNode(check_class->my_class.student_list, username.s);
-			// 		check_class = check_class->next;
-			// 	}
-			// 	if (user && user->student.password == pw.s)
-			// 	{
-			// 		wrong_password = false;
-			// 		page = 3;
-			// 	}
-			// 	else
-			// 		wrong_password = true;
-			// }
+			if (is_admin)
+			{
+				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/admins.csv", history, favourite))
+				{
+					user_name = username.s;
+					page = 4;
+				}
+				else
+					wrong_password = true;
+			}
+			else
+			{
+				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/users.csv", history, favourite))
+				{
+					user_name = username.s;
+					page = 4;
+				}
+				else
+					wrong_password = true;
+			}
 		}
 		else if (wrong_password)
 		{
@@ -501,7 +495,7 @@ void logIn(RenderWindow &window, int &page, bool is_admin)
 	}
 }
 
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav)
 {
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
@@ -518,17 +512,11 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
 	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
-	pair<Object *, Object *> qLeft = createElement("left1", 1005.0f, 195.0f);
-	pair<Object *, Object *> qRight = createElement("right1", 1035.0f, 195.0f);
-	pair<Object *, Object *> rLeft = createElement("left1", 688.0f, 717.0f);
-	pair<Object *, Object *> rRight = createElement("right1", 718.0f, 717.0f);
 	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
 	Object *border[3];
+	LeftRight left_right;
 	Info *name[3], *defi[3];
-	bool is_fav = true;
 	for (int i = 0; i < 3; i++)
 	{
 		border[i] = createObjectTest("Graphic/p5_info_bar.png", 397.0f, 378.0f + 110.0f * i);
@@ -579,12 +567,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
 		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
-		drawWhich(window, pLeft, mouse);
-		drawWhich(window, pRight, mouse);
-		drawWhich(window, qLeft, mouse);
-		drawWhich(window, qRight, mouse);
-		drawWhich(window, rLeft, mouse);
-		drawWhich(window, rRight, mouse);
+		left_right.draw(window, mouse);
 		if (is_fav)
 		{
 			drawWhich(window, add_to_fav, mouse);
@@ -612,12 +595,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
 	deallocate(del);
 	deallocate(add);
 	deallocate(change);
-	deallocate(pLeft);
-	deallocate(pRight);
-	deallocate(qLeft);
-	deallocate(qRight);
-	deallocate(rLeft);
-	deallocate(rRight);
+	left_right.deleteLR();
 	deallocate(add_to_fav);
 	deallocate(rem_fav);
 	for (int i = 0; i < 3; i++)
@@ -626,11 +604,9 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin)
 	}
 }
 
-void myList(RenderWindow &window, int &page, bool is_fav)
+void myList(RenderWindow &window, int &page, bool &is_fav)
 {
 	Object screen = createObject("Graphic/border.png");
-	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
-	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	Info *word;
 	if (is_fav)
 		word = createInfoTest("Graphic/bahnschrift.ttf", "Favorite", 402.0f, 127.0f, 21);
@@ -646,15 +622,12 @@ void myList(RenderWindow &window, int &page, bool is_fav)
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
 	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
-	pair<Object *, Object *> rLeft = createElement("left1", 660.0f, 726.0f);
-	pair<Object *, Object *> rRight = createElement("right1", 690.0f, 726.0f);
 	pair<Object *, Object *> clear = createElement("clear", 886.0f, 120.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
 	Object *border[5];
 	pair<Object *, Object *> rem[5];
 	Info *name[5], *defi[5];
+	LeftRight left_right(1);
 	for (int i = 0; i < 5; i++)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
@@ -681,11 +654,8 @@ void myList(RenderWindow &window, int &page, bool is_fav)
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					// switchPage(fav.first->bound, mouse, x, page);
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
-
-					// switchPage(search_history.first->bound, mouse, x, page);
 				}
 				break;
 			}
@@ -703,10 +673,8 @@ void myList(RenderWindow &window, int &page, bool is_fav)
 		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
-		drawWhich(window, pLeft, mouse);
-		drawWhich(window, pRight, mouse);
-		drawWhich(window, rLeft, mouse);
-		drawWhich(window, rRight, mouse);
+		left_right.draw(window, mouse, 0);
+		left_right.draw(window, mouse, 2);
 		drawWhich(window, clear, mouse);
 		window.draw(search_bar.draw);
 		for (int i = 0; i < 5; i++)
@@ -727,10 +695,7 @@ void myList(RenderWindow &window, int &page, bool is_fav)
 	deallocate(del);
 	deallocate(add);
 	deallocate(change);
-	deallocate(pLeft);
-	deallocate(pRight);
-	deallocate(rLeft);
-	deallocate(rRight);
+	left_right.deleteLR();
 	deallocate(clear);
 	deallocate(rem_fav);
 	delete word;
