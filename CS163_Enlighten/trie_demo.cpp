@@ -1,5 +1,6 @@
 #pragma once
 #include "header.h"
+
 long long Rand(long long l, long long r) {
     return l + ((long long)rand() * (RAND_MAX + 1) * (RAND_MAX + 1) * (RAND_MAX + 1) +
         (long long)rand() * (RAND_MAX + 1) * (RAND_MAX + 1) +
@@ -44,7 +45,7 @@ void trie_testing(string fileName) {
         }
     } while (word != "vinhne");
 }
-/*
+
 void trie_definition_testing(string fileName) {
     Trie T_def;
     build_definition_trie_TxtFile(T_def, fileName);
@@ -83,4 +84,3 @@ void trie_autocorrect(string fileName) {
         cout << endl << endl;
     }
 }
-*/
