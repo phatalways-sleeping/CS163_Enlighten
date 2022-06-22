@@ -2,7 +2,7 @@
 #include "header.h"
 int main()
 {
-    //trie_autocorrect("Data\english_to_vietnamese\datasets5000.txt");
+    trie_autocorrect("Data\english_to_vietnamese\datasets5000.txt");
     //trie_autocorrect("Datasets5000.txt");
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");

@@ -88,7 +88,7 @@ bool reset(Trie& T);
 
 //-------------------Search for definition------------------
 vector <string> splitword(string str);
-vector <string> search_def(Trie T, string def, int nums);
+vector <string> search_def(Trie &T, string def, int nums);
 bool build_definition_trie_TxtFile(Trie& T_def, string fileName);
 bool cmp(pair <int, string> x, pair <int, string> y);
 //-------------------Auto correct---------------------------
