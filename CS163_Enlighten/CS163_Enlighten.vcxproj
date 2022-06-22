@@ -159,13 +159,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="autocomplete_word.cpp" />
     <ClCompile Include="CS163_Enlighten.cpp" />
     <ClCompile Include="Login.cpp" />
+    <ClCompile Include="trie_autocomplete.cpp" />
     <ClCompile Include="trie_autocorrect.cpp" />
     <ClCompile Include="trie.cpp" />
     <ClCompile Include="trie_definition.cpp" />
     <ClCompile Include="trie_demo.cpp" />
+    <ClCompile Include="trie_revision.cpp" />
     <ClCompile Include="__TRIE.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="view_scene.cpp" />

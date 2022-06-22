@@ -27,9 +27,6 @@
     <ClCompile Include="Login.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="autocomplete_word.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="__TRIE.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -43,6 +40,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="trie_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie_autocomplete.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="trie_revision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

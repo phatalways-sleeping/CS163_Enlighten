@@ -106,6 +106,10 @@ void convert(json data, AVD_TRIE& root);
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
 vector<string> autocomplete(Trie T, string word, int limit);
 
+//-----------------------Revision-----------------------------
+pair<string, string> randomWord(Trie T);
+vector<vector<string>> revisionWord(Trie T, int level, vector<string>& searchHistory, vector<string>& favoriteList);
+
 //-------------------Demo trie function------------------------
 long long Rand(long long l, long long r);
 void genWords(int nums_word, int len_def, string fileName);
