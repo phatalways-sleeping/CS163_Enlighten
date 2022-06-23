@@ -99,7 +99,7 @@ void getTree(string path, Trie& root) {
             v.push_back({ k[0], stod(k[1]) / TOTAL });
         }
         for (int i = 0; i < v.size(); i++) insert(root, v[i].first, v[i].second);
-        cout << v[0].first << "-" << v[0].second << endl;
+        //cout << v[0].first << "-" << v[0].second << endl;
     }
     file.close();
 }
