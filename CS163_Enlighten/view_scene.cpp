@@ -268,8 +268,6 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 void home(RenderWindow& window, int& page, bool& is_admin, const string& user_name, bool& is_fav, vector<string> history, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p4.png");
-	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
-	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	Info* sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
@@ -318,6 +316,19 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+
+				}
+				break;
+			}
+			case Event::TextEntered:
+			{
+				if (search_status == 1)
+				{
+					texting(do_search.search_info, event.text.unicode, 30);
+					// string key: do_search.search_info->s
+					// do_search.result[i]
+					vector<string> completeList = autocomplete(dataset.user_Trie[0], do_search.search_info->s, 3);
+					for (int i = 0; i < completeList.size(); ++i) do_search.result[i]->s = completeList[i];
 				}
 				break;
 			}
@@ -681,8 +692,8 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);
-		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "demo username", 390.0f, 190.0f + 110.0f * i, 23);
-		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "demo definition here", 390.0f, 225.0f + 110.0f * i, 17);
+		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "", 390.0f, 190.0f + 110.0f * i, 23);
+		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "", 390.0f, 225.0f + 110.0f * i, 17);
 	}
 	
 	Event event;

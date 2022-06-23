@@ -28,15 +28,11 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
         }
         // input text file
 		Trie T;
-        inputTxtFile(T, "Data/english_to_vietnamese/datasets5000.txt");
+        inputTxtFile(T, "Data/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
 
 		sleep(1.0);
 		dataset.user_Trie.push_back(T);
         count++;
-        if (count == 10)
-        {
-            break;
-        }
         window.clear();
         window.draw(screen.draw);
         if (count < 10)

@@ -99,8 +99,13 @@ struct Enlighten
 	// 1. Trie def_envie_Trie;
 	// 2. Trie enen_Trie;
 	// 3. Trie def_enen_Trie;
-	int cur_id = 0;
+	int cur_id;
 	vector<Trie> user_Trie;
 	vector<string> favorite;
 	vector<string> history;
+
+	Enlighten() {
+		cur_id = 0;
+		user_Trie.clear();
+	}
 };
