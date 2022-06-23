@@ -1,7 +1,14 @@
 #pragma once
 #include "header.h"
 
-void loadingDataset(RenderWindow &window, Enlighten &p, int &page)
+void sleep(double s) {
+	vector <int> v;
+	for (int i = 0; i < (double)10000000.0 * s; i++) v.push_back(i);
+	cout << "...\n";
+	v.clear();
+}
+
+void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page)
 {
     Object *loading[10];
     for (int i = 0; i < 10; i++)
@@ -9,10 +16,9 @@ void loadingDataset(RenderWindow &window, Enlighten &p, int &page)
         loading[i] = createObjectTest("Graphic/" + to_string(i) + ".png", 564.0f, 540.0f);
     }
 	Event event;
-	Object screen = createObject("Graphic/p7.png");
-
+	Object screen = createObject("Graphic/p1.png");
     int count = 0;
-    while (count < p.user_Trie.size())
+    while (count < 10)
     {
         if (window.pollEvent(event) && event.type == Event::Closed)
         {
@@ -21,7 +27,10 @@ void loadingDataset(RenderWindow &window, Enlighten &p, int &page)
             return;
         }
         // input text file
-        // inputTxtFile(..., ....);
+		Trie T;
+        inputTxtFile(T, "Data/english_to_vietnamese/datasets130000.txt");
+		sleep(1.0);
+		dataset.user_Trie.push_back(T);
         count++;
         if (count == 10)
         {
