@@ -85,8 +85,9 @@ void checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 	return;
 }
 
-void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset)
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset)
 {
+	Event event;
 	switch (status)
 	{
 	case 1:
@@ -113,6 +114,10 @@ void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &
 				add_status = -1;
 			}
 		}
+		if (window.pollEvent(event) && event.type == Event::TextEntered)
+		{
+			texting(s.search_info, event.text.unicode, 30);
+		}
 		break;
 	}
 	case 2:
@@ -135,6 +140,7 @@ void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &
 		{
 			if (isHere(s.search, mouse))
 			{
+				s.search_info->check = true;
 				status = 1;
 			}
 			if (isHere(s.add, mouse))

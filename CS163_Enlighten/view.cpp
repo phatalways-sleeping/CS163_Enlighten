@@ -65,6 +65,7 @@ void deallocate(SearchBar &p)
 	for (int i = 0; i < 3; i++)
 	{
 		deallocate(p.SE[i]);
+		delete p.result[i];
 	}
 }
 

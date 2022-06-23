@@ -51,7 +51,7 @@ void changePos(Info *a, float x, float y);
 void texting(Info &text, Uint32 unicode, unsigned int limit);
 void texting(Info *&text, Uint32 unicode, unsigned int limit);
 void checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
-void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset);
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset);
 
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page, Enlighten& dataset);
@@ -76,10 +76,14 @@ struct SearchBar
 	Confirmation new_word = create("p0_nw", "p0_cancel", "p0_ok", "p0_return");
 	Info enter_word = createInfo("Graphic/Oswald-Light.ttf", "Enter word", 345.0f, 330.0f, 30);
 	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 412.0f, 30);
+	Info* result[3];
 	SearchBar()
 	{
-		for (int i = 0 ; i < 3; i++)
+		for (int i = 0; i < 3; i++)
+		{
 		SE[i] = createElement("p0_SE", 360.0f, 66.0f + 42.0f * i);
+		result[i] = createInfoTest("Graphic/Oswald-Regular.ttf", "", 393.0f, 78.0f + 44.0f * i, 20);
+		}
 		changePos(add.second, 260.0f, 26.0f);
 	}
 };
