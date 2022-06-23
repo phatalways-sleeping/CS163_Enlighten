@@ -282,14 +282,13 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 	SearchBar do_search;
 	for (int i = 0; i < 12; i++)
 	{
-		if (history.empty())
+		if (i >= history.size())
 		{
 			sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", "", 464.0f, 510.0f, 20);
 			continue;
 		}
-		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history.back(), 464.0f, 510.0f, 20);
+		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
 		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 500.0f + 44.0f * (i % 7));
-		history.pop_back();
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	Event event;
@@ -449,7 +448,6 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			}
 			case Event::TextEntered:
 			{
-				cerr << "enter: " << event.text.unicode << endl;
 				if (event.text.unicode == 9) { // tab -> doi nhap user sang pass, nguoc lai
 					pw.check ^= 1;
 					pw2.check ^= 1;
@@ -457,7 +455,6 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 				}
 				else if (event.text.unicode == 13 || event.text.unicode == '\n') { // -> enter -> login
 					change = true;
-					cerr << username.s << " " << pw.s << endl;
 					if (is_admin)
 					{
 						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))
