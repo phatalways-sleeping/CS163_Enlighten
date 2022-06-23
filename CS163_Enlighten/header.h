@@ -114,7 +114,7 @@ bool build_definition_trie_TxtFile(Trie& T_def, string fileName);
 bool cmp(pair <int, string> x, pair <int, string> y);
 //-------------------Auto correct---------------------------
 vector <string> correct_words(Trie T, string word, int nums);
-double EV(string input, vector<string> v);
+double EEV(string input, vector<string> v);
 
 //------------------Trie for English Definitions-----------
 void clear(MEANINGS& m);
