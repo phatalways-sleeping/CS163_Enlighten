@@ -8,17 +8,17 @@ void sleep(double s) {
 	v.clear();
 }
 
-void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page)
+void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int number_of_dataset)
 {
     Object *loading[10];
     for (int i = 0; i < 10; i++)
     {
-        loading[i] = createObjectTest("Graphic/" + to_string(i) + ".png", 564.0f, 540.0f);
+        loading[i] = createObjectTest("Graphic/" + to_string(i) + ".png", 238.0f, 540.0f);
     }
 	Event event;
 	Object screen = createObject("Graphic/p1.png");
     int count = 0;
-    while (count < 10)
+    while (count < number_of_dataset)
     {
         if (window.pollEvent(event) && event.type == Event::Closed)
         {
@@ -28,7 +28,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page)
         }
         // input text file
 		Trie T;
-        inputTxtFile(T, "Data/english_to_vietnamese/datasets130000.txt");
+        inputTxtFile(T, "Data/english_to_vietnamese/datasets5000.txt");
 		sleep(1.0);
 		dataset.user_Trie.push_back(T);
         count++;
@@ -85,7 +85,7 @@ void checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 	return;
 }
 
-void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status)
+void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset)
 {
 	switch (status)
 	{

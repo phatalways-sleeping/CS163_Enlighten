@@ -113,7 +113,7 @@ bool reset(Trie& T);
 
 
 //-------------------Search---------------------------------
-
+vector <string> search_result(Trie T, string keyword);
 //-------------------Search for definition------------------
 vector <string> splitword(string str);
 vector <string> search_def(Trie& T, string def, int nums);
@@ -142,4 +142,4 @@ void trie_autocorrect(string fileName);
 void trie_revision_testing(string fileName, vector<string> searchHistory, vector<string> favoriteList);
 
 //------------------Draw Elements-----------------------
-void loadingDataset(RenderWindow& window, Enlighten& p, int& page);
+void loadingDataset(RenderWindow& window, Enlighten& p, int& page, int number_of_dataset);

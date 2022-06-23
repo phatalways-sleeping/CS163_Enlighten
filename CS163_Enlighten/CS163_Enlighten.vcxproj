@@ -169,6 +169,7 @@
     <ClCompile Include="trie_demo.cpp" />
     <ClCompile Include="trie_revision.cpp" />
     <ClCompile Include="EngFunctions.cpp" />
+    <ClCompile Include="trie_search.cpp" />
     <ClCompile Include="view.cpp" />
     <ClCompile Include="view_draw.cpp" />
     <ClCompile Include="view_scene.cpp" />
