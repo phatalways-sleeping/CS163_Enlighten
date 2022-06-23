@@ -9,11 +9,11 @@ bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string> &list, string path);
 
 //------------------Trie for English Definitions-----------
-void clear(MEANINGS &m);
-MEANINGS *search(AVD_TRIE T, string word);
-bool insert(AVD_TRIE &T, string word, const MEANINGS &current);
-bool remove(AVD_TRIE &T, string word);
-void convert(json data, AVD_TRIE &root);
+void clear(Node &m);
+Node *search(const Trie& T, string word);
+bool insert(Trie &T, string word, const Node &current);
+bool remove(Trie &T, string word);
+void convert(json data, Trie &root);
 
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node *cur, string word, vector<string> &completeList, int limit);
@@ -105,6 +105,8 @@ bool insert(Trie& T, string word, string def);
 bool edit(Trie& T, string word, int id, string def); // edit the id-th definition of word
 bool remove(Trie& T, string word);
 bool reset(Trie& T);
+
+
 //-------------------Search---------------------------------
 
 //-------------------Search for definition------------------
@@ -115,13 +117,6 @@ bool cmp(pair <int, string> x, pair <int, string> y);
 //-------------------Auto correct---------------------------
 vector <string> correct_words(Trie T, string word, int nums);
 double EEV(string input, vector<string> v);
-
-//------------------Trie for English Definitions-----------
-void clear(MEANINGS& m);
-MEANINGS* search(AVD_TRIE T, string word);
-bool insert(AVD_TRIE& T, string word, const MEANINGS& current);
-bool remove(AVD_TRIE& T, string word);
-void convert(json data, AVD_TRIE& root);
 
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);

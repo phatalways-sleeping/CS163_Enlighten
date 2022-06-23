@@ -51,7 +51,10 @@ vector <string> correct_words(Trie T, string word, int nums) {
 
     /// return
     //if (ret.size() > 1) sort(ret.begin() + 1, ret.end());
+<<<<<<< Updated upstream
     //string path = "D:\APCS\21-22\cs163\project\Enlighten\CS163_Enlighten\CS163_Enlighten\\unigram_freq.csv";
+=======
+>>>>>>> Stashed changes
     string path = JSONPATH + "unigram_freq.csv";
     return EV(path, ret);
 
