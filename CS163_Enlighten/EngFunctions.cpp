@@ -6,17 +6,6 @@ void clear(Node& m) {
     m.antonyms.clear(); m.synonyms.clear(); m.definitions.clear(); m.word.clear();
 }
 
-Node* search(const Trie& T, string word) {
-    Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return NULL;
-        if (!root->child[ch]) return NULL;
-        else root = root->child[ch];
-    }
-    return root;
-}
-
 bool insert(Trie& T, string word, const Node& current) {
     if (word == "") return false;
     Node* root = T.root;
@@ -32,7 +21,7 @@ bool insert(Trie& T, string word, const Node& current) {
     return true;
 }
 
-bool remove(Trie& T, string word) {
+bool remove_eng(Trie& T, string word) {
     Node* root = T.root;
     for (int i = 0; i < word.size(); i++) {
         int ch = word[i];

@@ -32,8 +32,9 @@ using namespace std;
  const string ADMIN = "Data//USERS INFORMATIONS//admins.csv";
  const string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
 						"DH.json", "DI.json", "DJ.json", "DK.json", "DL.json", "DM.json", "DN.json", "DO.json", "DP.json",
-									"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
+								"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
  const string JSONPATH = "Data//ENGLISH DEFINITIONS//";
+ const double TOTAL = 5.88124e+11;
 
 
  const double TOTAL = 5.88124e+11;

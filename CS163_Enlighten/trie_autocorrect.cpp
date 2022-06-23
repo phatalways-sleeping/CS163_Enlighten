@@ -2,7 +2,7 @@
 #include "header.h"
 //----------------------------------------------------------------------------------------------------
 
-vector <string> correct_words(Trie T, string word, int nums) {
+vector <string> correct_words(const Trie& T, string word, int nums) {
     vector <string> ret;
     string new_word = word;
     Node* info = search(T, word);
@@ -49,8 +49,11 @@ vector <string> correct_words(Trie T, string word, int nums) {
         new_word[i] = word[i];
     }
 
+<<<<<<< Updated upstream
     /// return
     //if (ret.size() > 1) sort(ret.begin() + 1, ret.end());
+=======
+>>>>>>> Stashed changes
     string path = JSONPATH + "unigram_freq.csv";
     return EV(path, ret);
 
@@ -61,20 +64,8 @@ vector <string> correct_words(Trie T, string word, int nums) {
     return final_words;
 }
 
-double EEV(string input, vector<string> v) {
-    int length = input.length();
-    int count = 0;
-    for (int i = 0; i < v.size(); i++) {
-        int s = (v[i].length() <= length) ? v[i].length() : length;
-        for (int j = 0; j < s; j++) {
-            if (input[j] == v[i][j]) count++;
-        }
-    }
-    return (double)count / (length * v.size());
-}
-
 vector<string> EV(string path, vector<string> v) {
-    WordTrie tree;  getTree(path, tree);
+    Trie tree;  getTree(path, tree);
     vector<pair<double, int>> s;
     for (int i = 0; i < v.size(); i++) s.push_back({ (search(tree, v[i])) ? search(tree, v[i])->freq : 0, i });
     //sort(s.begin(), s.end(), less<pair<double, int>>());
@@ -85,6 +76,7 @@ vector<string> EV(string path, vector<string> v) {
     return k;
 }
 
+<<<<<<< Updated upstream
 Word* search(WordTrie T, string word) {
     Word* root = T.root;
     for (int i = 0; i < word.size(); i++) {
@@ -95,15 +87,17 @@ Word* search(WordTrie T, string word) {
     }
     return root;
 }
+=======
+>>>>>>> Stashed changes
 
-bool insert(WordTrie& T, string word, double freq) {
+bool insert(Trie& T, string word, double freq) {
     if (word == "") return false;
-    Word* root = T.root;
+    Node* root = T.root;
     for (int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) {
-            root->child[ch] = new Word();
+            root->child[ch] = new Node();
         }
         root = root->child[ch];
     }
@@ -111,7 +105,7 @@ bool insert(WordTrie& T, string word, double freq) {
     return true;
 }
 
-void getTree(string path, WordTrie& root) {
+void getTree(string path, Trie& root) {
     ifstream file(path, ios::in);
     if (file.is_open()) {
         vector<pair<string, double>> v;

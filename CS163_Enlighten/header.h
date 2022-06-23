@@ -10,9 +10,8 @@ void update(string username, int CASE, vector<string> &list, string path);
 
 //------------------Trie for English Definitions-----------
 void clear(Node &m);
-Node *search(const Trie& T, string word);
 bool insert(Trie &T, string word, const Node &current);
-bool remove(Trie &T, string word);
+bool remove_eng(Trie &T, string word);
 void convert(json data, Trie &root);
 
 //--------------Autocomplete Word Functions-------------
@@ -111,16 +110,24 @@ bool reset(Trie& T);
 
 //-------------------Search for definition------------------
 vector <string> splitword(string str);
-vector <string> search_def(Trie &T, string def, int nums);
+vector <string> search_def(Trie& T, string def, int nums);
 bool build_definition_trie_TxtFile(Trie& T_def, string fileName);
 bool cmp(pair <int, string> x, pair <int, string> y);
 //-------------------Auto correct---------------------------
+<<<<<<< Updated upstream
 vector <string> correct_words(Trie T, string word, int nums);
 double EEV(string input, vector<string> v);
 vector<string> EV(string path, vector<string> v);
 Word* search(WordTrie T, string word);
 bool insert(WordTrie& T, string word, double freq);
 void getTree(string path, WordTrie& root);
+=======
+vector <string> correct_words(const Trie& T, string word, int nums);
+bool insert(Trie& T, string word, double freq);
+vector<string> EV(string path, vector<string> v);
+void getTree(string path, Trie& root);
+
+>>>>>>> Stashed changes
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
 vector<string> autocomplete(Trie T, string word, int limit);
