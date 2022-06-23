@@ -2,9 +2,9 @@
 #include "header.h"
 
 // maximum 10 trees
-void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
+void Scene1(RenderWindow& window, int& page, Enlighten& dataset)
 {
-	pair<Object *, Object *> b1 = createElement("p1_search", 478.0f, 540.0f);
+	pair<Object*, Object*> b1 = createElement("p1_search", 478.0f, 540.0f);
 	Event event;
 	Object screen = createObject("Graphic/p1.png");
 	while (page == 1)
@@ -40,23 +40,23 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 	deallocate(b1);
 }
 
-void revision(RenderWindow &window, int &page, Enlighten& dataset)
+void revision(RenderWindow& window, int& page, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p7.png");
-	Object *text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
-	Object *text2 = createObjectTest("Graphic/p7_text2.png", 360.0f, 278.0f);
-	pair<Object *, Object *> b1 = createElement("p7_start", 360.0f, 377.0f);
+	Object* text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
+	Object* text2 = createObjectTest("Graphic/p7_text2.png", 360.0f, 278.0f);
+	pair<Object*, Object*> b1 = createElement("p7_start", 360.0f, 377.0f);
 	Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
-	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
-	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
-	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
-	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
-	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
-	pair<Object *, Object *> easy = createElement("easy", 360.0f, 360.0f);
-	pair<Object *, Object *> medium = createElement("med", 360.0f, 467.0f);
-	pair<Object *, Object *> hard = createElement("hard", 360.0f, 574.0f);
+	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
+	pair<Object*, Object*> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object*, Object*> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object*, Object*> pRight = createElement("right", 376.0f, 130.0f);
+	pair<Object*, Object*> easy = createElement("easy", 360.0f, 360.0f);
+	pair<Object*, Object*> medium = createElement("med", 360.0f, 467.0f);
+	pair<Object*, Object*> hard = createElement("hard", 360.0f, 574.0f);
 	bool difficulty = true;
 	Event event;
 	while (page == 7)
@@ -130,18 +130,18 @@ void revision(RenderWindow &window, int &page, Enlighten& dataset)
 }
 
 // chua co xong nheeeee
-void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten& dataset)
+void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/border.png");
-	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
-	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
-	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
-	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
+	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
+	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object*, Object*> pLeft = createElement("left", 352.0f, 130.0f);
+	pair<Object*, Object*> pRight = createElement("right", 376.0f, 130.0f);
 	Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
-	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
-	pair<Object *, Object *> bar[3];
+	pair<Object*, Object*> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object*, Object*> bar[3];
 	Info word = createInfo("Graphic/bahnschrift.ttf", "Settings", 402.0f, 127.0f, 21);
 	Confirmation confirm = create();
 	for (int i = 0; i < 3; i++)
@@ -222,11 +222,11 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten& 
 	deallocate(confirm);
 }
 
-void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten& dataset)
+void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p3.png");
-	pair<Object *, Object *> admin = createElement("p3_admin", 572.0f, 263.0f);
-	pair<Object *, Object *> user = createElement("p3_user", 222.0f, 263.0f);
+	pair<Object*, Object*> admin = createElement("p3_admin", 572.0f, 263.0f);
+	pair<Object*, Object*> user = createElement("p3_user", 222.0f, 263.0f);
 	Event event;
 	while (page == 2)
 	{
@@ -265,20 +265,20 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten& dataset
 	deallocate(user);
 }
 
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten& dataset)
+void home(RenderWindow& window, int& page, bool& is_admin, const string& user_name, bool& is_fav, vector<string> history, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p4.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
-	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
+	Info* sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
-	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
-	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
-	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
-	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
-	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
-	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
+	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
+	pair<Object*, Object*> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object*, Object*> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object*, Object*> search_history = createElement("p4_sh", 364.0f, 434.0f);
 
 	LeftRight left_right;
 	SearchBar do_search;
@@ -318,15 +318,6 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
-
-				}
-				break;
-			}
-			case Event::TextEntered:
-			{
-				if (search_status == 1)
-				{
-					texting(do_search.search_info, event.text.unicode, 30);
 				}
 				break;
 			}
@@ -345,9 +336,9 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
 		window.draw(welcome.text);
-		searching(window, search_status, do_search, mouse, add_status, dataset, event);
 		for (int i = 0; i < 12; i++)
 			window.draw(sh[i]->text);
+		searching(window, search_status, do_search, mouse, add_status, dataset, event);
 		window.display();
 	}
 	deallocate(home);
@@ -364,7 +355,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	}
 }
 
-void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite, Enlighten& dataset)
+void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_name, vector<string>& history, vector<string>& favourite, Enlighten& dataset)
 {
 	Event event;
 	bool see = false, entered = false, change = false, wrong_password = false;
@@ -444,7 +435,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 					cerr << username.s << " " << pw.s << endl;
 					if (is_admin)
 					{
-						if (login(username.s, pw.s, ADMIN, history, favourite))
+						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -454,7 +445,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 					}
 					else
 					{
-						if (login(username.s, pw.s, USERS, history, favourite))
+						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/users.csv", history, favourite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -465,11 +456,11 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 				}
 				else if (username.check) {
 					texting(username, event.text.unicode, 15);
-				}			
+				}
 				else if (pw.check && (pw.s.size() < 10 || event.text.unicode == 8))
 				{
 					if (event.text.unicode == 8)
-					{	
+					{
 						if (!pw.s.empty())
 						{
 							pw.s.pop_back();
@@ -517,7 +508,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 		{
 			if (is_admin)
 			{
-				if (login(username.s, pw.s, ADMIN, history, favourite))
+				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/admins.csv", history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -527,7 +518,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 			}
 			else
 			{
-				if (login(username.s, pw.s, USERS, history, favourite))
+				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/users.csv", history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -546,7 +537,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 	}
 }
 
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten& dataset)
+void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is_fav, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
@@ -555,19 +546,19 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	Info definition = createInfo("Graphic/Roboto-Regular.ttf", "demo definition here", 380.0f, 264.0f, 26);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
-	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
-	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
-	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
-	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
-	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
-	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
-	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
-	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
-	Object *border[3];
+	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
+	pair<Object*, Object*> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object*, Object*> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object*, Object*> add = createElement("add", 308.0f, 26.0f);
+	pair<Object*, Object*> change = createElement("switch", 810.0f, 26.0f);
+	pair<Object*, Object*> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
+	pair<Object*, Object*> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object* border[3];
 	LeftRight left_right;
-	Info *name[3], *defi[3];
+	Info* name[3], * defi[3];
 	for (int i = 0; i < 3; i++)
 	{
 		border[i] = createObjectTest("Graphic/p5_info_bar.png", 397.0f, 378.0f + 110.0f * i);
@@ -655,58 +646,68 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	}
 }
 
-void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset)
+void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/border.png");
-	Info *word;
+	Info* word;
 	if (is_fav)
 		word = createInfoTest("Graphic/bahnschrift.ttf", "Favorite", 402.0f, 127.0f, 21);
 	else
 		word = createInfoTest("Graphic/bahnschrift.ttf", "Search History", 402.0f, 127.0f, 21);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
-	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
-	pair<Object *, Object *> settings = createElement("settings", 0.0f, 448.0f);
-	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
-	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
-	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
-	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
-	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object *, Object *> clear = createElement("clear", 886.0f, 120.0f);
-	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
-	Object *border[5];
-	pair<Object *, Object *> rem[5];
-	Info *name[5], *defi[5];
+	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
+	pair<Object*, Object*> settings = createElement("settings", 0.0f, 448.0f);
+	pair<Object*, Object*> revision = createElement("revision", 0.0f, 308.0f);
+	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
+	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
+	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
+	pair<Object*, Object*> add = createElement("add", 308.0f, 26.0f);
+	pair<Object*, Object*> change = createElement("switch", 810.0f, 26.0f);
+	pair<Object*, Object*> clear = createElement("clear", 886.0f, 120.0f);
+	pair<Object*, Object*> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object* border[5];
+	pair<Object*, Object*> rem[5];
+	Info* name[5], * defi[5];
 	LeftRight left_right(1);
+
 	int cur_id = dataset.cur_id;
 	int size = 5;
-	if (is_fav) {
-		size = min(size, (int)dataset.favorite.size());
-		for (int i = 0; i < size; i++) {
-			name[i]->s = dataset.favorite[i];
-			name[i]->text.setString(name[i]->s);
-		}
-	}
-	else {
-		size = min(size, (int)dataset.history.size());
-		for (int i = 0; i < size; i++) {
-			name[i]->s = dataset.history[i];
-			name[i]->text.setString(name[i]->s);
-		}
-	}
-	for (int i = 0; i < size; i++) {
-		Node *defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
-		if (defi_search)
-			defi[i]->s = defi_search->def[0];
-		defi[i]->text.setString(defi[i]->s);
-	}
+
+	if (is_fav) size = min(size, (int)dataset.favorite.size());
+	else size = min(size, (int)dataset.history.size());
+
 	for (int i = 0; i < size; i++)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);
 		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "demo username", 390.0f, 190.0f + 110.0f * i, 23);
 		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "demo definition here", 390.0f, 225.0f + 110.0f * i, 17);
+	}
+	if (is_fav) {
+
+		for (int i = 0; i < size; i++) {
+			name[i]->s = dataset.favorite[i];
+			cerr << i << ": " << name[i]->s << endl;
+			name[i]->text.setString(name[i]->s);
+		}
+	}
+	else {
+		size = min(size, (int)dataset.history.size());
+		cout << size << endl;
+
+		for (int i = 0; i < size; i++) {
+			name[i]->s = dataset.history[i];
+			cerr << i << ": " << name[i]->s << endl;
+			name[i]->text.setString(name[i]->s);
+		}
+
+	}
+	for (int i = 0; i < size; i++) {
+		Node* defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
+		if (defi_search)
+			defi[i]->s = defi_search->def[0];
+		defi[i]->text.setString(defi[i]->s);
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
@@ -750,7 +751,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset)
 		left_right.draw(window, mouse, 2);
 		drawWhich(window, clear, mouse);
 		window.draw(search_bar.draw);
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < size; i++)
 		{
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
@@ -772,7 +773,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset)
 	deallocate(clear);
 	deallocate(rem_fav);
 	delete word;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < size; i++)
 	{
 		delete border[i], name[i], defi[i], rem[i];
 	}
