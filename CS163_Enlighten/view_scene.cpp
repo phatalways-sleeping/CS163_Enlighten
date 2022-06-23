@@ -672,50 +672,58 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	LeftRight left_right(1);
 
 	int cur_id = dataset.cur_id;
-	int size = 5;
+	int size = 100;
 
 	if (is_fav) size = min(size, (int)dataset.favorite.size());
 	else size = min(size, (int)dataset.history.size());
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);
 		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "demo username", 390.0f, 190.0f + 110.0f * i, 23);
 		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "demo definition here", 390.0f, 225.0f + 110.0f * i, 17);
 	}
-	if (is_fav) {
-
-		for (int i = 0; i < size; i++) {
-			name[i]->s = dataset.favorite[i];
-			cerr << i << ": " << name[i]->s << endl;
-			name[i]->text.setString(name[i]->s);
-		}
-	}
-	else {
-		size = min(size, (int)dataset.history.size());
-		cout << size << endl;
-
-		for (int i = 0; i < size; i++) {
-			name[i]->s = dataset.history[i];
-			cerr << i << ": " << name[i]->s << endl;
-			name[i]->text.setString(name[i]->s);
-		}
-
-	}
-	for (int i = 0; i < size; i++) {
-		Node* defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
-		if (defi_search)
-			defi[i]->s = defi_search->def[0];
-		defi[i]->text.setString(defi[i]->s);
-	}
+	
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
+	int cur_page = 0;
+	bool check = true;
 	while (page == 6)
 	{
+		if (check) {
+			if (is_fav) {
+				for (int i = 0; i < 5; i++) {
+					if (i + cur_page * 5 >= size) break;
+					name[i]->s = dataset.favorite[i + cur_page * 5];
+					cerr << i << ": " << name[i]->s << endl;
+					name[i]->text.setString(name[i]->s);
+				}
+			}
+			else {
+
+				for (int i = 0; i < 5; i++) {
+					if (i + cur_page * 5 >= size) break;
+					name[i]->s = dataset.history[i + cur_page * 5];
+					cerr << i << ": " << name[i]->s << endl;
+					name[i]->text.setString(name[i]->s);
+				}
+
+			}
+			for (int i = 0; i < 5; i++) {
+				if (i + cur_page * 5 >= size) break;
+				Node* defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
+				if (defi_search && defi_search->def.size()) {
+					defi[i]->s = defi_search->def[0];
+					defi[i]->text.setString(defi[i]->s);
+				}
+			}
+		}
+		check = false;
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
 		while (window.pollEvent(event))
 		{
+			
 			switch (event.type)
 			{
 			case Event::Closed:
@@ -730,6 +738,14 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
+					if (isHere(left_right.left[2], mouse) && cur_page > 0) {
+						cur_page--;
+						check = true;
+					}
+					else if (isHere(left_right.right[2], mouse) && (cur_page + 1) * 5 < size) {
+						cur_page++;
+						check = true;
+					}
 				}
 				break;
 			}
@@ -751,8 +767,10 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 		left_right.draw(window, mouse, 2);
 		drawWhich(window, clear, mouse);
 		window.draw(search_bar.draw);
-		for (int i = 0; i < size; i++)
+		for (int i = 0; i < 5; i++)
 		{
+			int id = i + cur_page * 5;
+			if (id >= size) break;
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
@@ -773,7 +791,7 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	deallocate(clear);
 	deallocate(rem_fav);
 	delete word;
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		delete border[i], name[i], defi[i], rem[i];
 	}

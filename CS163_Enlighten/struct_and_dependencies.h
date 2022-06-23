@@ -72,7 +72,8 @@ struct Node
 
 	//English-English
 	string word;
-	vector<pair<pair<string, string>, vector<string>>> definitions;
+	vector<pair<pair<string, string>, vector<string>>> definitions; // { { kind_of_word , definition } , examples }
+	vector<pair<string, string>> user_definitions;  // { username, definition }
 	vector<string> antonyms;
 	vector<string> synonyms;
 
