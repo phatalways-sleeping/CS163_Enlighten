@@ -17,7 +17,7 @@ bool insert(Trie& T, string word, const Node& current) {
         }
         root = root->child[ch];
     }
-    root->word = word; root->definitions = current.definitions; root->antonyms = current.antonyms; root->synonyms = current.synonyms; root->examples = current.examples;
+    root->word = word; root->definitions = current.definitions; root->antonyms = current.antonyms; root->synonyms = current.synonyms; 
     return true;
 }
 
@@ -29,7 +29,7 @@ bool remove_eng(Trie& T, string word) {
         if (!root->child[ch]) return false;
         else root = root->child[ch];
     }
-    root->antonyms.clear(); root->definitions.clear(); root->examples.clear(); root->synonyms.clear();
+    root->antonyms.clear(); root->definitions.clear(); root->synonyms.clear();
     return true;
 }
 
@@ -55,4 +55,32 @@ void convert(json data, Trie& root) {
         insert(root, k.word, k);
     }
     //cout << "READ DATA IN " << getTime(start, clock()) << "ms";
+}
+
+void convert(Node* T, vector<Node>& v) {
+    if (!T) return;
+    if (T->word != "") v.push_back(*T);
+    for (int i = 0; i < 256; i++) {
+        if (T->child[i]) convert(T->child[i], v);
+    }
+}
+
+json writeToJSON(const Trie& T) {
+    vector<Node> data; convert(T.root, data);
+    json main = json({});
+    for (int i = 0; i < data.size(); i++) {
+        Node current = data[i];
+        json meanings = json({});
+        json elements_of_meanings = json({});
+        for (int j = 0; j < current.definitions.size(); j++) {
+            pair<pair<string, string>, vector<string>> p = current.definitions[j];
+            json a = { p.first.first, p.first.second, p.second };
+            elements_of_meanings[to_string(j + 1)] = a;
+        }
+        meanings["MEANINGS"] = elements_of_meanings;
+        meanings["ANTONYMS"] = current.antonyms;
+        meanings["SYNONYMS"] = current.synonyms;
+        main[current.word] = meanings;
+    }
+    return main;
 }

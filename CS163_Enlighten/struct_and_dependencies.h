@@ -73,7 +73,6 @@ struct Node
 	//English-English
 	string word;
 	vector<pair<pair<string, string>, vector<string>>> definitions;
-	vector<string> examples;
 	vector<string> antonyms;
 	vector<string> synonyms;
 
