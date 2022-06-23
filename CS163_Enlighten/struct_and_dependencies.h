@@ -92,3 +92,15 @@ struct Trie
 {
 	Node *root = new Node();
 };
+
+struct Enlighten
+{
+	Trie envie_Trie;
+	Trie def_envie_Trie;
+	Trie enen_Trie;
+	Trie def_enen_Trie;
+	vector<Trie> user_Trie;
+
+	vector<string> favorite;
+	vector<string> history;
+};
