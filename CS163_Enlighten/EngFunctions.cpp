@@ -65,6 +65,14 @@ void convert(Node* T, vector<Node>& v) {
     }
 }
 
+bool edit_eng(Trie& T, string word, string kind_word, string new_definition) {
+    Node* current = search(T, word);
+    if (!current) return false;
+    vector<string> v;
+    current->definitions.push_back({ {kind_word, new_definition}, v });
+    return true;
+}
+
 json writeToJSON(const Trie& T) {
     vector<Node> data; convert(T.root, data);
     json main = json({});

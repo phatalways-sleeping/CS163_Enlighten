@@ -14,8 +14,8 @@ bool insert(Trie &T, string word, const Node &current);
 bool remove_eng(Trie &T, string word);
 void convert(json data, Trie &root);
 void convert(Node* T, vector<Node>& v);
+bool edit_eng(Trie& T, string word, string kind_word, string new_definition);
 json writeToJSON(const Trie& T);
-
 
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node *cur, string word, vector<string> &completeList, int limit);
