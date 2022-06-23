@@ -318,6 +318,15 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+
+				}
+				break;
+			}
+			case Event::TextEntered:
+			{
+				if (search_status == 1)
+				{
+					texting(do_search.search_info, event.text.unicode, 30);
 				}
 				break;
 			}
@@ -336,9 +345,9 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
 		window.draw(welcome.text);
+		searching(window, search_status, do_search, mouse, add_status, dataset, event);
 		for (int i = 0; i < 12; i++)
 			window.draw(sh[i]->text);
-		searching(window, search_status, do_search, mouse, add_status, dataset);
 		window.display();
 	}
 	deallocate(home);

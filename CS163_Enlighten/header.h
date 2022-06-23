@@ -51,7 +51,7 @@ void changePos(Info *a, float x, float y);
 void texting(Info &text, Uint32 unicode, unsigned int limit);
 void texting(Info *&text, Uint32 unicode, unsigned int limit);
 void checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset);
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten& dataset, Event& event);
 
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page, Enlighten& dataset);

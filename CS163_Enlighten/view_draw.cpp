@@ -86,39 +86,36 @@ void checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 	return;
 }
 
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset)
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten& dataset, Event& event)
 {
-	Event event;
 	switch (status)
 	{
 	case 1:
 	{
+			if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+			{
+				if (!isHere(s.search, mouse))
+				{
+					s.search_info->check = false;
+					status = 0;
+				}
+				if (isHere(s.add, mouse))
+				{
+					status = 2;
+					s.search_info->check = false;
+					add_status = -1;
+				}
+			}
 		drawWhich(window, s.add, mouse);
 		drawWhich(window, s.change, mouse);
 		window.draw(s.board.draw);
 		window.draw(s.search.second->draw);
-		window.draw(s.search_info->text);
 		drawWhich(window, s.search_history, mouse);
 		for (int i = 0; i < 3; i++)
 		{
 			drawWhich(window, s.SE[i], mouse);
 		}
-		if (Mouse::isButtonPressed(Mouse::Left))
-		{
-			if (!isHere(s.search, mouse))
-			{
-				status = 0;
-			}
-			if (isHere(s.add, mouse))
-			{
-				status = 2;
-				add_status = -1;
-			}
-		}
-		if (window.pollEvent(event) && event.type == Event::TextEntered)
-		{
-			texting(s.search_info, event.text.unicode, 30);
-		}
+		window.draw(s.search_info->text);
 		break;
 	}
 	case 2:
