@@ -1,11 +1,12 @@
 #pragma once
 #include "header.h"
 
+// maximum 10 trees
 void Scene1(RenderWindow &window, int &page)
 {
-	Object screen = createObject("Graphic/p1.png");
 	pair<Object *, Object *> b1 = createElement("p1_search", 478.0f, 540.0f);
 	Event event;
+	Object screen = createObject("Graphic/p1.png");
 	while (page == 1)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -278,6 +279,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
+
 	LeftRight left_right;
 	SearchBar do_search;
 	for (int i = 0; i < 12; i++)
@@ -316,7 +318,6 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
-
 				}
 				break;
 			}
@@ -335,7 +336,8 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
 		window.draw(welcome.text);
-		for (int i = 0; i < 12; i++) window.draw(sh[i]->text);
+		for (int i = 0; i < 12; i++)
+			window.draw(sh[i]->text);
 		searching(window, search_status, do_search, mouse, add_status);
 		window.display();
 	}
