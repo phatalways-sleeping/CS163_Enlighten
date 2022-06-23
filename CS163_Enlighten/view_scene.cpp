@@ -689,8 +689,11 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 
 	int cur_id = dataset.cur_id;
 	int size = 100;
-
-	if (is_fav) size = min(size, (int)dataset.favorite.size());
+	
+	if (is_fav) {
+	
+		size = min(size, (int)dataset.favorite.size());
+	}
 	else size = min(size, (int)dataset.history.size());
 
 	for (int i = 0; i < 5; i++)

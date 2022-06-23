@@ -24,11 +24,17 @@ bool login(string username, string password, string path, vector<string> &search
         if (v[i][0] == username && v[i][1] == password)
         {
             int j = 3;
-            while (v[i][j] != "favorite_list")
-                search_history.push_back(v[i][j++]);
+            while (v[i][j] != "favorite_list") {
+                if (v[i][j] != "")
+                    search_history.push_back(v[i][j]);
+                j++;
+            }
             j += 1;
-            while (j < v[i].size())
-                favorite_list.push_back(v[i][j++]);
+            while (j < v[i].size()) {
+                if (v[i][j] != "")
+                    favorite_list.push_back(v[i][j]);
+                j++;
+            }
             return true;
         }
     }
