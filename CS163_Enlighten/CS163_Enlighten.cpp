@@ -7,7 +7,11 @@ int main()
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     string username;
-
+    dataset.dictionary_name.push_back("Eng/Vie");
+    dataset.dictionary_name.push_back("Vie/Eng");
+    dataset.dictionary_name.push_back("Eng/Eng");
+    dataset.dictionary_name.push_back("Slang");
+    dataset.dictionary_name.push_back("Emoji");
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1;
@@ -44,6 +48,7 @@ int main()
             break;
         case 8:
             settings(window, page, true, dataset);
+            break;
 
         default:
             window.close();

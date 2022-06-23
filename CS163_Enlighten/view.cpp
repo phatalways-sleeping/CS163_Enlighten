@@ -67,6 +67,7 @@ void deallocate(SearchBar &p)
 		deallocate(p.SE[i]);
 		delete p.result[i];
 	}
+	p.switch_dict.deallocateDic();
 }
 
 Object *createObjectTest(string s, float x, float y)
@@ -162,15 +163,32 @@ bool drawWhich(RenderWindow &window, Object *a, Object *b, Vector2f &mouse)
 	return false;
 }
 
-void drawText(RenderWindow& window, Info a) {
-	if (a.check) {
+void drawText(RenderWindow &window, Info a)
+{
+	if (a.check)
+	{
 		a.s += '|';
 		a.text.setString(a.s);
 		window.draw(a.text);
 		a.s.pop_back();
 		a.text.setString(a.s);
 	}
-	else window.draw(a.text);
+	else
+		window.draw(a.text);
+}
+
+void drawText(RenderWindow &window, Info *a)
+{
+	if (a->check)
+	{
+		a->s += '|';
+		a->text.setString(a->s);
+		window.draw(a->text);
+		a->s.pop_back();
+		a->text.setString(a->s);
+	}
+	else
+		window.draw(a->text);
 }
 
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page)
@@ -216,8 +234,10 @@ void changePos(Info *a, float x, float y)
 
 void texting(Info &text, Uint32 unicode, unsigned int limit)
 {
-	if (unicode == '\t' || unicode == 9) return;
-	if (unicode == 13 || unicode == '\n') return;
+	if (unicode == 9)
+		return;
+	if (unicode == 13 || unicode == '\n')
+		return;
 	if (text.check && (text.s.size() < limit || unicode == 8))
 	{
 		if (unicode == 8)
@@ -235,8 +255,10 @@ void texting(Info &text, Uint32 unicode, unsigned int limit)
 
 void texting(Info *&text, Uint32 unicode, unsigned int limit)
 {
-	if (unicode == '\t' || unicode == 9) return;
-	if (unicode == 13 || unicode == '\n') return;
+	if (unicode == 9)
+		return;
+	if (unicode == 13 || unicode == '\n')
+		return;
 	if (text->check && (text->s.size() < limit || unicode == 8))
 	{
 		if (unicode == 8)
@@ -270,7 +292,6 @@ bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f
 		return false;
 	}
 }
-
 
 void LeftRight::draw(RenderWindow &window, Vector2f &mouse)
 {

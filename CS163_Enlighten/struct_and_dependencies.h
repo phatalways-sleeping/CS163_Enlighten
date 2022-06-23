@@ -65,6 +65,8 @@ struct SearchBar;
 
 struct LeftRight;
 
+struct Dictionary;
+
 struct Node
 {
 	//English-Vietnamese
@@ -103,6 +105,7 @@ struct Enlighten
 	vector<Trie> user_Trie;
 	vector<string> favorite;
 	vector<string> history;
+	vector<string> dictionary_name;
 
 	Enlighten() {
 		cur_id = 0;
