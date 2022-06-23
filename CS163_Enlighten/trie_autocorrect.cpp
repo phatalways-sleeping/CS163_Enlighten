@@ -51,6 +51,9 @@ vector <string> correct_words(Trie T, string word, int nums) {
 
     /// return
     //if (ret.size() > 1) sort(ret.begin() + 1, ret.end());
+    string path = "D:\APCS\21-22\cs163\project\Enlighten\CS163_Enlighten\CS163_Enlighten\\unigram_freq.csv";
+    return EV(path, ret);
+
     int cnt = unique(ret.begin(), ret.end()) - ret.begin();
     vector <string> final_words;
     for (int i = 0; i < min(cnt, nums); i++)
@@ -58,7 +61,7 @@ vector <string> correct_words(Trie T, string word, int nums) {
     return final_words;
 }
 
-double EV(string input, vector<string> v) {
+double EEV(string input, vector<string> v) {
     int length = input.length();
     int count = 0;
     for (int i = 0; i < v.size(); i++) {
