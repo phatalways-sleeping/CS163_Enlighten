@@ -12,7 +12,7 @@ int main()
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1;
     bool is_admin = false, is_fav = true;
-    void loadingDataset(window, dataset, page);
+    loadingDataset(window, dataset, page);
 
     while (window.isOpen())
     {

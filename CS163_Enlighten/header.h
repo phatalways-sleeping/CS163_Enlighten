@@ -142,4 +142,4 @@ void trie_autocorrect(string fileName);
 void trie_revision_testing(string fileName);
 
 //------------------Draw Elements-----------------------
-void loadingDataset(RenderWindow &window, Enlighten &p, int &number_of_datasets, int &page);
+void loadingDataset(RenderWindow& window, Enlighten& p, int& page);

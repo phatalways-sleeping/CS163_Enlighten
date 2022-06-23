@@ -64,7 +64,7 @@ void deallocate(SearchBar &p)
 	deallocate(p.new_word);
 	for (int i = 0; i < 3; i++)
 	{
-		deallocate(SE[i]);
+		deallocate(p.SE[i]);
 	}
 }
 

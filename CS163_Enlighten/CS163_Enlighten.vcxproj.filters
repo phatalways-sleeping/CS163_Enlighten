@@ -48,6 +48,12 @@
     <ClCompile Include="trie_revision.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="view_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct_and_dependencies.h">

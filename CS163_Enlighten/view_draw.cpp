@@ -11,11 +11,10 @@ void loadingDataset(RenderWindow &window, Enlighten &p, int &page)
 	Event event;
 	Object screen = createObject("Graphic/p7.png");
 
-
     int count = 0;
     while (count < p.user_Trie.size())
     {
-        if (event.type == Event::Closed)
+        if (window.pollEvent(event) && event.type == Event::Closed)
         {
             window.close();
             page = -1;
@@ -31,9 +30,9 @@ void loadingDataset(RenderWindow &window, Enlighten &p, int &page)
         window.clear();
         window.draw(screen.draw);
         if (count < 10)
-            window.draw(loading[count]);
+            window.draw(loading[count]->draw);
         else
-            window.draw(loading[9]);
+            window.draw(loading[9]->draw);
         window.display();
     }
 
