@@ -59,7 +59,7 @@ void convert(json data, Trie& root) {
 
 void convert(Node* T, vector<Node>& v) {
     if (!T) return;
-    if (T->word != "") v.push_back(*T);
+    if (!T->word.empty()) v.push_back(*T);
     for (int i = 0; i < 256; i++) {
         if (T->child[i]) convert(T->child[i], v);
     }

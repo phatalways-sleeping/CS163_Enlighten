@@ -28,12 +28,12 @@ using namespace std;
 
  const int FAVORITE_LIST = 2;
  const int SEARCH_HISTORY = 1;
- const string USERS = "Data//USERS INFORMATIONS//users.csv";
- const string ADMIN = "Data//USERS INFORMATIONS//admins.csv";
+ const string USERS = "Data//USERS_INFORMATIONS//users.csv";
+ const string ADMIN = "Data//USERS_INFORMATIONS//admins.csv";
  const string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
 						"DH.json", "DI.json", "DJ.json", "DK.json", "DL.json", "DM.json", "DN.json", "DO.json", "DP.json",
 								"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
- const string JSONPATH = "Data//ENGLISH DEFINITIONS//";
+ const string JSONPATH = "Data//ENGLISH_DEFINITIONS//";
  const double TOTAL = 5.88124e+11;
 
  
