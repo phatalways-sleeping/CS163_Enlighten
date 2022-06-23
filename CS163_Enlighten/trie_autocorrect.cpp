@@ -49,11 +49,6 @@ vector <string> correct_words(const Trie& T, string word, int nums) {
         new_word[i] = word[i];
     }
 
-<<<<<<< Updated upstream
-    /// return
-    //if (ret.size() > 1) sort(ret.begin() + 1, ret.end());
-=======
->>>>>>> Stashed changes
     string path = JSONPATH + "unigram_freq.csv";
     return EV(path, ret);
 
@@ -75,20 +70,6 @@ vector<string> EV(string path, vector<string> v) {
     //k.push_back(v[s[1].second]); k.push_back(v[s[2].second]);
     return k;
 }
-
-<<<<<<< Updated upstream
-Word* search(WordTrie T, string word) {
-    Word* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return NULL;
-        if (!root->child[ch]) return NULL;
-        else root = root->child[ch];
-    }
-    return root;
-}
-=======
->>>>>>> Stashed changes
 
 bool insert(Trie& T, string word, double freq) {
     if (word == "") return false;

@@ -36,20 +36,7 @@ using namespace std;
  const string JSONPATH = "Data//ENGLISH DEFINITIONS//";
  const double TOTAL = 5.88124e+11;
 
-
- const double TOTAL = 5.88124e+11;
- struct Word {
-	 double freq;
-	 Word* child[256];
-	 Word() {
-		 for (int i = 0; i < 256; i++) child[i] = NULL;
-	 }
- };
-
- struct WordTrie {
-	 Word* root = new Word();
- };
-
+ 
 struct Object
 {
 	Sprite draw;
@@ -105,13 +92,3 @@ struct Trie
 {
 	Node *root = new Node();
 };
-
-// struct MEANINGS {
-//	
-//	MEANINGS* child[256];
-//	MEANINGS() { for (int i = 0; i < 256; i++) child[i] = nullptr; }
-// };
-//
-//struct AVD_TRIE {
-//	MEANINGS* root = new MEANINGS();
-// };

@@ -114,20 +114,10 @@ vector <string> search_def(Trie& T, string def, int nums);
 bool build_definition_trie_TxtFile(Trie& T_def, string fileName);
 bool cmp(pair <int, string> x, pair <int, string> y);
 //-------------------Auto correct---------------------------
-<<<<<<< Updated upstream
-vector <string> correct_words(Trie T, string word, int nums);
-double EEV(string input, vector<string> v);
-vector<string> EV(string path, vector<string> v);
-Word* search(WordTrie T, string word);
-bool insert(WordTrie& T, string word, double freq);
-void getTree(string path, WordTrie& root);
-=======
 vector <string> correct_words(const Trie& T, string word, int nums);
 bool insert(Trie& T, string word, double freq);
 vector<string> EV(string path, vector<string> v);
 void getTree(string path, Trie& root);
-
->>>>>>> Stashed changes
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit);
 vector<string> autocomplete(Trie T, string word, int limit);
