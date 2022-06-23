@@ -1,5 +1,5 @@
-admin,1234,search_history,cat,dog,car,basketball,football,favorite_list,ocean,,,
-admin_1,1234,search_history,cat,dog,car,favorite_list,ocean,swim,catch,,,
-admin_2,1234,search_history,cat,dog,car,favorite_list,ocean,swim,catch,,,
-admin_4,1234,search_history,Dog,Frogs,favorite_list,Jogging,Sleeping,,,,,
-sunshine,,search_history,cat,dog,car,basketball,football,favorite_list,ocean,swim,catch,running
+admin,1234,search_history,cat,dog,car,basketball,football,favorite_list,ocean,swim,catch,running,dog,cat,car,go
+admin_1,1234,search_history,cat,dog,car,favorite_list,ocean,swim,catch,,,,,,,
+admin_2,1234,search_history,cat,dog,car,favorite_list,ocean,swim,catch,,,,,,,
+admin_4,1234,search_history,Dog,Frogs,favorite_list,Jogging,Sleeping,,,,,,,,,
+sunshine,,search_history,cat,dog,car,basketball,football,favorite_list,ocean,swim,catch,running,,,,

@@ -102,12 +102,15 @@ struct Enlighten
 	// 2. Trie enen_Trie;
 	// 3. Trie def_enen_Trie;
 	int cur_id;
+	string username;
+	bool is_admin;
 	vector<Trie> user_Trie;
 	vector<string> favorite;
 	vector<string> history;
 	vector<string> dictionary_name;
 
 	Enlighten() {
+		is_admin = false;
 		cur_id = 0;
 		user_Trie.clear();
 	}

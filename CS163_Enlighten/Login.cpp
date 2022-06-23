@@ -215,3 +215,90 @@ void update(string username, int CASE, vector<string> &list, string path)
     }
     f.close();
 }
+void modify_csv(string username, int CASE, vector<string>& list, string path) /// overwrite fav/his list
+{
+    ifstream file(path, ios::in);
+    vector<vector<string>> v;
+    vector<string> k;
+    string line, word;
+    /*if (file.is_open())
+    {
+        while (getline(file, line))
+        {
+            k.clear();
+            stringstream s(line);
+            while (getline(s, word, ','))
+                k.push_back(word);
+            v.push_back(k);
+        }
+    }*/
+    file.close();
+    ofstream f(path, ios::out);
+    switch (CASE)
+    {
+    case SEARCH_HISTORY:
+    {
+        if (f.is_open())
+        {
+            for (int i = 0; i < v.size(); i++)
+            {
+                if (v[i][0] == username)
+                {
+                    f << v[i][0] << ',' << v[i][1] << ',' << "search_history" << ',';
+                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                    bool check = false;
+                    for (int j = 3; j < v[i].size(); j++)
+                    {
+                        if (v[i][j] == "favorite_list")
+                            check = true;
+                        if (check)
+                            f << v[i][j] << ',';
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < v[i].size(); j++)
+                    {
+                        f << v[i][j] << ',';
+                    }
+                }
+                f << '\n';
+            }
+        }
+        else cerr << "Can't open file " << path << endl;
+        break;
+    }
+    case FAVORITE_LIST:
+    {
+        if (f.is_open())
+        {
+            for (int i = 0; i < v.size(); i++)
+            {
+                if (v[i][0] == username)
+                {
+                    for (int j = 0; j < v[i].size(); j++)
+                    {
+                        f << v[i][j] << ',';
+                        if (v[i][j] == "favorite_list")
+                            break;
+                    }
+                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                }
+                else
+                {
+                    for (int j = 0; j < v[i].size(); j++)
+                    {
+                        f << v[i][j] << ',';
+                    }
+                }
+                f << '\n';
+            }
+        }
+        else cerr << "Can't open file " << path << endl;
+        break;
+    }
+    default:
+        break;
+    }
+    f.close();
+}

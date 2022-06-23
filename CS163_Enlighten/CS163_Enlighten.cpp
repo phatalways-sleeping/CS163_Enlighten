@@ -6,16 +6,17 @@ int main()
     // trie_revision_testing("Datasets5000.txt");
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
-    string username;
     dataset.dictionary_name.push_back("Eng/Vie");
     dataset.dictionary_name.push_back("Vie/Eng");
     dataset.dictionary_name.push_back("Eng/Eng");
     dataset.dictionary_name.push_back("Slang");
     dataset.dictionary_name.push_back("Emoji");
+    string &username = dataset.username;
+
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1;
-    bool is_admin = false, is_fav = true;
+    bool &is_admin = dataset.is_admin, is_fav = true;
     loadingDataset(window, dataset, page, 3);
 
     while (window.isOpen())
@@ -32,7 +33,7 @@ int main()
         case 3:
             dataset.history.clear();
             dataset.favorite.clear();
-            logIn(window, page, is_admin, username, dataset.favorite, dataset.history, dataset);
+            logIn(window, page, is_admin, username, dataset.history, dataset.favorite, dataset);
             break;
         case 4:
             home(window, page, is_admin, username, is_fav, dataset.history, dataset);

@@ -697,15 +697,19 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	Info* name[5], * defi[5];
 	LeftRight left_right(1);
 
+	int cur_page = 0;
+	bool check = true;
+	string path;
+		if (dataset.is_admin) path = "Data/USERS_INFORMATIONS/admins.csv";
+		else path = "Data/USERS_INFORMATIONS/users.csv";
+	int WHAT_LIST;
+		if (is_fav) WHAT_LIST = FAVORITE_LIST;
+		else WHAT_LIST = SEARCH_HISTORY;
 	int cur_id = dataset.cur_id;
 	int size = 100;
-	
-	if (is_fav) {
-	
-		size = min(size, (int)dataset.favorite.size());
-	}
-	else size = min(size, (int)dataset.history.size());
-
+	vector <string> &cur_list = is_fav ? dataset.favorite: dataset.history;
+	size = min(size, (int)cur_list.size());
+	//-------------------------------------------------------------------
 	for (int i = 0; i < 5; i++)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
@@ -716,29 +720,18 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
-	int cur_page = 0;
-	bool check = true;
+	
 	while (page == 6)
 	{
 		if (check) {
-			if (is_fav) {
-				for (int i = 0; i < 5; i++) {
-					if (i + cur_page * 5 >= size) break;
-					name[i]->s = dataset.favorite[i + cur_page * 5];
-					cerr << i << ": " << name[i]->s << endl;
-					name[i]->text.setString(name[i]->s);
-				}
+			
+			for (int i = 0; i < 5; i++) {
+				if (i + cur_page * 5 >= size) break;
+				name[i]->s = cur_list[i + cur_page * 5];
+				cerr << i << ": " << name[i]->s << endl;
+				name[i]->text.setString(name[i]->s);
 			}
-			else {
-
-				for (int i = 0; i < 5; i++) {
-					if (i + cur_page * 5 >= size) break;
-					name[i]->s = dataset.history[i + cur_page * 5];
-					cerr << i << ": " << name[i]->s << endl;
-					name[i]->text.setString(name[i]->s);
-				}
-
-			}
+	
 			for (int i = 0; i < 5; i++) {
 				if (i + cur_page * 5 >= size) break;
 				Node* defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
@@ -767,7 +760,26 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
-					if (isHere(left_right.left[2], mouse) && cur_page > 0) {
+					for (int i = 0; i < 5; i++) { // del 1 defi
+						if (i + cur_page * 5 >= size) break;
+						if (isHere(rem[i], mouse)) {
+							size--;
+							if (size % 5 == 0 && cur_page > 0) {
+								cur_page--;
+							}
+							check = true;
+							cur_list.erase(cur_list.begin() + i + cur_page * 5);
+							//update(dataset.username, WHAT_LIST, cur_list, path);
+						}
+					}
+					if (isHere(clear, mouse)) { // clear all
+						cur_list.clear();
+						check = true;
+						size = 0;
+						cur_page = 0;
+						//update(dataset.username, WHAT_LIST, cur_list, path);
+					}
+					else if (isHere(left_right.left[2], mouse) && cur_page > 0) {
 						cur_page--;
 						check = true;
 					}

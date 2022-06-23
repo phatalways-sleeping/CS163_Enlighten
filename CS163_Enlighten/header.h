@@ -7,7 +7,7 @@ bool login(string username, string password, string path, vector<string> &search
 void changePassword(string username, string new_pass, string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string> &list, string path);
-
+void modify_csv(string username, int CASE, vector<string>& list, string path);
 //------------------Trie for English Definitions-----------
 void clear(Node &m);
 bool insert(Trie &T, string word, const Node &current);
