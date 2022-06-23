@@ -139,7 +139,7 @@ void genWords(int nums_word, int len_def, string fileName);
 void trie_testing(string fileName);
 void trie_definition_testing(string fileName);
 void trie_autocorrect(string fileName);
-void trie_revision_testing(string fileName);
+void trie_revision_testing(string fileName, vector<string> searchHistory, vector<string> favoriteList);
 
 //------------------Draw Elements-----------------------
 void loadingDataset(RenderWindow& window, Enlighten& p, int& page);

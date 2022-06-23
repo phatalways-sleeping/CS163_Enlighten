@@ -25,14 +25,19 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string>& searchHis
     if (level == 1) numOld = 10;
     else if (level == 2) numOld = 5;
 
-    for (int i = 0; i < numOld; ++i) {
-
-    }
-    for (int i = numOld; i < 10; ++i) {
+    for (int i = 0; i < 10; ++i) {
         vector<string> word(0);
-        pair<string, string> A = randomWord(T);
-        while (A.first == A.second) {
+        pair<string, string> A;
+        if (i >= numOld) {
             A = randomWord(T);
+            while (A.first == A.second) {
+                A = randomWord(T);
+            }
+        }
+        else {
+            A.first = Rand(0, 1) ? searchHistory[Rand(0, searchHistory.size() - 1)] : favoriteList[Rand(0, favoriteList.size() - 1)];
+            Node* defA = search(T, A.first);
+            A.second = defA->def[Rand(0, defA->def.size() - 1)];
         }
         pair<string, string> B = randomWord(T);
         while (B.first == B.second || B.first == A.first) {

@@ -85,15 +85,14 @@ void trie_autocorrect(string fileName) {
     }
 }
 
-void trie_revision_testing(string fileName) {
+void trie_revision_testing(string fileName, vector<string> searchHistory, vector<string> favoriteList) {
     Trie T;
     if (!inputTxtFile(T, fileName)) {
         cout << "Can't open file\n";
         return;
     }
     srand(time(NULL));
-    vector<string> Empty;
-    vector<vector<string>> listWord = revisionWord(T, 3, Empty, Empty);
+    vector<vector<string>> listWord = revisionWord(T, 1, searchHistory, favoriteList);
     for (auto i : listWord) {
         cout << i[0] << ":\n";
         int correctAns;
