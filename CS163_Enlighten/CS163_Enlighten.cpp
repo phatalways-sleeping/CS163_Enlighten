@@ -2,7 +2,7 @@
 #include "header.h"
 int main()
 {
-    trie_revision_testing("Datasets5000.txt");
+    //trie_revision_testing("Datasets5000.txt");
     //trie_autocorrect("Datasets5000.txt");
     vector<string> favorite;
     vector<string> history;
@@ -24,6 +24,8 @@ int main()
             setRole(window, page, is_admin);
             break;
         case 3:
+            history.clear();
+            favorite.clear();
             logIn(window, page, is_admin, username, favorite, history);
             break;
         case 4:

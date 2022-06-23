@@ -288,7 +288,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 			continue;
 		}
 		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history.back(), 464.0f, 510.0f, 20);
-		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 510.0f + 44.0f * (i % 7));
+		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 500.0f + 44.0f * (i % 7));
 		history.pop_back();
 	}
 	int search_status = 0, add_status = 0;
