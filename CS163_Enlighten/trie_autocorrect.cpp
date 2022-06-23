@@ -72,3 +72,72 @@ double EEV(string input, vector<string> v) {
     }
     return (double)count / (length * v.size());
 }
+
+vector<string> EV(string path, vector<string> v) {
+    WordTrie tree;  getTree(path, tree);
+    vector<pair<double, int>> s;
+    for (int i = 0; i < v.size(); i++) s.push_back({ (search(tree, v[i])) ? search(tree, v[i])->freq : 0, i });
+    //sort(s.begin(), s.end(), less<pair<double, int>>());
+    vector<string> k;
+    for (int i = 0; i < v.size(); i++)
+        k.push_back(v[s[i].second]);
+    //k.push_back(v[s[1].second]); k.push_back(v[s[2].second]);
+    return k;
+}
+
+const double TOTAL = 5.88124e+11;
+struct Word {
+    double freq;
+    Word* child[256];
+    Word() {
+        for (int i = 0; i < 256; i++) child[i] = NULL;
+    }
+};
+
+struct WordTrie {
+    Word* root = new Word();
+};
+Word* search(WordTrie T, string word) {
+    Word* root = T.root;
+    for (int i = 0; i < word.size(); i++) {
+        int ch = word[i];
+        if (ch < 0 || ch > 255) return NULL;
+        if (!root->child[ch]) return NULL;
+        else root = root->child[ch];
+    }
+    return root;
+}
+
+bool insert(WordTrie& T, string word, double freq) {
+    if (word == "") return false;
+    Word* root = T.root;
+    for (int i = 0; i < word.size(); i++) {
+        int ch = word[i];
+        if (ch < 0 || ch > 255) return false;
+        if (!root->child[ch]) {
+            root->child[ch] = new Word();
+        }
+        root = root->child[ch];
+    }
+    root->freq = freq;
+    return true;
+}
+
+void getTree(string path, WordTrie& root) {
+    ifstream file(path, ios::in);
+    if (file.is_open()) {
+        vector<pair<string, double>> v;
+        string line, word;
+        vector<string> k;
+        while (getline(file, line)) {
+            stringstream s(line);
+            k.clear();
+            while (getline(s, word, ',')) k.push_back(word);
+            v.push_back({ k[0], stod(k[1]) / TOTAL });
+        }
+        for (int i = 0; i < v.size(); i++) insert(root, v[i].first, v[i].second);
+        cout << v[0].first << "-" << v[0].second << endl;
+    }
+    file.close();
+}
+
