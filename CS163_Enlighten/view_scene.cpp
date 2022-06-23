@@ -368,6 +368,9 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 	Info pw = createInfo("Graphic/Oswald-Light.ttf", "12345678", 488.0f, 438.0f, 27);
 	Info pw2 = createInfo("Graphic/Oswald-Light.ttf", "********", 488.0f, 438.0f, 27);
 	Info wrong = createInfo("Graphic/Oswald-Light.ttf", "Wrong username/password, please try again!", 404.0f, 480.0f, 21);
+	//username.check = true;
+	//username.s = "sample_text";
+	//username.text.setString(username.s);
 	while (page == 3)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -420,7 +423,6 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 			case Event::TextEntered:
 			{
 				cerr << "enter: " << event.text.unicode << endl;
-				texting(username, event.text.unicode, 15);
 				if (event.text.unicode == '\t') { // tab -> doi nhap user sang pass, nguoc lai
 					pw.check ^= 1;
 					pw2.check ^= 1;
@@ -429,6 +431,9 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 				else if (event.text.unicode == 13) { // -> enter -> login
 					change = true;
 				}
+				else if (username.check) {
+					texting(username, event.text.unicode, 15);
+				}			
 				else if (pw.check && (pw.s.size() < 10 || event.text.unicode == 8))
 				{
 					if (event.text.unicode == 8)
