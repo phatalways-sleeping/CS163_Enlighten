@@ -51,10 +51,6 @@ vector <string> correct_words(Trie T, string word, int nums) {
 
     /// return
     //if (ret.size() > 1) sort(ret.begin() + 1, ret.end());
-<<<<<<< Updated upstream
-    //string path = "D:\APCS\21-22\cs163\project\Enlighten\CS163_Enlighten\CS163_Enlighten\\unigram_freq.csv";
-=======
->>>>>>> Stashed changes
     string path = JSONPATH + "unigram_freq.csv";
     return EV(path, ret);
 
@@ -89,18 +85,6 @@ vector<string> EV(string path, vector<string> v) {
     return k;
 }
 
-const double TOTAL = 5.88124e+11;
-struct Word {
-    double freq;
-    Word* child[256];
-    Word() {
-        for (int i = 0; i < 256; i++) child[i] = NULL;
-    }
-};
-
-struct WordTrie {
-    Word* root = new Word();
-};
 Word* search(WordTrie T, string word) {
     Word* root = T.root;
     for (int i = 0; i < word.size(); i++) {

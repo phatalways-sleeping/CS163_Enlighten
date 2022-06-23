@@ -35,6 +35,20 @@ using namespace std;
 									"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
  const string JSONPATH = "Data//ENGLISH DEFINITIONS//";
 
+
+ const double TOTAL = 5.88124e+11;
+ struct Word {
+	 double freq;
+	 Word* child[256];
+	 Word() {
+		 for (int i = 0; i < 256; i++) child[i] = NULL;
+	 }
+ };
+
+ struct WordTrie {
+	 Word* root = new Word();
+ };
+
 struct Object
 {
 	Sprite draw;
