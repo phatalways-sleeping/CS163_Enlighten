@@ -95,10 +95,10 @@ struct Trie
 
 struct Enlighten
 {
-	Trie envie_Trie;
-	Trie def_envie_Trie;
-	Trie enen_Trie;
-	Trie def_enen_Trie;
+	// 0. Trie envie_Trie;
+	// 1. Trie def_envie_Trie;
+	// 2. Trie enen_Trie;
+	// 3. Trie def_enen_Trie;
 	vector<Trie> user_Trie;
 
 	vector<string> favorite;
