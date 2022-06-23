@@ -65,7 +65,19 @@ struct LeftRight;
 
 struct Node
 {
+	//English-Vietnamese
 	vector<string> def;
+
+	//English-English
+	string word;
+	vector<pair<pair<string, string>, vector<string>>> definitions;
+	vector<string> examples;
+	vector<string> antonyms;
+	vector<string> synonyms;
+
+	//For recommendations
+	double freq;
+
 	Node *child[256];
 	Node()
 	{
@@ -79,16 +91,12 @@ struct Trie
 	Node *root = new Node();
 };
 
- struct MEANINGS {
-	string word;
-	vector<pair<pair<string, string>, vector<string>>> definitions;
-	vector<string> examples;
-	vector<string> antonyms;
-	vector<string> synonyms;
-	MEANINGS* child[256];
-	MEANINGS() { for (int i = 0; i < 256; i++) child[i] = nullptr; }
- };
-
-struct AVD_TRIE {
-	MEANINGS* root = new MEANINGS();
- };
+// struct MEANINGS {
+//	
+//	MEANINGS* child[256];
+//	MEANINGS() { for (int i = 0; i < 256; i++) child[i] = nullptr; }
+// };
+//
+//struct AVD_TRIE {
+//	MEANINGS* root = new MEANINGS();
+// };
