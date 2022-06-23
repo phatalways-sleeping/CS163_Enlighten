@@ -670,7 +670,29 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset)
 	pair<Object *, Object *> rem[5];
 	Info *name[5], *defi[5];
 	LeftRight left_right(1);
-	for (int i = 0; i < 5; i++)
+	int cur_id = dataset.cur_id;
+	int size = 5;
+	if (is_fav) {
+		size = min(size, (int)dataset.favorite.size());
+		for (int i = 0; i < size; i++) {
+			name[i]->s = dataset.favorite[i];
+			name[i]->text.setString(name[i]->s);
+		}
+	}
+	else {
+		size = min(size, (int)dataset.history.size());
+		for (int i = 0; i < size; i++) {
+			name[i]->s = dataset.history[i];
+			name[i]->text.setString(name[i]->s);
+		}
+	}
+	for (int i = 0; i < size; i++) {
+		Node *defi_search = search(dataset.user_Trie[cur_id], name[i]->s);
+		if (defi_search)
+			defi[i]->s = defi_search->def[0];
+		defi[i]->text.setString(defi[i]->s);
+	}
+	for (int i = 0; i < size; i++)
 	{
 		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);

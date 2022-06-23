@@ -98,8 +98,8 @@ struct Enlighten
 	// 1. Trie def_envie_Trie;
 	// 2. Trie enen_Trie;
 	// 3. Trie def_enen_Trie;
+	int cur_id = 0;
 	vector<Trie> user_Trie;
-
 	vector<string> favorite;
 	vector<string> history;
 };
