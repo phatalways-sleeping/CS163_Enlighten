@@ -48,17 +48,17 @@ void changePos(Info *a, float x, float y);
 void texting(Info &text, Uint32 unicode, unsigned int limit);
 void texting(Info *&text, Uint32 unicode, unsigned int limit);
 void checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
-void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status);
+void searching(RenderWindow &window, int &status, const SearchBar &s, Vector2f &mouse, int &add_status, const Enlighten& dataset);
 
 //---------------------Scene--------------------------
-void Scene1(RenderWindow &window, int &page);
-void setRole(RenderWindow &window, int &page, bool &is_admin);
-void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite);
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history);
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav);
-void myList(RenderWindow &window, int &page, bool &is_fav);
-void revision(RenderWindow &window, int &page);
-void settings(RenderWindow &window, int &page, const bool &is_admin);
+void Scene1(RenderWindow &window, int &page, Enlighten& dataset);
+void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten& dataset);
+void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite, Enlighten& dataset);
+void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten& dataset);
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten& dataset);
+void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset);
+void revision(RenderWindow &window, int &page, Enlighten& dataset);
+void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten& dataset);
 
 //------------------Struct(cont)-------------------------
 struct SearchBar

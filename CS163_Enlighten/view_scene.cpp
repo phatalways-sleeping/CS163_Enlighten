@@ -2,7 +2,7 @@
 #include "header.h"
 
 // maximum 10 trees
-void Scene1(RenderWindow &window, int &page)
+void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 {
 	pair<Object *, Object *> b1 = createElement("p1_search", 478.0f, 540.0f);
 	Event event;
@@ -40,7 +40,7 @@ void Scene1(RenderWindow &window, int &page)
 	deallocate(b1);
 }
 
-void revision(RenderWindow &window, int &page)
+void revision(RenderWindow &window, int &page, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p7.png");
 	Object *text = createObjectTest("Graphic/p7_text1.png", 360.0f, 278.0f);
@@ -130,7 +130,7 @@ void revision(RenderWindow &window, int &page)
 }
 
 // chua co xong nheeeee
-void settings(RenderWindow &window, int &page, const bool &is_admin)
+void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/border.png");
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -222,7 +222,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin)
 	deallocate(confirm);
 }
 
-void setRole(RenderWindow &window, int &page, bool &is_admin)
+void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p3.png");
 	pair<Object *, Object *> admin = createElement("p3_admin", 572.0f, 263.0f);
@@ -265,7 +265,7 @@ void setRole(RenderWindow &window, int &page, bool &is_admin)
 	deallocate(user);
 }
 
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history)
+void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p4.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
@@ -338,7 +338,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		window.draw(welcome.text);
 		for (int i = 0; i < 12; i++)
 			window.draw(sh[i]->text);
-		searching(window, search_status, do_search, mouse, add_status);
+		searching(window, search_status, do_search, mouse, add_status, dataset);
 		window.display();
 	}
 	deallocate(home);
@@ -355,7 +355,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	}
 }
 
-void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite)
+void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite, Enlighten& dataset)
 {
 	Event event;
 	bool see = false, entered = false, change = false, wrong_password = false;
@@ -537,7 +537,7 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 	}
 }
 
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav)
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
@@ -646,7 +646,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	}
 }
 
-void myList(RenderWindow &window, int &page, bool &is_fav)
+void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten& dataset)
 {
 	Object screen = createObject("Graphic/border.png");
 	Info *word;

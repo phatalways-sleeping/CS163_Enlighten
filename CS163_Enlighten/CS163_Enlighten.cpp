@@ -20,30 +20,30 @@ int main()
         {
         case 1:
             // load Trie
-            Scene1(window, page);
+            Scene1(window, page, dataset);
             break;
         case 2:
-            setRole(window, page, is_admin);
+            setRole(window, page, is_admin, dataset);
             break;
         case 3:
             dataset.history.clear();
             dataset.favorite.clear();
-            logIn(window, page, is_admin, username, dataset.favorite, dataset.history);
+            logIn(window, page, is_admin, username, dataset.favorite, dataset.history, dataset);
             break;
         case 4:
-            home(window, page, is_admin, username, is_fav, dataset.history);
+            home(window, page, is_admin, username, is_fav, dataset.history, dataset);
             break;
         case 5:
-            wordDisplay(window, page, is_admin, is_fav);
+            wordDisplay(window, page, is_admin, is_fav, dataset);
             break;
         case 6:
-            myList(window, page, is_fav);
+            myList(window, page, is_fav, dataset);
             break;
         case 7:
-            revision(window, page);
+            revision(window, page, dataset);
             break;
         case 8:
-            settings(window, page, true);
+            settings(window, page, true, dataset);
 
         default:
             window.close();
