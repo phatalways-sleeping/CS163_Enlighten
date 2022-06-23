@@ -211,7 +211,7 @@ void changePos(Info *a, float x, float y)
 
 void texting(Info &text, Uint32 unicode, unsigned int limit)
 {
-	if (unicode == '\t') return;
+	if (unicode == '\t' || unicode == 9) return;
 	if (unicode == 13 || unicode == '\n') return;
 	if (text.check && (text.s.size() < limit || unicode == 8))
 	{
@@ -230,7 +230,7 @@ void texting(Info &text, Uint32 unicode, unsigned int limit)
 
 void texting(Info *&text, Uint32 unicode, unsigned int limit)
 {
-	if (unicode == '\t') return;
+	if (unicode == '\t' || unicode == 9) return;
 	if (unicode == 13 || unicode == '\n') return;
 	if (text->check && (text->s.size() < limit || unicode == 8))
 	{

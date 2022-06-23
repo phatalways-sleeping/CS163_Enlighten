@@ -413,8 +413,8 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 					else
 					{
 						// co can k :v
-						//pw.check = false;
-						//username.check = false;
+						pw.check = false;
+						username.check = false;
 					}
 				}
 
@@ -423,13 +423,34 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 			case Event::TextEntered:
 			{
 				cerr << "enter: " << event.text.unicode << endl;
-				if (event.text.unicode == '\t') { // tab -> doi nhap user sang pass, nguoc lai
+				if (event.text.unicode == 9) { // tab -> doi nhap user sang pass, nguoc lai
 					pw.check ^= 1;
 					pw2.check ^= 1;
 					username.check ^= 1;
 				}
-				else if (event.text.unicode == 13) { // -> enter -> login
+				else if (event.text.unicode == 13 || event.text.unicode == '\n') { // -> enter -> login
 					change = true;
+					cerr << username.s << " " << pw.s << endl;
+					if (is_admin)
+					{
+						if (login(username.s, pw.s, "Data/USERS INFORMATIONS/admins.csv", history, favourite))
+						{
+							user_name = username.s;
+							page = 4;
+						}
+						else
+							wrong_password = true;
+					}
+					else
+					{
+						if (login(username.s, pw.s, "Data/USERS INFORMATIONS/users.csv", history, favourite))
+						{
+							user_name = username.s;
+							page = 4;
+						}
+						else
+							wrong_password = true;
+					}
 				}
 				else if (username.check) {
 					texting(username, event.text.unicode, 15);
