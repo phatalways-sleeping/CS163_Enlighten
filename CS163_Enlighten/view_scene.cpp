@@ -427,6 +427,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					{
 						// co can k :v
 						pw.check = false;
+						pw2.check = false;
 						username.check = false;
 					}
 				}
@@ -485,6 +486,10 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					}
 					pw.text.setString(pw.s);
 					pw2.text.setString(pw2.s);
+				}
+				if (pw.check == username.check && pw.check == 1) {
+					pw.check ^= 1;
+					pw2.check ^= 1;
 				}
 				break;
 			}
