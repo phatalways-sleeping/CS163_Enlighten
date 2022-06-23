@@ -157,6 +157,17 @@ bool drawWhich(RenderWindow &window, Object *a, Object *b, Vector2f &mouse)
 	return false;
 }
 
+void drawText(RenderWindow& window, Info a) {
+	if (a.check) {
+		a.s += '|';
+		a.text.setString(a.s);
+		window.draw(a.text);
+		a.s.pop_back();
+		a.text.setString(a.s);
+	}
+	else window.draw(a.text);
+}
+
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page)
 {
 	if (isHere(bound, mouse))
@@ -200,6 +211,8 @@ void changePos(Info *a, float x, float y)
 
 void texting(Info &text, Uint32 unicode, unsigned int limit)
 {
+	if (unicode == '\t') return;
+	if (unicode == '\n') return;
 	if (text.check && (text.s.size() < limit || unicode == 8))
 	{
 		if (unicode == 8)
@@ -217,6 +230,8 @@ void texting(Info &text, Uint32 unicode, unsigned int limit)
 
 void texting(Info *&text, Uint32 unicode, unsigned int limit)
 {
+	if (unicode == '\t') return;
+	if (unicode == '\n') return;
 	if (text->check && (text->s.size() < limit || unicode == 8))
 	{
 		if (unicode == 8)

@@ -38,6 +38,7 @@ bool isHere(const pair<Object *, Object *> &a, Vector2f &mouse);
 bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f &mouse);
 bool drawWhich(RenderWindow &window, Object a, Object b, Vector2f &mouse);
 bool drawWhich(RenderWindow &window, Object *a, Object *b, Vector2f &mouse);
+void drawText(RenderWindow& window, Info a);
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page);
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page, bool &change, bool true_or_false);
 void changePos(Object *a, Object *b, float x, float y);

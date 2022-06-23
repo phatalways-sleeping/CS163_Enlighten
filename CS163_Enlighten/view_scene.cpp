@@ -399,16 +399,19 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 					{
 						username.check = true;
 						pw.check = false;
+						pw2.check = false;
 					}
 					else if (isHere(pw.bound, mouse))
 					{
 						pw.check = true;
+						pw2.check = true;
 						username.check = false;
 					}
 					else
 					{
-						pw.check = false;
-						username.check = false;
+						// co can k :v
+						//pw.check = false;
+						//username.check = false;
 					}
 				}
 
@@ -416,12 +419,20 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 			}
 			case Event::TextEntered:
 			{
+				cerr << "enter: " << event.text.unicode << endl;
 				texting(username, event.text.unicode, 15);
-
-				if (pw.check && (pw.s.size() < 10 || event.text.unicode == 8))
+				if (event.text.unicode == '\t') { // tab -> doi nhap user sang pass, nguoc lai
+					pw.check ^= 1;
+					pw2.check ^= 1;
+					username.check ^= 1;
+				}
+				else if (event.text.unicode == 13) { // -> enter -> login
+					change = true;
+				}
+				else if (pw.check && (pw.s.size() < 10 || event.text.unicode == 8))
 				{
 					if (event.text.unicode == 8)
-					{
+					{	
 						if (!pw.s.empty())
 						{
 							pw.s.pop_back();
@@ -445,7 +456,8 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 
 		window.clear();
 		window.draw(screen.draw);
-		window.draw(username.text);
+		drawText(window, username);
+		//window.draw(username.text);
 		if (isHere(l1.bound, mouse) || entered)
 			window.draw(l2.draw);
 		else
@@ -453,12 +465,14 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 
 		if (see)
 		{
-			window.draw(pw.text);
+			//window.draw(pw.text);
+			drawText(window, pw);
 			window.draw(eye.draw);
 		}
 		else
 		{
-			window.draw(pw2.text);
+			//window.draw(pw2.text);
+			drawText(window, pw2);
 			window.draw(close.draw);
 		}
 
