@@ -331,13 +331,16 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 				if (search_status == 1)
 				{
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[0], do_search.search_info->s, 3);
+					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					for (auto s : correctList) completeList.push_back(s);
 					for (int i = 0; i < 3; i++)
 					{
 						do_search.result[i]->s = "";
 						do_search.result[i]->text.setString("");
 					}
-					for (int i = 0; i < completeList.size(); ++i) {
+					int size = min(3, (int)completeList.size());
+					for (int i = 0; i < size; ++i) {
 						do_search.result[i]->s = completeList[i];
 						do_search.result[i]->text.setString(completeList[i]);
 					}

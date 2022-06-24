@@ -173,9 +173,9 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 			}
 			else
 			{
-				for (int i = 0; i < k; i++)
+				for (int i = (int(k - 1) / 6 ) * 6; i < k; i++)
 				{
-					if (isHere(s.switch_dict.button[i], mouse))
+					if (isHere(s.switch_dict.button[k], mouse))
 					{
 						// switch dictionary
 					}
