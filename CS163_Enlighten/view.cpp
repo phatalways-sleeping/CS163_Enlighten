@@ -234,7 +234,10 @@ void drawLongText(RenderWindow& window, Info a, int max_size) {
 	}
 }
 
-void drawLongText(RenderWindow& window, Info a, bool show_full, int max_size) {
+void drawLongText(RenderWindow& window, Info a, bool show_full, int max_size) { 
+	if (!show_full) {
+		drawLongText(window, a, max_size);
+	}
 	vector <string> words = splitword(a.s);
 	int cur_size = 0;
 	string str = "";
