@@ -41,6 +41,7 @@ void convert(json data, Trie& root) {
         k.word = a.key();
         for (auto i = a->at("ANTONYMS").begin(); i != a->at("ANTONYMS").end(); i++) k.antonyms.push_back((string)*i);
         for (auto i = a->at("SYNONYMS").begin(); i != a->at("SYNONYMS").end(); i++) k.synonyms.push_back((string)*i);
+        for (auto i = a->at("USERDEFINITIONS").begin(); i != a->at("USERDEFINITIONS").end(); i++) k.user_definitions.push_back({i.key(), i.value()});
         auto meanings = a->at("MEANINGS");
         vector<string> examples;
         for (auto b = meanings.begin(); b != meanings.end(); b++) {
@@ -65,11 +66,10 @@ void convert(Node* T, vector<Node>& v) {
     }
 }
 
-bool edit_eng(Trie& T, string word, string kind_word, string new_definition) {
+bool edit_eng(Trie& T, string word, string username, string new_definition) {
     Node* current = search(T, word);
     if (!current) return false;
-    vector<string> v;
-    current->definitions.push_back({ {kind_word, new_definition}, v });
+    current->user_definitions.push_back({ username, new_definition });
     return true;
 }
 
@@ -79,6 +79,9 @@ json writeToJSON(const Trie& T) {
     for (int i = 0; i < data.size(); i++) {
         Node current = data[i];
         json meanings = json({});
+        json elements_of_userdefinition = json({});
+        for (int j = 0; j < current.user_definitions.size(); j++)
+            elements_of_userdefinition[current.user_definitions[j].first] = current.user_definitions[j].second;
         json elements_of_meanings = json({});
         for (int j = 0; j < current.definitions.size(); j++) {
             pair<pair<string, string>, vector<string>> p = current.definitions[j];
@@ -88,6 +91,7 @@ json writeToJSON(const Trie& T) {
         meanings["MEANINGS"] = elements_of_meanings;
         meanings["ANTONYMS"] = current.antonyms;
         meanings["SYNONYMS"] = current.synonyms;
+        meanings["USERDEFINITIONS"] = elements_of_userdefinition;
         main[current.word] = meanings;
     }
     return main;
