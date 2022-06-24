@@ -302,7 +302,6 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 
 void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset)
 {
-	page = 5; return;
 	Object screen = createObject("Graphic/p4.png");
 	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -313,7 +312,9 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object *, Object *> search_history = createElement("p4_sh", 364.0f, 434.0f);
-
+	Object w = createObject("Graphic/w.png", 317.0f, 196.0f);
+	Object t = createObject("Graphic/t.png", 317.0f, 272.0f);
+	Object d = createObject("Graphic/d.png", 317.0f, 348.0f);
 	LeftRight left_right;
 	SearchBar do_search;
 	for (int i = 0; i < 12; i++)
@@ -324,7 +325,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 			continue;
 		}
 		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
-		changePos(sh[i], 464.0f + 150.0f * (i >= 6), 480.0f + 44.0f * (i % 6));
+		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	Event event;
@@ -359,6 +360,26 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					{
 						count = (count < dataset.dictionary_name.size() - 6 ? count + 6 : count);
 					}
+					else if (search_status == 2)
+					{
+						if (isHere(d.bound, mouse)) {
+							do_search.enter_defi.check = true;
+							do_search.enter_type.check = false;
+							do_search.enter_word.check = false;
+						}
+						if (isHere(w.bound, mouse))
+						{
+							do_search.enter_defi.check = false;
+							do_search.enter_word.check = true;
+							do_search.enter_type.check = false;
+						}
+						if (isHere(t.bound, mouse))
+						{
+							do_search.enter_defi.check = false;
+							do_search.enter_word.check = false;
+							do_search.enter_type.check = true;
+						}
+					}
 				}
 				break;
 			}
@@ -380,6 +401,12 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 						do_search.result[i]->s = completeList[i];
 						do_search.result[i]->text.setString(completeList[i]);
 					}
+				}
+				else if (search_status == 2)
+				{
+					texting(do_search.enter_defi, event.text.unicode, 30);
+					texting(do_search.enter_word, event.text.unicode, 30);
+					texting(do_search.enter_type, event.text.unicode, 30);
 				}
 				break;
 			}
@@ -818,6 +845,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(home1.bound, mouse, 4, page);
 					for (int i = 0; i < 5; i++)
 					{ // del 1 defi
 						if (i + cur_page * 5 >= size)

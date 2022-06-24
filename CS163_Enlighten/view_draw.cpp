@@ -109,6 +109,9 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 				status = 2;
 				s.search_info->check = false;
 				s.search_info->s = "";
+				resetInfo(s.enter_defi, "Enter definition");
+				resetInfo(s.enter_word, "Enter word");
+				resetInfo(s.enter_type, "Enter type of word");
 				add_status = -1;
 			}
 			else if (!isHere(s.search, mouse))
@@ -147,6 +150,9 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 			window.draw(s.enter_word.text);
 			window.draw(s.enter_defi.text);
 			window.draw(s.enter_type.text);
+			drawText(window, s.enter_word);
+			drawText(window, s.enter_type);
+			drawText(window, s.enter_defi);
 		}
 		break;
 	}
@@ -169,6 +175,9 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 			}
 			else if (isHere(s.add, mouse))
 			{
+				resetInfo(s.enter_defi, "Enter definition");
+				resetInfo(s.enter_word, "Enter word");
+				resetInfo(s.enter_type, "Enter type of word");
 				status = 2;
 				add_status = -1;
 			}
@@ -199,6 +208,9 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 			}
 			else if (isHere(s.add, mouse))
 			{
+				resetInfo(s.enter_defi, "Enter definition");
+				resetInfo(s.enter_word, "Enter word");
+				resetInfo(s.enter_type, "Enter type of word");
 				status = 2;
 				add_status = -1;
 			}

@@ -1,6 +1,20 @@
 #pragma once
 #include "header.h"
 
+void resetInfo(Info& a, string s)
+{
+	a.s = "";
+	a.text.setString(s);
+	a.check = false;
+}
+
+void resetInfo(Info*& a, string s)
+{
+	a->s = "";
+	a->text.setString(s);
+	a->check = false;
+}
+
 Object createObject(string s, float x, float y)
 {
 	Object me;
