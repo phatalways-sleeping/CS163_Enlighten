@@ -28,6 +28,13 @@ void Scene1(RenderWindow& window, int& page, Enlighten& dataset)
 				}
 				break;
 			}
+			case Event::TextEntered:
+			{
+				if (event.text.unicode == 9 || event.text.unicode == 13) {
+					page = 2;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -224,6 +231,7 @@ void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& 
 
 void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset)
 {
+	bool tab = false;
 	Object screen = createObject("Graphic/p3.png");
 	pair<Object*, Object*> admin = createElement("p3_admin", 572.0f, 263.0f);
 	pair<Object*, Object*> user = createElement("p3_user", 222.0f, 263.0f);
@@ -251,6 +259,17 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 				}
 				break;
 			}
+			case Event::TextEntered:
+			{
+				if (event.text.unicode == 9) { // tab
+					is_admin ^= 1;
+					tab = true;
+				}
+				else if (event.text.unicode == 13) { // enter
+					page = 3;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -259,6 +278,22 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 		window.draw(screen.draw);
 		drawWhich(window, admin, mouse);
 		drawWhich(window, user, mouse);
+		if (isHere(admin, mouse)) {
+			is_admin = true;
+		}
+		else if (isHere(user, mouse)) {
+			is_admin = false;
+		}
+		if (tab && !isHere(admin, mouse) && !isHere(user,mouse)) {
+			if (is_admin)
+			{
+				window.draw(admin.second->draw);
+			}
+			else
+			{
+				window.draw(user.second->draw);
+			}
+		}
 		window.display();
 	}
 	deallocate(admin);
