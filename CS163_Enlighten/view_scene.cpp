@@ -213,7 +213,7 @@ void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& 
 	{
 		deallocate(bar[i]);
 	}
-	deallocate(del);
+	deallocate(del);	
 	deallocate(fav);
 	deallocate(home);
 	deallocate(pLeft);
@@ -280,6 +280,8 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 
 	LeftRight left_right;
 	SearchBar do_search;
+	cout << history.size() << endl;
+	cout << dataset.history.size() << endl;
 	for (int i = 0; i < 12; i++)
 	{
 		if (i >= history.size())
@@ -288,7 +290,7 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 			continue;
 		}
 		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
-		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 500.0f + 44.0f * (i % 7));
+		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	Event event;
@@ -457,7 +459,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					username.check ^= 1;
 				}
 				else if (event.text.unicode == 13 || event.text.unicode == '\n') { // -> enter -> login
-					change = true;
+					change = false;
 					if (is_admin)
 					{
 						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))

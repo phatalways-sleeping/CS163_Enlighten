@@ -18,11 +18,14 @@ bool login(string username, string password, string path, vector<string> &search
             v.push_back(k);
         }
     }
+ 
     file.close();
     for (int i = 0; i < v.size(); i++)
     {
         if (v[i][0] == username && v[i][1] == password)
         {
+            search_history.clear();
+            favorite_list.clear();
             int j = 3;
             while (v[i][j] != "favorite_list") {
                 if (v[i][j] != "")
