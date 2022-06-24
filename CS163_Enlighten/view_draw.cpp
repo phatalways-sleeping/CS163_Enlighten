@@ -30,7 +30,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		// input text file
 		Trie T;
-		inputTxtFile(T, "Data/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
+		inputTxtFile(T, "ENLIGHTEN_DATA//ORIGINAL_DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
 
 		sleep(1.0);
 		dataset.user_Trie.push_back(T);

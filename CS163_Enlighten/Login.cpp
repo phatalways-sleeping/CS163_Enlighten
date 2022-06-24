@@ -1,7 +1,7 @@
 #pragma once
 #include "header.h"
 
-bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list)
+bool login(string username, string password, string path, vector<string>& search_history, vector<string>& favorite_list)
 {
     fstream file(path, ios::in);
     vector<vector<string>> v;
@@ -18,7 +18,7 @@ bool login(string username, string password, string path, vector<string> &search
             v.push_back(k);
         }
     }
- 
+
     file.close();
     for (int i = 0; i < v.size(); i++)
     {
@@ -133,7 +133,7 @@ bool createNewAccount(string username, string password, string path)
     return true;
 }
 
-void update(string username, int CASE, vector<string> &list, string path)
+void update(string username, int CASE, vector<string>& list, string path)
 {
     ifstream file(path, ios::in);
     vector<vector<string>> v;
