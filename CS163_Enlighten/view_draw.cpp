@@ -1,7 +1,7 @@
 #pragma once
 #include "header.h"
 
-void sleep(double s)
+void sleepHere(double s)
 {
 	vector<int> v;
 	for (int i = 0; i < (double)10000000.0 * s; i++)
@@ -32,7 +32,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		Trie T;
 		inputTxtFile(T, "ENLIGHTEN_DATA//ORIGINAL_DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
 
-		sleep(1.0);
+		sleepHere(1.0);
 		dataset.user_Trie.push_back(T);
 		count++;
 		window.clear();

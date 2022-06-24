@@ -313,6 +313,12 @@ void changePos(Info *a, float x, float y)
 	a->bound = a->text.getGlobalBounds();
 }
 
+void changePos(Info& a, float x, float y)
+{
+	a.text.setPosition(x, y);
+	a.bound = a.text.getGlobalBounds();
+}
+
 void texting(Info &text, Uint32 unicode, unsigned int limit)
 {
 	if (unicode == 9)

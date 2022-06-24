@@ -57,6 +57,7 @@ void drawLongText(RenderWindow& window, Info *a, int max_size);
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page);
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page, bool &change, bool true_or_false);
 void changePos(Object *a, Object *b, float x, float y);
+void changePos(Info& a, float x, float y);
 void changePos(Object *a, float x, float y);
 void changePos(Info *a, float x, float y);
 void texting(Info& text, Uint32 unicode, unsigned int limit);
@@ -76,9 +77,9 @@ void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_n
 void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset);
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here);
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
-void revision(RenderWindow &window, int &page, Enlighten &dataset);
+void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
-void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level);
+void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 //------------------Struct(cont)-------------------------
 struct Vocabulary {
 	string word;
@@ -264,3 +265,5 @@ void trie_revision_testing(string fileName, vector<string> searchHistory, vector
 
 //------------------Draw Elements-----------------------
 void loadingDataset(RenderWindow &window, Enlighten &p, int &page, int number_of_dataset);
+void sleepHere(double s);
+
