@@ -302,6 +302,8 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 
 void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset)
 {
+	page = 5;
+	return;
 	Object screen = createObject("Graphic/p4.png");
 	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -641,9 +643,15 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	int cur_id = dataset.cur_id;
-	Node* defi_info = search(dataset.user_Trie[cur_id], word_here);
+	vector <string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
+	int defi_id = -1;
+	string cur_defi = "";
+	if (all_defi.size()) {
+		cur_defi = all_defi[0];
+		defi_id = 0;
+	}
 	Info word = createInfo("Graphic/Roboto-Regular.ttf", word_here, 380.0f, 180.0f, 64);
-	Info definition = createInfo("Graphic/Roboto-Regular.ttf", defi_info -> def[0], 380.0f, 264.0f, 26);
+	Info definition = createInfo("Graphic/Roboto-Regular.ttf", cur_defi, 380.0f, 264.0f, 26);
 	Info word_type = createInfo("Graphic/Roboto-Regular.ttf", "(" /*+ "word type" +*/, 390.0f + definition.bound.width, 210.0f, 30);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
@@ -695,6 +703,21 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 				if (isHere(rem_fav.first->bound, mouse))
 				{
 					is_fav = !is_fav;
+				}
+				if (isHere(left_right.left[1], mouse) && defi_id > 0)
+				{
+					defi_id--;
+					cur_defi = all_defi[defi_id];
+					definition.s = cur_defi;
+					definition.text.setString(definition.s);
+					
+				}
+				else if (isHere(left_right.right[1], mouse) && defi_id + 1 < all_defi.size())
+				{
+					defi_id++;
+					cur_defi = all_defi[defi_id];
+					definition.s = cur_defi;
+					definition.text.setString(definition.s);
 				}
 				break;
 			}

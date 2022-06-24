@@ -190,7 +190,7 @@ void deallocateNode(Node *&node);
 void reset(Trie &T);
 
 //-------------------Search---------------------------------
-vector<string> search_result(Trie T, string keyword);
+vector<string> search_result(Trie T, string keyword, int nums);
 //-------------------Search for definition------------------
 vector<string> splitword(string str);
 vector<string> search_def(Trie &T, string def, int nums);

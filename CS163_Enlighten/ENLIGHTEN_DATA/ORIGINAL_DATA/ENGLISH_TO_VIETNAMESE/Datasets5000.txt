@@ -5006,3 +5006,4 @@ kid:dua tre
 middle-class:tang lop trung luu
 apology:loi xin loi
 till:cho den khi
+dog:khong phai con meo 
