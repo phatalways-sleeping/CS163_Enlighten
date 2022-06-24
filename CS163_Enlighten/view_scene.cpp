@@ -534,7 +534,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 		{
 			if (is_admin)
 			{
-				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/admins.csv", history, favourite))
+				if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -544,7 +544,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			}
 			else
 			{
-				if (login(username.s, pw.s, "Data/USERS INFORMATIONS/users.csv", history, favourite))
+				if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/users.csv", history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
