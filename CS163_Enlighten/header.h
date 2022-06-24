@@ -67,6 +67,7 @@ int checkConfirmation(RenderWindow &window, int &check, const Confirmation &elem
 void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word);
 void resetInfo(Info*& a, string s);
 void resetInfo(Info& a, string s);
+int checkString(Info a);
 
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page, Enlighten &dataset);
@@ -86,11 +87,28 @@ struct Vocabulary {
 
 	void read(string s)
 	{
-		stringstream readMe(s);
+		/*stringstream readMe(s);
 		string res;
 		definitions.clear();
-		while (getline(readMe, res, ';'))
+		while (getline(readMe, res, ';' ))
 		{
+			definitions.push_back(res);
+		}*/
+
+		definitions.clear();
+		unsigned int i = 0;
+		while (i < s.size()) {
+			string res;
+			for (; i < s.size(); i++)
+			{
+				if (s[i] == '\n') res.push_back(' ');
+				else if (s[i] == ';') 
+				{
+					i++;
+					break;
+				}
+				else res.push_back(s[i]);
+			}
 			definitions.push_back(res);
 		}
 	}

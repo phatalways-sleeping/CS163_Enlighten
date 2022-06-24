@@ -107,9 +107,9 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 				}
 				else if (search_status == 2)
 				{
-					texting(do_search.enter_defi, event.text.unicode, 30);
+					texting_endl(do_search.enter_defi, event.text.unicode, 36);
 					texting(do_search.enter_word, event.text.unicode, 30);
-					texting(do_search.enter_type, event.text.unicode, 50);
+					texting(do_search.enter_type, event.text.unicode, 30);
 				}
 				break;
 			}
