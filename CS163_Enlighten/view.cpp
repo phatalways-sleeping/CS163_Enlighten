@@ -225,6 +225,56 @@ void drawText(RenderWindow &window, Info *a)
 		window.draw(a->text);
 }
 
+void drawLongText(RenderWindow& window, Info a) {
+	drawLongText(window, a, 50);
+}
+
+void drawLongText(RenderWindow& window, Info a, int max_size) {
+	if (a.s.size() <= max_size) {
+		a.text.setString(a.s);
+		window.draw(a.text);
+	}
+	else {
+		a.text.setString(a.s.substr(0, max_size) + "...");
+		window.draw(a.text);
+		a.text.setString(a.s);
+	}
+}
+
+void drawLongText(RenderWindow& window, Info a, bool show_full, int max_size) {
+	vector <string> words = splitword(a.s);
+	int cur_size = 0;
+	string str = "";
+	for (auto s: words){
+		if (cur_size + s.size() > max_size) {
+			str.push_back('\n');
+			cur_size = 0;
+			
+		}
+		cur_size += s.size() + 1;
+		str += s;
+		str.push_back(' ');
+	}
+	a.text.setString(str);
+	window.draw(a.text);
+	a.text.setString(a.s);
+}
+void drawLongText(RenderWindow& window, Info *a) {
+	drawLongText(window, a, 50);
+}
+
+void drawLongText(RenderWindow& window, Info *a, int max_size) {
+	if (a->s.size() <= max_size) {
+		a->text.setString(a->s);
+		window.draw(a->text);
+	}
+	else {
+		a->text.setString(a->s.substr(0, max_size) + "...");
+		window.draw(a->text);
+		a->text.setString(a->s);
+	}
+}
+
 bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page)
 {
 	if (isHere(bound, mouse))

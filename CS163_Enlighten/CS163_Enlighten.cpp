@@ -38,7 +38,7 @@ int main()
             home(window, page, is_admin, username, is_fav, dataset.history, dataset);
             break;
         case 5:
-            wordDisplay(window, page, is_admin, is_fav, dataset, "dog");
+            wordDisplay(window, page, is_admin, is_fav, dataset, "nhuvinh");
             break;
         case 6:
             myList(window, page, is_fav, dataset);

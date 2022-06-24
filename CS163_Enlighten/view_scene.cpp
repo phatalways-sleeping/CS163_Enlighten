@@ -16,6 +16,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	if (all_defi.size()) {
 		cur_defi = all_defi[0];
 		defi_id = 0;
+
 	}
 	int id_fav_word = -1;
 	bool is_fav_word = inVector(word_here, dataset.favorite, id_fav_word);
@@ -46,7 +47,8 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
 	
-	
+	definition.s = cur_defi;
+	definition.text.setString(definition.s);
 	while (page == 5)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -64,7 +66,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					// switchPage(fav.first->bound, mouse, x, page);
+					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(del.first->bound, mouse, 1, page);
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
@@ -124,7 +126,8 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		}
 		window.draw(search_bar.draw);
 		window.draw(word.text);
-		window.draw(definition.text);
+		drawLongText(window, definition, true, 50);
+		//window.draw(definition.text);
 		for (int i = 0; i < 3; i++)
 		{
 			window.draw(border[i]->draw);
@@ -309,7 +312,8 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 				break;
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
-			window.draw(defi[i]->text);
+			//window.draw(defi[i]->text);
+			drawLongText(window, defi[i]);
 			drawWhich(window, rem[i], mouse);
 		}
 		window.draw(word->text);
