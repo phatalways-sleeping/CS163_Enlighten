@@ -28,13 +28,6 @@ void Scene1(RenderWindow& window, int& page, Enlighten& dataset)
 				}
 				break;
 			}
-			case Event::TextEntered:
-			{
-				if (event.text.unicode == 9 || event.text.unicode == 13) {
-					page = 2;
-				}
-				break;
-			}
 			default:
 				break;
 			}
@@ -220,7 +213,7 @@ void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& 
 	{
 		deallocate(bar[i]);
 	}
-	deallocate(del);	
+	deallocate(del);
 	deallocate(fav);
 	deallocate(home);
 	deallocate(pLeft);
@@ -231,7 +224,6 @@ void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& 
 
 void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset)
 {
-	bool tab = false;
 	Object screen = createObject("Graphic/p3.png");
 	pair<Object*, Object*> admin = createElement("p3_admin", 572.0f, 263.0f);
 	pair<Object*, Object*> user = createElement("p3_user", 222.0f, 263.0f);
@@ -259,17 +251,6 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 				}
 				break;
 			}
-			case Event::TextEntered:
-			{
-				if (event.text.unicode == 9) { // tab
-					is_admin ^= 1;
-					tab = true;
-				}
-				else if (event.text.unicode == 13) { // enter
-					page = 3;
-				}
-				break;
-			}
 			default:
 				break;
 			}
@@ -278,22 +259,6 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 		window.draw(screen.draw);
 		drawWhich(window, admin, mouse);
 		drawWhich(window, user, mouse);
-		if (isHere(admin, mouse)) {
-			is_admin = true;
-		}
-		else if (isHere(user, mouse)) {
-			is_admin = false;
-		}
-		if (tab && !isHere(admin, mouse) && !isHere(user,mouse)) {
-			if (is_admin)
-			{
-				window.draw(admin.second->draw);
-			}
-			else
-			{
-				window.draw(user.second->draw);
-			}
-		}
 		window.display();
 	}
 	deallocate(admin);
@@ -315,8 +280,6 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 
 	LeftRight left_right;
 	SearchBar do_search;
-	cout << history.size() << endl;
-	cout << dataset.history.size() << endl;
 	for (int i = 0; i < 12; i++)
 	{
 		if (i >= history.size())
@@ -325,7 +288,7 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 			continue;
 		}
 		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
-		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
+		changePos(sh[i], 464.0f - round(sh[i]->bound.width / 2), 500.0f + 44.0f * (i % 7));
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	Event event;
@@ -368,16 +331,13 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 				if (search_status == 1)
 				{
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					for (auto s : correctList) completeList.push_back(s);
+					vector<string> completeList = autocomplete(dataset.user_Trie[0], do_search.search_info->s, 3);
 					for (int i = 0; i < 3; i++)
 					{
 						do_search.result[i]->s = "";
 						do_search.result[i]->text.setString("");
 					}
-					int size = min(3, (int)completeList.size());
-					for (int i = 0; i < size; ++i) {
+					for (int i = 0; i < completeList.size(); ++i) {
 						do_search.result[i]->s = completeList[i];
 						do_search.result[i]->text.setString(completeList[i]);
 					}
@@ -494,10 +454,10 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					username.check ^= 1;
 				}
 				else if (event.text.unicode == 13 || event.text.unicode == '\n') { // -> enter -> login
-					change = false;
+					change = true;
 					if (is_admin)
 					{
-						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))
+						if (login(username.s, pw.s, ADMIN, history, favourite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -507,7 +467,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					}
 					else
 					{
-						if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/users.csv", history, favourite))
+						if (login(username.s, pw.s, USERS, history, favourite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -575,7 +535,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			cerr << "here\n";
 			if (is_admin)
 			{
-				if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/admins.csv", history, favourite))
+				if (login(username.s, pw.s, ADMIN, history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -585,7 +545,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			}
 			else
 			{
-				if (login(username.s, pw.s, "Data/USERS_INFORMATIONS/users.csv", history, favourite))
+				if (login(username.s, pw.s, USERS, history, favourite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -741,8 +701,8 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	int cur_page = 0;
 	bool check = true;
 	string path;
-		if (dataset.is_admin) path = "Data/USERS_INFORMATIONS/admins.csv";
-		else path = "Data/USERS_INFORMATIONS/users.csv";
+	if (dataset.is_admin) path = ADMIN;
+	else path = USERS;
 	int WHAT_LIST;
 		if (is_fav) WHAT_LIST = FAVORITE_LIST;
 		else WHAT_LIST = SEARCH_HISTORY;

@@ -13,6 +13,8 @@
 #include <time.h>
 #include <map>
 #include <queue>
+#include<direct.h>
+#include<filesystem>
 /*
 #include "DataStructure/demo.h"
 #include "DataStructure/clock.h"
@@ -28,12 +30,14 @@ using namespace std;
 
  const int FAVORITE_LIST = 2;
  const int SEARCH_HISTORY = 1;
- const string USERS = "Data//USERS_INFORMATIONS//users.csv";
- const string ADMIN = "Data//USERS_INFORMATIONS//admins.csv";
+ const string original_data_path = "ENLIGHTEN_DATA//ORIGINAL_DATA";
+ const string use_data = "ENLIGHTEN_DATA//DATA";
+ const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
+ const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
  const string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
 						"DH.json", "DI.json", "DJ.json", "DK.json", "DL.json", "DM.json", "DN.json", "DO.json", "DP.json",
 								"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" }; //26 elements
- const string JSONPATH = "Data//ENGLISH_DEFINITIONS//";
+ const string JSONPATH = "ENLIGHTEN_DATA//ENGLISH_DEFINITIONS//";
  const double TOTAL = 5.88124e+11;
 
  
