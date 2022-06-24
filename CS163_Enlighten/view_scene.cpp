@@ -302,6 +302,8 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 
 void home(RenderWindow& window, int& page, bool& is_admin, const string& user_name, bool& is_fav, vector<string> history, Enlighten& dataset)
 {
+	page = 5;
+	return;
 	Object screen = createObject("Graphic/p4.png");
 	Info* sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -604,13 +606,15 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 	}
 }
 
-void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is_fav, Enlighten& dataset)
+void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is_fav, Enlighten& dataset, string word_here)
 {
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
-	Info word = createInfo("Graphic/Roboto-Regular.ttf", "demo word here", 380.0f, 180.0f, 64);
-	Info definition = createInfo("Graphic/Roboto-Regular.ttf", "demo definition here", 380.0f, 264.0f, 26);
+	int cur_id = dataset.cur_id;
+	Node* defi_info = search(dataset.user_Trie[cur_id], word_here);
+	Info word = createInfo("Graphic/Roboto-Regular.ttf", word_here, 380.0f, 180.0f, 64);
+	Info definition = createInfo("Graphic/Roboto-Regular.ttf", defi_info -> def[0], 380.0f, 264.0f, 26);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
 	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
@@ -634,6 +638,8 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
+	
+	
 	while (page == 5)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -764,8 +770,7 @@ void myList(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset)
 	
 	while (page == 6)
 	{
-		if (check) {
-			
+		if (check) {	
 			for (int i = 0; i < 5; i++) {
 				if (i + cur_page * 5 >= size) break;
 				name[i]->s = cur_list[i + cur_page * 5];

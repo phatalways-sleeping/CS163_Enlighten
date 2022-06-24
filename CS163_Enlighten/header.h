@@ -59,7 +59,7 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset);
 void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset);
 void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, vector<string> &history, vector<string> &favourite, Enlighten &dataset);
 void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset);
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset);
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here);
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
