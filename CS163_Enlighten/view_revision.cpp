@@ -157,6 +157,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level)
 
 		if (check_answer)
 		{
+            
 		}
 		else
 		{
