@@ -3,7 +3,6 @@
 
 int main()
 {
-    // trie_revision_testing("Datasets5000.txt");
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     dataset.dictionary_name.push_back("Eng/Vie");
