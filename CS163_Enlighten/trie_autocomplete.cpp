@@ -20,7 +20,7 @@ vector<string> autocomplete(Trie T, string word, int limit)
 {
     vector<string> completeList(0);
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++)
+    for (unsigned int i = 0; i < word.size(); i++)
     {
         int ch = word[i];
         if (ch < 0 || ch > 255 || !root->child[ch]) return completeList;

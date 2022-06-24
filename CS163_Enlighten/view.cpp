@@ -8,6 +8,15 @@ void resetInfo(Info& a, string s)
 	a.check = false;
 }
 
+void texting_endl(Info& text, Uint32 unicode, unsigned int limit)
+{
+
+}
+void texting_endl(Info*& text, Uint32 unicode, unsigned int limit)
+{
+
+}
+
 void resetInfo(Info*& a, string s)
 {
 	a->s = "";

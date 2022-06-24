@@ -50,10 +50,10 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	}
 }
 
-bool checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse)
+int checkConfirmation(RenderWindow& window, int& check, const Confirmation& element, Vector2f& mouse)
 {
 	if (check == 0)
-		return false;
+		return 0;
 	if (check == -1)
 	{
 		window.draw(element.board.first->draw);
@@ -63,13 +63,12 @@ bool checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 		{
 			if (isHere(element.nah, mouse)) {
 				check = 0;
-				return false;
+				return 0;
 			}
 			else if (isHere(element.of_course, mouse))
 			{
-				// do some thing here;
 				check = 1;
-				return true;
+				return -1;
 			}
 		}
 	}
@@ -82,14 +81,14 @@ bool checkConfirmation(RenderWindow &window, int &check, const Confirmation &ele
 			if (isHere(element.out, mouse))
 			{
 				check = 0;
-				return false;
+				return 0;
 			}
 		}
 	}
-	return true;
+	return 1;
 }
 
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count)
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word)
 {
 	switch (status)
 	{
@@ -141,9 +140,20 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 		window.draw(s.add.second->draw);
 		window.draw(s.change.first->draw);
 		window.draw(s.search.first->draw);
-		if (!checkConfirmation(window, add_status, s.new_word, mouse))
+		int temp = checkConfirmation(window, add_status, s.new_word, mouse);
+		if (!temp)
 		{
 			status = 0;
+		}
+		else if (temp == -1) {
+			new_word.read(s.enter_defi.s);
+			new_word.word = s.enter_word.s;
+			new_word.type = s.enter_type.s;
+			cout << new_word.word << " " << new_word.type << endl;
+			for (unsigned int i = 0; i < new_word.definitions.size(); i++)
+			{
+				cout << new_word.definitions[i] << endl;
+			}
 		}
 		else if (add_status == -1)
 		{

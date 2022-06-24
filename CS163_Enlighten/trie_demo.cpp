@@ -71,7 +71,7 @@ void trie_autocorrect(string fileName) {
         vector <string> autocorrect = correct_words(T, word, 10);
         cout << "Do you mean:\n";
         int count = 0;
-        for (int i = 0; i < autocorrect.size(); i++) {
+        for (unsigned int i = 0; i < autocorrect.size(); i++) {
             string w = autocorrect[i];
             Node* info = search(T, w);
             if (info) {

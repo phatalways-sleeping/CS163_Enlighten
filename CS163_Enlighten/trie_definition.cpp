@@ -45,7 +45,7 @@ vector <string> splitword(string str) {
     /// delete space
     vector <string> ret;
     string tmp = "";
-    for (int i = 0; i < str.size(); i++) {
+    for (unsigned int i = 0; i < str.size(); i++) {
         if (str[i] == ' ') {
             ret.push_back(tmp);
             tmp = "";

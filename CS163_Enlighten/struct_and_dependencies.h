@@ -62,6 +62,8 @@ struct Confirmation
 	pair<Object *, Object *> out;
 };
 
+struct Vocabulary;
+
 struct SearchBar;
 
 struct LeftRight;
@@ -81,7 +83,7 @@ struct Node
 	vector<string> synonyms;
 
 	//For recommendations
-	double freq;
+	double freq = 0;
 
 	Node *child[256];
 	Node()

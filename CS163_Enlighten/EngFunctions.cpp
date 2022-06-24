@@ -9,7 +9,7 @@ void clear(Node& m) {
 bool insert(Trie& T, string word, const Node& current) {
     if (word == "") return false;
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) {
@@ -23,7 +23,7 @@ bool insert(Trie& T, string word, const Node& current) {
 
 bool remove_eng(Trie& T, string word) {
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) return false;
@@ -46,9 +46,9 @@ void convert(json data, Trie& root) {
         vector<string> examples;
         for (auto b = meanings.begin(); b != meanings.end(); b++) {
             examples.clear();
-            for (int j = 2; j < b->size(); j++) {
+            for (unsigned int j = 2; j < b->size(); j++) {
                 if (b->at(j).is_array()) {
-                    for (int d = 0; d < b->at(j).size(); d++) examples.push_back(b->at(j)[d]);
+                    for (unsigned int d = 0; d < b->at(j).size(); d++) examples.push_back(b->at(j)[d]);
                 }
             }
             k.definitions.push_back({ {b->at(0), b->at(1)}, examples });
@@ -76,14 +76,14 @@ bool edit_eng(Trie& T, string word, string username, string new_definition) {
 json writeToJSON(const Trie& T) {
     vector<Node> data; convert(T.root, data);
     json main = json({});
-    for (int i = 0; i < data.size(); i++) {
+    for (unsigned int i = 0; i < data.size(); i++) {
         Node current = data[i];
         json meanings = json({});
         json elements_of_userdefinition = json({});
-        for (int j = 0; j < current.user_definitions.size(); j++)
+        for (unsigned int j = 0; j < current.user_definitions.size(); j++)
             elements_of_userdefinition[current.user_definitions[j].first] = current.user_definitions[j].second;
         json elements_of_meanings = json({});
-        for (int j = 0; j < current.definitions.size(); j++) {
+        for (unsigned int j = 0; j < current.definitions.size(); j++) {
             pair<pair<string, string>, vector<string>> p = current.definitions[j];
             json a = { p.first.first, p.first.second, p.second };
             elements_of_meanings[to_string(j + 1)] = a;

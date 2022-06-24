@@ -4,7 +4,7 @@
 pair<string, string> randomWord(Trie T) {
     Node* root = T.root;
     string word = "";
-    while (1) {
+    while (root) {
         vector<int> validChild(0);
         if (root->def.size() > 0 && word != "") {
             for (int i = 0; i < 4; ++i) validChild.push_back(-1);

@@ -13,7 +13,7 @@ bool getstr(string s, string& word, string& def) {
 
 Node* search(Trie T, string word) {
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return NULL;
         if (!root->child[ch]) return NULL;
@@ -25,7 +25,7 @@ Node* search(Trie T, string word) {
 bool insert(Trie& T, string word, string def) {
     if (word == "") return false;
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) {
@@ -39,7 +39,7 @@ bool insert(Trie& T, string word, string def) {
 
 bool edit(Trie& T, string word, int id, string def) {
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) return false;
@@ -51,7 +51,7 @@ bool edit(Trie& T, string word, int id, string def) {
 
 bool remove(Trie& T, string word) {
     Node* root = T.root;
-    for (int i = 0; i < word.size(); i++) {
+    for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i];
         if (ch < 0 || ch > 255) return false;
         if (!root->child[ch]) return false;

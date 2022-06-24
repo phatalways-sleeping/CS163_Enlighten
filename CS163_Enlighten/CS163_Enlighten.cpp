@@ -52,6 +52,7 @@ int main()
             break;
         case 9:
             testQA(window, page, dataset, level);
+            break;
         default:
             window.close();
             return 0;

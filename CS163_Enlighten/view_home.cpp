@@ -17,6 +17,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	Object d = createObject("Graphic/d.png", 317.0f, 348.0f);
 	LeftRight left_right;
 	SearchBar do_search;
+	Vocabulary new_word;
 	for (int i = 0; i < 12; i++)
 	{
 		if (i >= history.size())
@@ -106,7 +107,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 				{
 					texting(do_search.enter_defi, event.text.unicode, 30);
 					texting(do_search.enter_word, event.text.unicode, 30);
-					texting(do_search.enter_type, event.text.unicode, 30);
+					texting(do_search.enter_type, event.text.unicode, 50);
 				}
 				break;
 			}
@@ -127,7 +128,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		window.draw(welcome.text);
 		for (int i = 0; i < 12; i++)
 			window.draw(sh[i]->text);
-		searching(window, search_status, do_search, mouse, add_status, dataset, event, count);
+		searching(window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
 		window.display();
 	}
 	deallocate(home);

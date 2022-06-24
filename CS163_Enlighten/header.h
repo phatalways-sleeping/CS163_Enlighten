@@ -54,10 +54,12 @@ bool switchPage(FloatRect &bound, Vector2f &mouse, int k, int &page, bool &chang
 void changePos(Object *a, Object *b, float x, float y);
 void changePos(Object *a, float x, float y);
 void changePos(Info *a, float x, float y);
-void texting(Info &text, Uint32 unicode, unsigned int limit);
-void texting(Info *&text, Uint32 unicode, unsigned int limit);
-bool checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count);
+void texting(Info& text, Uint32 unicode, unsigned int limit);
+void texting(Info*& text, Uint32 unicode, unsigned int limit);
+void texting_endl(Info &text, Uint32 unicode, unsigned int limit);
+void texting_endl(Info *&text, Uint32 unicode, unsigned int limit);
+int checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
+void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word);
 void resetInfo(Info*& a, string s);
 void resetInfo(Info& a, string s);
 
@@ -72,6 +74,23 @@ void revision(RenderWindow &window, int &page, Enlighten &dataset);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level);
 //------------------Struct(cont)-------------------------
+struct Vocabulary {
+	string word;
+	string type;
+	vector<string> definitions;
+
+	void read(string s)
+	{
+		stringstream readMe(s);
+		string res;
+		definitions.clear();
+		while (getline(readMe, res, ';'))
+		{
+			definitions.push_back(res);
+		}
+	}
+};
+
 struct Dictionary
 {
 	Object board = createObject("Graphic/p0_choose.png", 200.0f, 270.0f);
@@ -115,7 +134,8 @@ struct Dictionary
 	}
 	int assign(vector<string>& dict_name, int begin, bool& check)
 	{
-		int k = dict_name.size() < (begin + 6) ? dict_name.size() : (begin + 6);
+		int res = dict_name.size();
+		int k = res < (begin + 6) ? res : (begin + 6);
 		for (int i = begin; i < k; i++)
 		{
 			name[i]->s = dict_name[i];

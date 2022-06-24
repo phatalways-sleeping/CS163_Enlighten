@@ -20,13 +20,13 @@ bool login(string username, string password, string path, vector<string>& search
     }
 
     file.close();
-    for (int i = 0; i < v.size(); i++)
+    for (unsigned int i = 0; i < v.size(); i++)
     {
         if (v[i][0] == username && v[i][1] == password)
         {
             search_history.clear();
             favorite_list.clear();
-            int j = 3;
+            unsigned int j = 3;
             while (v[i][j] != "favorite_list") {
                 if (v[i][j] != "")
                     search_history.push_back(v[i][j]);
@@ -61,7 +61,7 @@ void changePassword(string username, string new_pass, string path)
             v.push_back(k);
         }
     }
-    for (int i = 0; i < v.size(); i++)
+    for (unsigned int i = 0; i < v.size(); i++)
     {
         if (v[i][0] == username)
         {
@@ -73,9 +73,9 @@ void changePassword(string username, string new_pass, string path)
     ofstream f(path, ios::out);
     if (f.is_open())
     {
-        for (int i = 0; i < v.size(); i++)
+        for (unsigned int i = 0; i < v.size(); i++)
         {
-            for (int j = 0; j < v[i].size(); j++)
+            for (unsigned int j = 0; j < v[i].size(); j++)
             {
                 f << v[i][j] << ',';
             }
@@ -120,9 +120,9 @@ bool createNewAccount(string username, string password, string path)
     ofstream f(path, ios::out);
     if (f.is_open())
     {
-        for (int i = 0; i < v.size(); i++)
+        for (unsigned int i = 0; i < v.size(); i++)
         {
-            for (int j = 0; j < v[i].size(); j++)
+            for (unsigned int j = 0; j < v[i].size(); j++)
             {
                 f << v[i][j] << ',';
             }
@@ -158,14 +158,14 @@ void update(string username, int CASE, vector<string>& list, string path)
     {
         if (f.is_open())
         {
-            for (int i = 0; i < v.size(); i++)
+            for (unsigned int i = 0; i < v.size(); i++)
             {
                 if (v[i][0] == username)
                 {
                     f << v[i][0] << ',' << v[i][1] << ',' << "search_history" << ',';
-                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                    for (unsigned int j = 0; j < list.size(); j++) f << list[j] << ",";
                     bool check = false;
-                    for (int j = 3; j < v[i].size(); j++)
+                    for (unsigned int j = 3; j < v[i].size(); j++)
                     {
                         if (v[i][j] == "favorite_list")
                             check = true;
@@ -175,7 +175,7 @@ void update(string username, int CASE, vector<string>& list, string path)
                 }
                 else
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                     }
@@ -189,21 +189,21 @@ void update(string username, int CASE, vector<string>& list, string path)
     {
         if (f.is_open())
         {
-            for (int i = 0; i < v.size(); i++)
+            for (unsigned int i = 0; i < v.size(); i++)
             {
                 if (v[i][0] == username)
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                         if (v[i][j] == "favorite_list")
                             break;
                     }
-                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                    for (unsigned int j = 0; j < list.size(); j++) f << list[j] << ",";
                 }
                 else
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                     }
@@ -243,14 +243,14 @@ void modify_csv(string username, int CASE, vector<string>& list, string path) //
     {
         if (f.is_open())
         {
-            for (int i = 0; i < v.size(); i++)
+            for (unsigned int i = 0; i < v.size(); i++)
             {
                 if (v[i][0] == username)
                 {
                     f << v[i][0] << ',' << v[i][1] << ',' << "search_history" << ',';
-                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                    for (unsigned int j = 0; j < list.size(); j++) f << list[j] << ",";
                     bool check = false;
-                    for (int j = 3; j < v[i].size(); j++)
+                    for (unsigned int j = 3; j < v[i].size(); j++)
                     {
                         if (v[i][j] == "favorite_list")
                             check = true;
@@ -260,7 +260,7 @@ void modify_csv(string username, int CASE, vector<string>& list, string path) //
                 }
                 else
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                     }
@@ -275,21 +275,21 @@ void modify_csv(string username, int CASE, vector<string>& list, string path) //
     {
         if (f.is_open())
         {
-            for (int i = 0; i < v.size(); i++)
+            for (unsigned int i = 0; i < v.size(); i++)
             {
                 if (v[i][0] == username)
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                         if (v[i][j] == "favorite_list")
                             break;
                     }
-                    for (int j = 0; j < list.size(); j++) f << list[j] << ",";
+                    for (unsigned int j = 0; j < list.size(); j++) f << list[j] << ",";
                 }
                 else
                 {
-                    for (int j = 0; j < v[i].size(); j++)
+                    for (unsigned int j = 0; j < v[i].size(); j++)
                     {
                         f << v[i][j] << ',';
                     }
