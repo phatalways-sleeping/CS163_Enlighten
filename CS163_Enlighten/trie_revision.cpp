@@ -19,25 +19,41 @@ pair<string, string> randomWord(Trie T) {
     }
 }
 
-vector<vector<string>> revisionWord(Trie T, int level, vector<string>& searchHistory, vector<string>& favoriteList) {
-    vector<vector<string>> listWord;
+vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHistory, vector<string> favoriteList) {
+    srand(time(NULL));
+    vector<vector<string>> listWord(0);
+    vector<string> mergeList = searchHistory;
+    for (auto s : favoriteList) mergeList.push_back(s);
+    sort(mergeList.begin(), mergeList.end());
+    mergeList.erase(unique(mergeList.begin(), mergeList.end()), mergeList.end());
     int numOld = 0;
     if (level == 1) numOld = 10;
     else if (level == 2) numOld = 5;
+    numOld = min(numOld, (int) mergeList.size());
 
     for (int i = 0; i < 10; ++i) {
         vector<string> word(0);
         pair<string, string> A;
-        if (i >= numOld) {
-            A = randomWord(T);
-            while (A.first == A.second) {
+        while (1) {
+            if (i >= numOld) {
                 A = randomWord(T);
+                while (A.first == A.second) {
+                    A = randomWord(T);
+                }
             }
-        }
-        else {
-            A.first = Rand(0, 1) ? searchHistory[Rand(0, searchHistory.size() - 1)] : favoriteList[Rand(0, favoriteList.size() - 1)];
-            Node* defA = search(T, A.first);
-            A.second = defA->def[Rand(0, defA->def.size() - 1)];
+            else {
+                A.first = mergeList[Rand(0, mergeList.size() - 1)];
+                Node* defA = search(T, A.first);
+                A.second = defA->def[Rand(0, defA->def.size() - 1)];
+            }
+            bool isStop = true;
+            for (auto s : listWord) {
+                if (s[0] == A.first || s[0] == A.second) {
+                    isStop = false;
+                    break;
+                }
+            }
+            if (isStop) break;
         }
         pair<string, string> B = randomWord(T);
         while (B.first == B.second || B.first == A.first) {

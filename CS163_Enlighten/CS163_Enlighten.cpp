@@ -3,7 +3,6 @@
 
 int main()
 {
-    // trie_revision_testing("Datasets5000.txt");
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     dataset.dictionary_name.push_back("Eng/Vie");
@@ -52,6 +51,7 @@ int main()
             break;
         case 9:
             testQA(window, page, dataset, level);
+            break;
         default:
             window.close();
             return 0;

@@ -104,13 +104,16 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level)
 	Info *info[4];
 	Info question = createInfo("Graphic/Oswald-Light.ttf", "demo question here", 362.0f, 270.0f, 30);
 	Info number = createInfo("Graphic/bahnschrift.ttf", "100", 360.0f, 184.0f, 64);
+	vector<vector<string>> listQuestion = revisionWord(dataset.user_Trie[dataset.cur_id], level, dataset.history, dataset.favorite);
+	int curQuestion = 0;
+	int correctAnswer = 0;
 	for (int i = 0; i < 4; i++)
 	{
 		bar[i] = createElement("bar", 360.0f, 320.0f + 98.0f * i);
 		is_true[i] = createElement("true", 360.0f, 320.0f + 98.0f * i);
 		info[i] = createInfoTest("Graphic/Oswald-Medium.ttf", "demo information here", 390.0f, 350.0f + 98.0f * i, 24);
 	}
-	bool new_question = false, check_answer = false;
+	bool new_question = true, check_answer = false;
 	int answer = 0;
 	Event event;
 	while (page == 9)
@@ -153,11 +156,30 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level)
 		if (new_question)
 		{
 			// generate new question
+			if (curQuestion >= (int)listQuestion.size()) {
+				break;
+			}
+			question.text.setString(listQuestion[curQuestion][0]);
+			for (int i = 0; i < 4; i++) {
+				info[i]->text.setString(listQuestion[curQuestion][i + 2]);
+				if (listQuestion[curQuestion][i + 2] == listQuestion[curQuestion][1]) {
+					correctAnswer = i;
+				}
+			}
+			new_question = false;
+			curQuestion++;
 		}
 
 		if (check_answer)
 		{
-            
+			if (answer == correctAnswer) {
+				cerr << "Correct\n";
+			}
+			else {
+				cerr << "Incorrect, answer is: " << char(correctAnswer + 'A') << '\n';
+			}
+			new_question = true;
+			check_answer = false;
 		}
 		else
 		{
