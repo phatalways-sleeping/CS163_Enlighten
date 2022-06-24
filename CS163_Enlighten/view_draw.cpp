@@ -146,6 +146,7 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 		{
 			window.draw(s.enter_word.text);
 			window.draw(s.enter_defi.text);
+			window.draw(s.enter_type.text);
 		}
 		break;
 	}

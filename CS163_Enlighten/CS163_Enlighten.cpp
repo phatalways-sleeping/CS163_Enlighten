@@ -15,7 +15,7 @@ int main()
 
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
-    int page = 1;
+    int page = 1, level = 0;
     bool &is_admin = dataset.is_admin, is_fav = true;
     loadingDataset(window, dataset, page, 3);
 
@@ -50,7 +50,8 @@ int main()
         case 8:
             settings(window, page, true, dataset);
             break;
-
+        case 9:
+            testQA(window, page, dataset, level);
         default:
             window.close();
             return 0;

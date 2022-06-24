@@ -53,6 +53,7 @@ Info *createInfoTest(string s, string info, float x, float y, unsigned int size)
 pair<Object *, Object *> createElement(string s, float x, float y);
 Confirmation create();
 Confirmation create(string b1, string o1, string o2, string o3);
+Confirmation create(string b1, string o1, string o2, string o3, int x);
 void deallocate(Confirmation &p);
 void deallocate(SearchBar &p);
 void deallocate(pair<Object *, Object *> &p);
@@ -84,7 +85,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
-
+void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level);
 //------------------Struct(cont)-------------------------
 struct Dictionary
 {
@@ -152,10 +153,11 @@ struct SearchBar
 	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
 	pair<Object *, Object *> search_history = createElement("p4_sh", 658.0f, 211.0f);
 	pair<Object *, Object *> SE[3];
-	Confirmation new_word = create("p0_nw", "p0_cancel", "p0_ok", "p0_return");
+	Confirmation new_word = create("p0_nw", "p0_cancel", "p0_ok", "p0_return", 0);
 	Dictionary switch_dict;
-	Info enter_word = createInfo("Graphic/Oswald-Light.ttf", "Enter word", 345.0f, 330.0f, 30);
-	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 412.0f, 30);
+	Info enter_word = createInfo("Graphic/Oswald-Light.ttf", "Enter word", 345.0f, 210.0f, 30);
+	Info enter_type = createInfo("Graphic/Oswald-Light.ttf", "Enter type of word", 345.0f, 280.0f, 30);
+	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 358.0f, 30);
 	Info *result[3];
 	SearchBar()
 	{

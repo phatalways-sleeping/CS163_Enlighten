@@ -31,6 +31,17 @@ Confirmation create(string b1, string o1, string o2, string o3)
 	return root;
 }
 
+Confirmation create(string b1, string o1, string o2, string o3, int x)
+{
+	Confirmation root;
+	root.board = createElement(b1, 200.0f, 271.0f);
+	root.nah = createElement(o1, 328.0f, 534.0f);
+	root.of_course = createElement(o2, 590.0f, 534.0f);
+	root.out = createElement(o3, 450.0f, 470.0f);
+	changePos(root.board.first, 200.0f, 150.0f);
+	return root;
+}
+
 void deallocate(Confirmation &p)
 {
 	deallocate(p.board);
