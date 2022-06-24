@@ -9,11 +9,16 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	int cur_id = dataset.cur_id;
 	vector <string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
 	int defi_id = -1;
+	string path;
+	if (dataset.is_admin) path = ADMIN;
+	else path = USERS;
 	string cur_defi = "";
 	if (all_defi.size()) {
 		cur_defi = all_defi[0];
 		defi_id = 0;
 	}
+	int id_fav_word = -1;
+	bool is_fav_word = inVector(word_here, dataset.favorite, id_fav_word);
 	Info word = createInfo("Graphic/Roboto-Regular.ttf", word_here, 380.0f, 180.0f, 64);
 	Info definition = createInfo("Graphic/Roboto-Regular.ttf", cur_defi, 380.0f, 264.0f, 26);
 	Info word_type = createInfo("Graphic/Roboto-Regular.ttf", "(" /*+ "word type" +*/, 390.0f + definition.bound.width, 210.0f, 30);
@@ -64,9 +69,18 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 				}
-				if (isHere(rem_fav.first->bound, mouse))
+				if (!is_fav_word && isHere(add_to_fav.first->bound, mouse))
 				{
-					is_fav = !is_fav;
+					is_fav_word ^= 1;
+					dataset.favorite.push_back(word_here);
+					id_fav_word = dataset.favorite.size() - 1;
+					update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+				}
+				else if (is_fav_word && isHere(rem_fav.first->bound, mouse))
+				{
+					is_fav_word ^= 1;
+					dataset.favorite.erase(dataset.favorite.begin() + id_fav_word);
+					update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
 				}
 				if (isHere(left_right.left[1], mouse) && defi_id > 0)
 				{
@@ -100,7 +114,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse);
-		if (is_fav)
+		if (!is_fav_word)
 		{
 			drawWhich(window, add_to_fav, mouse);
 		}

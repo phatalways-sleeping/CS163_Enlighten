@@ -185,7 +185,8 @@ struct LeftRight
 	LeftRight(int x);
 };
 
-
+//------------------check word/definition in fav/his list---------
+bool inVector(string str, vector <string> list, int& cur_id);
 
 //------------------ timing---------------------------------
 double getTime(auto start, auto end)
