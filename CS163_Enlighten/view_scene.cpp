@@ -28,6 +28,13 @@ void Scene1(RenderWindow& window, int& page, Enlighten& dataset)
 				}
 				break;
 			}
+			case Event::TextEntered:
+			{
+				if (event.text.unicode == 9 || event.text.unicode == 13) {
+					page = 2;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -224,6 +231,7 @@ void settings(RenderWindow& window, int& page, const bool& is_admin, Enlighten& 
 
 void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset)
 {
+	bool tab = false;
 	Object screen = createObject("Graphic/p3.png");
 	pair<Object*, Object*> admin = createElement("p3_admin", 572.0f, 263.0f);
 	pair<Object*, Object*> user = createElement("p3_user", 222.0f, 263.0f);
@@ -251,6 +259,17 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 				}
 				break;
 			}
+			case Event::TextEntered:
+			{
+				if (event.text.unicode == 9) { // tab
+					is_admin ^= 1;
+					tab = true;
+				}
+				else if (event.text.unicode == 13) { // enter
+					page = 3;
+				}
+				break;
+			}
 			default:
 				break;
 			}
@@ -259,6 +278,22 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 		window.draw(screen.draw);
 		drawWhich(window, admin, mouse);
 		drawWhich(window, user, mouse);
+		if (isHere(admin, mouse)) {
+			is_admin = true;
+		}
+		else if (isHere(user, mouse)) {
+			is_admin = false;
+		}
+		if (tab && !isHere(admin, mouse) && !isHere(user, mouse)) {
+			if (is_admin)
+			{
+				window.draw(admin.second->draw);
+			}
+			else
+			{
+				window.draw(user.second->draw);
+			}
+		}
 		window.display();
 	}
 	deallocate(admin);
@@ -267,8 +302,7 @@ void setRole(RenderWindow& window, int& page, bool& is_admin, Enlighten& dataset
 
 void home(RenderWindow& window, int& page, bool& is_admin, const string& user_name, bool& is_fav, vector<string> history, Enlighten& dataset)
 {
-	page = 5;
-	return;
+	page = 5; return;
 	Object screen = createObject("Graphic/p4.png");
 	Info* sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -333,13 +367,16 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 				if (search_status == 1)
 				{
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[0], do_search.search_info->s, 3);
+					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					for (auto s : correctList) completeList.push_back(s);
 					for (int i = 0; i < 3; i++)
 					{
 						do_search.result[i]->s = "";
 						do_search.result[i]->text.setString("");
 					}
-					for (int i = 0; i < completeList.size(); ++i) {
+					int size = min(3, (int)completeList.size());
+					for (int i = 0; i < size; ++i) {
 						do_search.result[i]->s = completeList[i];
 						do_search.result[i]->text.setString(completeList[i]);
 					}
@@ -379,6 +416,7 @@ void home(RenderWindow& window, int& page, bool& is_admin, const string& user_na
 		delete sh[i];
 	}
 }
+
 
 void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_name, vector<string>& history, vector<string>& favourite, Enlighten& dataset)
 {

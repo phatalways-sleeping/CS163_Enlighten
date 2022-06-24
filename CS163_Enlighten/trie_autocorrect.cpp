@@ -103,4 +103,3 @@ void getTree(string path, Trie& root) {
     }
     file.close();
 }
-

@@ -3,25 +3,25 @@
 #include "struct_and_dependencies.h"
 
 //------------------Copy Data--------------------------
-
-bool copyData() {
-	if (_mkdir(use_data.c_str())) {
-		filesystem::copy_file(original_data_path + "//datasetsnames.txt", use_data + "//datasetsnames.txt");
-		ifstream infile(original_data_path + "//datasetsnames.txt");
-		if (infile.is_open()) {
-			string folder;
-			while (getline(infile, folder)) {
-				if (folder != "\n") {
-					_mkdir((use_data + "//" + folder).c_str());
-					filesystem::copy(original_data_path + "//" + folder, use_data + "//" + folder);
-				}
-			}
-		}
-		infile.close();
-		return true;
-	}
-	return false;
-}
+//
+//bool copyData() {
+//	if (_mkdir(use_data.c_str())) {
+//		filesystem::copy_file(original_data_path + "//datasetsnames.txt", use_data + "//datasetsnames.txt");
+//		ifstream infile(original_data_path + "//datasetsnames.txt");
+//		if (infile.is_open()) {
+//			string folder;
+//			while (getline(infile, folder)) {
+//				if (folder != "\n") {
+//					_mkdir((use_data + "//" + folder).c_str());
+//					filesystem::copy(original_data_path + "//" + folder, use_data + "//" + folder);
+//				}
+//			}
+//		}
+//		infile.close();
+//		return true;
+//	}
+//	return false;
+//}
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 void changePassword(string username, string new_pass, string path);
