@@ -201,7 +201,8 @@ Node *search(Trie T, string keyword); // return all definitions
 bool insert(Trie &T, string word, string def);
 bool edit(Trie &T, string word, int id, string def); // edit the id-th definition of word
 bool remove(Trie &T, string word);
-bool reset(Trie &T);
+void deallocateNode(Node *&node);
+void reset(Trie &T);
 
 //-------------------Search---------------------------------
 vector<string> search_result(Trie T, string keyword);

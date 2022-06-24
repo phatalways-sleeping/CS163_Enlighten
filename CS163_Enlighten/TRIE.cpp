@@ -60,8 +60,23 @@ bool remove(Trie& T, string word) {
     root->def.clear();
     return true;
 }
-bool reset(Trie& T) {
 
+void deallocateNode(Node *&node) {
+    if (!node) return;
+    for (int i = 0; i < 256; ++i) {
+        if (node->child[i]) deallocateNode(node->child[i]);
+    }
+    node->def.clear();
+    node->definitions.clear();
+    node->user_definitions.clear();
+    node->antonyms.clear();
+    node->synonyms.clear();
+    delete node;
+}
+
+void reset(Trie& T) {
+    deallocateNode(T.root);
+    T.root = NULL;
 }
 
 
