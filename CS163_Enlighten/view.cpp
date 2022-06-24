@@ -8,14 +8,7 @@ void resetInfo(Info& a, string s)
 	a.check = false;
 }
 
-void texting_endl(Info& text, Uint32 unicode, unsigned int limit)
-{
 
-}
-void texting_endl(Info*& text, Uint32 unicode, unsigned int limit)
-{
-
-}
 
 void resetInfo(Info*& a, string s)
 {
@@ -299,6 +292,68 @@ void texting(Info *&text, Uint32 unicode, unsigned int limit)
 		{
 			if (!text->s.empty())
 				text->s.pop_back();
+		}
+		else
+		{
+			text->s += unicode;
+		}
+		text->text.setString(text->s);
+	}
+}
+
+int checkString(Info a)
+{
+	int res = 0;
+	while (!a.s.empty() && a.s.back() != '\n')
+	{
+		res++;
+		a.s.pop_back();
+	}
+	return res;
+}
+
+
+void texting_endl(Info& text, Uint32 unicode, unsigned int limit)
+{
+	if (unicode == 9)
+		return;
+	if (text.check)
+	{
+		int res = checkString(text);
+		if (checkString(text) % limit == 0 && res && unicode != 8)
+		{
+			text.s += "\n";
+		}
+		if (unicode == 8)
+		{
+			if (!text.s.empty())
+				text.s.pop_back();
+		}
+		else if (unicode == 13)
+		{
+			text.s += "\n";
+		}
+		else
+		{
+			text.s += unicode;
+		}
+		text.text.setString(text.s);
+	}
+}
+void texting_endl(Info*& text, Uint32 unicode, unsigned int limit)
+{
+	if (unicode == 9)
+		return;
+	if (text->check && (text->s.size() < limit || unicode == 8))
+	{
+		if (unicode == 8)
+		{
+			if (!text->s.empty())
+				text->s.pop_back();
+		}
+		else if (unicode == 13)
+		{
+			text->s += "\n";
 		}
 		else
 		{
