@@ -468,6 +468,10 @@ bool isHere(const pair<Object *, Object *> &a, Vector2f &mouse)
 {
 	return a.first->bound.contains(mouse);
 }
+bool isHere( Object* a, Vector2f& mouse)
+{
+	return a->bound.contains(mouse);
+}
 
 bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f &mouse)
 {

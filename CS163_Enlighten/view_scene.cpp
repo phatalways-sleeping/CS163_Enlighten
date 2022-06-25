@@ -8,7 +8,10 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	int cur_id = dataset.cur_id;
 	vector <string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
+	vector <pair<string, string>> user_defi;
 	int defi_id = -1;
+	int user_defi_id = -1;
+	int user_cur_page = 0;
 	string path;
 	if (dataset.is_admin) path = ADMIN;
 	else path = USERS;
@@ -125,6 +128,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 				{
 					texting(edit_word.enter_type, event.text.unicode, 30);
 					texting_endl(edit_word.enter_defi, event.text.unicode, 36);
+					
 				}
 				break;
 			}
@@ -157,6 +161,13 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		//window.draw(definition.text);
 		for (int i = 0; i < 3; i++)
 		{
+			int id = i + user_cur_page * 3;
+			if (id >= user_defi.size())
+				break;
+			name[i]->s = user_defi[id].first;
+			name[i]->text.setString(name[i]->s);
+			defi[i]->s = user_defi[id].second;
+			defi[i]->text.setString(defi[i]->s);
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
@@ -164,8 +175,12 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		int check_me = edit_word.draw(window, mouse, flag, check, existed_word);
 		if (check_me)
 		{
+			user_defi.push_back({ dataset.username, edit_word.enter_defi.s });
 			// them dinh nghia cua nguoi dung
+
 		}
+		
+		
 		window.display();
 	}
 	deallocate(home);
@@ -284,10 +299,15 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(home1.bound, mouse, 4, page);
 					for (int i = 0; i < 5; i++)
-					{ // del 1 defi
+					{
 						if (i + cur_page * 5 >= size)
 							break;
-						if (isHere(rem[i], mouse))
+						if (isHere(border[i], mouse) && !name[i]->s.empty()) { // word display
+							page = 5;
+							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
+							return;
+						}
+						if (isHere(rem[i], mouse))  // del 1 defi
 						{
 							size--;
 							if (size % 5 == 0 && cur_page > 0)

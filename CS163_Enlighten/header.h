@@ -44,6 +44,8 @@ void deallocate(pair<Object *, Object *> &p);
 //-------------------Features--------------------------
 bool isHere(FloatRect &bound, Vector2f &mouse);
 bool isHere(const pair<Object *, Object *> &a, Vector2f &mouse);
+bool isHere(const Object*& a, Vector2f& mouse);
+bool isHere(Object* a, Vector2f& mouse);
 bool drawWhich(RenderWindow &window, const pair<Object *, Object *> &a, Vector2f &mouse);
 bool drawWhich(RenderWindow &window, Object a, Object b, Vector2f &mouse);
 bool drawWhich(RenderWindow &window, Object *a, Object *b, Vector2f &mouse);
