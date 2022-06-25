@@ -209,6 +209,62 @@ struct LeftRight
 	LeftRight(int x);
 };
 
+struct Edit
+{
+	pair<Object*, Object*> edit = createElement("edit", 1058.0f, 340.0f);
+	Confirmation new_word = create("p0_nw", "p0_cancel", "p0_ok", "p0_return", 0);
+	Info enter_word = createInfo("Graphic/Oswald-Light.ttf", "Enter word", 345.0f, 210.0f, 30);
+	Info enter_type = createInfo("Graphic/Oswald-Light.ttf", "Enter type of word", 345.0f, 280.0f, 30);
+	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 358.0f, 30);
+	
+	Edit(string word, string type)
+	{
+		enter_word.s = word;
+		enter_type.s = type;
+		enter_word.text.setString(word);
+		enter_type.text.setString(type);
+	}
+
+	int draw(RenderWindow& window, Vector2f& mouse, bool flag, int& check, Vocabulary& existed_word)
+	{
+		if (flag)
+		{
+			int res = checkConfirmation(window, check, new_word, mouse);
+			if (res == -1)
+			{
+				existed_word.read(enter_defi.s);
+				existed_word.type = enter_type.s;
+				return true;
+			}
+			else if (res == 0)
+			{
+				flag = false;
+			}
+			else
+			{
+				window.draw(enter_word.text);
+				window.draw(enter_defi.text);
+				window.draw(enter_type.text);
+				drawText(window, enter_word);
+				drawText(window, enter_type);
+				drawText(window, enter_defi);
+			}
+			window.draw(edit.first->draw);
+		}
+		else
+		{
+			drawWhich(window, edit, mouse);
+		}
+		return false;
+	}
+
+	void deleteEdit()
+	{
+		deallocate(new_word);
+		deallocate(edit);
+	}
+};
+
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);
 
@@ -225,7 +281,6 @@ void writeBinaryFile(ofstream &f, Node *node);
 bool outputBinaryFile(Trie T, string fileName);
 void readBinaryFile(ifstream &f, Node *&node);
 bool inputBinaryFile(Trie &T, string fileName);
-
 bool getstr(string s, string &word, string &def);
 Node *search(Trie T, string keyword); // return all definitions
 bool insert(Trie &T, string word, string def);
@@ -266,4 +321,6 @@ void trie_revision_testing(string fileName, vector<string> searchHistory, vector
 //------------------Draw Elements-----------------------
 void loadingDataset(RenderWindow &window, Enlighten &p, int &page, int number_of_dataset);
 void sleepHere(double s);
+void typingWhat(Object& d, Object& w, Object&t, Vector2f& mouse, SearchBar& do_search);
+void typingWhat(Object& d, Object& w, Object& t, Vector2f& mouse, Edit& do_search);
 

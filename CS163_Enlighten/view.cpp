@@ -8,6 +8,47 @@ void resetInfo(Info& a, string s)
 	a.check = false;
 }
 
+void typingWhat(Object& d, Object& w, Object&t, Vector2f& mouse, SearchBar& do_search)
+{
+	if (isHere(d.bound, mouse)) {
+		do_search.enter_defi.check = true;
+		do_search.enter_type.check = false;
+		do_search.enter_word.check = false;
+	}
+	if (isHere(w.bound, mouse))
+	{
+		do_search.enter_defi.check = false;
+		do_search.enter_word.check = true;
+		do_search.enter_type.check = false;
+	}
+	if (isHere(t.bound, mouse))
+	{
+		do_search.enter_defi.check = false;
+		do_search.enter_word.check = false;
+		do_search.enter_type.check = true;
+	}
+}
+
+void typingWhat(Object& d, Object& w, Object& t, Vector2f& mouse, Edit& do_search)
+{
+	if (isHere(d.bound, mouse)) {
+		do_search.enter_defi.check = true;
+		do_search.enter_type.check = false;
+		do_search.enter_word.check = false;
+	}
+	//if (isHere(w.bound, mouse))
+	//{
+	//	do_search.enter_defi.check = false;
+	//	do_search.enter_word.check = true;
+	//	do_search.enter_type.check = false;
+	//}
+	if (isHere(t.bound, mouse))
+	{
+		do_search.enter_defi.check = false;
+		do_search.enter_word.check = false;
+		do_search.enter_type.check = true;
+	}
+}
 
 
 void resetInfo(Info*& a, string s)

@@ -35,6 +35,11 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object w = createObject("Graphic/w.png", 317.0f, 196.0f);
+	Object t = createObject("Graphic/t.png", 317.0f, 272.0f);
+	Object d = createObject("Graphic/d.png", 317.0f, 348.0f);
+	Edit edit_word(word_here, word_type.text.getString());
+	Vocabulary existed_word;
 	Object *border[3];
 	LeftRight left_right;
 	Info *name[3], *defi[3];
@@ -46,9 +51,10 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
-	
+	bool flag = false;
 	definition.s = cur_defi;
 	definition.text.setString(definition.s);
+	int check = 0;
 	while (page == 5)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -71,33 +77,54 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 				}
-				if (!is_fav_word && isHere(add_to_fav.first->bound, mouse))
+				if (!flag)
 				{
-					is_fav_word ^= 1;
-					dataset.favorite.push_back(word_here);
-					id_fav_word = dataset.favorite.size() - 1;
-					update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+					if (!is_fav_word && isHere(add_to_fav.first->bound, mouse))
+					{
+						is_fav_word ^= 1;
+						dataset.favorite.push_back(word_here);
+						id_fav_word = dataset.favorite.size() - 1;
+						update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+					}
+					else if (is_fav_word && isHere(rem_fav.first->bound, mouse))
+					{
+						is_fav_word ^= 1;
+						dataset.favorite.erase(dataset.favorite.begin() + id_fav_word);
+						update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+					}
+					if (isHere(left_right.left[1], mouse) && defi_id > 0)
+					{
+						defi_id--;
+						cur_defi = all_defi[defi_id];
+						definition.s = cur_defi;
+						definition.text.setString(definition.s);
+
+					}
+					else if (isHere(left_right.right[1], mouse) && defi_id + 1 < all_defi.size())
+					{
+						defi_id++;
+						cur_defi = all_defi[defi_id];
+						definition.s = cur_defi;
+						definition.text.setString(definition.s);
+					}
+					if (isHere(edit_word.edit, mouse))
+					{
+						flag = true;
+						check = -1;
+					}
 				}
-				else if (is_fav_word && isHere(rem_fav.first->bound, mouse))
+				else
 				{
-					is_fav_word ^= 1;
-					dataset.favorite.erase(dataset.favorite.begin() + id_fav_word);
-					update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+					typingWhat(d, w, t, mouse, edit_word);
 				}
-				if (isHere(left_right.left[1], mouse) && defi_id > 0)
+				break;
+			}
+			case Event::TextEntered:
+			{
+				if (flag)
 				{
-					defi_id--;
-					cur_defi = all_defi[defi_id];
-					definition.s = cur_defi;
-					definition.text.setString(definition.s);
-					
-				}
-				else if (isHere(left_right.right[1], mouse) && defi_id + 1 < all_defi.size())
-				{
-					defi_id++;
-					cur_defi = all_defi[defi_id];
-					definition.s = cur_defi;
-					definition.text.setString(definition.s);
+					texting(edit_word.enter_type, event.text.unicode, 30);
+					texting_endl(edit_word.enter_defi, event.text.unicode, 36);
 				}
 				break;
 			}
@@ -134,6 +161,11 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
 		}
+		int check_me = edit_word.draw(window, mouse, flag, check, existed_word);
+		if (check_me)
+		{
+			// them dinh nghia cua nguoi dung
+		}
 		window.display();
 	}
 	deallocate(home);
@@ -151,6 +183,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	{
 		delete border[i], name[i], defi[i];
 	}
+	edit_word.deleteEdit();
 }
 
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)

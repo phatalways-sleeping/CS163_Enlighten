@@ -63,23 +63,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					}
 					else if (search_status == 2)
 					{
-						if (isHere(d.bound, mouse)) {
-							do_search.enter_defi.check = true;
-							do_search.enter_type.check = false;
-							do_search.enter_word.check = false;
-						}
-						if (isHere(w.bound, mouse))
-						{
-							do_search.enter_defi.check = false;
-							do_search.enter_word.check = true;
-							do_search.enter_type.check = false;
-						}
-						if (isHere(t.bound, mouse))
-						{
-							do_search.enter_defi.check = false;
-							do_search.enter_word.check = false;
-							do_search.enter_type.check = true;
-						}
+						typingWhat(d, w, t, mouse, do_search);
 					}
 				}
 				break;
