@@ -65,7 +65,7 @@ void texting(Info*& text, Uint32 unicode, unsigned int limit);
 void texting_endl(Info &text, Uint32 unicode, unsigned int limit);
 void texting_endl(Info *&text, Uint32 unicode, unsigned int limit);
 int checkConfirmation(RenderWindow &window, int &check, const Confirmation &element, Vector2f &mouse);
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word);
+int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word);
 void resetInfo(Info*& a, string s);
 void resetInfo(Info& a, string s);
 int checkString(Info a);

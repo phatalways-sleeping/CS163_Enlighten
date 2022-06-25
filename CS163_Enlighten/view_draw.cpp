@@ -88,7 +88,8 @@ int checkConfirmation(RenderWindow& window, int& check, const Confirmation& elem
 	return 1;
 }
 
-void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word)
+// -1: added, >0: switch
+int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word)
 {
 	switch (status)
 	{
@@ -149,11 +150,7 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 			new_word.read(s.enter_defi.s);
 			new_word.word = s.enter_word.s;
 			new_word.type = s.enter_type.s;
-			cout << new_word.word << " " << new_word.type << endl;
-			for (unsigned int i = 0; i < new_word.definitions.size(); i++)
-			{
-				cout << new_word.definitions[i] << endl;
-			}
+			return -1;
 		}
 		else if (add_status == -1)
 		{
@@ -198,6 +195,7 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 					if (isHere(s.switch_dict.button[k], mouse))
 					{
 						// switch dictionary
+						return 1;
 					}
 				}
 			}
@@ -232,4 +230,5 @@ void searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse,
 		break;
 	}
 	}
+	return 0;
 }
