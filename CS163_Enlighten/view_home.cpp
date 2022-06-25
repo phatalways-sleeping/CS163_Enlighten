@@ -2,6 +2,7 @@
 
 void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset)
 {
+
 	Object screen = createObject("Graphic/p4.png");
 	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -27,6 +28,12 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		}
 		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
 		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
+	}
+	for (int i = 0; i < 3; i++) {
+		if (i >= history.size()) break;
+		do_search.result[i]->s = history[i];
+		do_search.result[i]->text.setString(history[i]);
+		
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	Event event;
@@ -72,6 +79,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 			{
 				if (search_status == 1)
 				{
+					int size = 0;
 					texting(do_search.search_info, event.text.unicode, 30);
 					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
 					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
@@ -85,17 +93,32 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 						do_search.result[i]->s = "";
 						do_search.result[i]->text.setString("");
 					}
-					int size = min(3, (int)completeList.size());
-					for (int i = 0; i < size; ++i) {
-						do_search.result[i]->s = completeList[i];
-						do_search.result[i]->text.setString(completeList[i]);
+					
+					if (do_search.search_info->s.empty()) {
+						size = min(3, (int)history.size());
+						for (int i = 0; i < size; ++i) {
+							do_search.result[i]->s = history[i];
+							do_search.result[i]->text.setString(history[i]);
+						}
 					}
+					else {
+						size = min(3, (int)completeList.size());
+						for (int i = 0; i < size; ++i) {
+							do_search.result[i]->s = completeList[i];
+							do_search.result[i]->text.setString(completeList[i]);
+						}
+					}
+					
+					
 				}
 				else if (search_status == 2)
 				{
 					texting_endl(do_search.enter_defi, event.text.unicode, 36);
 					texting(do_search.enter_word, event.text.unicode, 30);
 					texting(do_search.enter_type, event.text.unicode, 30);
+				}
+				else {
+					
 				}
 				break;
 			}

@@ -137,7 +137,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 		info_done[i]->text.setFillColor(Color::White);
 	}
 	bool new_question = true, check_answer = false, is_correct = true, done = false, flag = false;
-	int answer = 0, total_point = 0;
+	int answer = 0, total_point = 0; 
 	Event event;
 	while (page == 9)
 	{
