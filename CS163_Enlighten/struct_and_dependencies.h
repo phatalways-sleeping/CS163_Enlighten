@@ -15,13 +15,6 @@
 #include <queue>
 #include<direct.h>
 #include<filesystem>
-/*
-#include "DataStructure/demo.h"
-#include "DataStructure/clock.h"
-#include "DataStructure/trie.h"
-#include "DataStructure/trie_autocorrect.h"
-#include "DataStructure/trie_definition.h"
-*/
 #include <string.h>
 #include"JSON/json-develop/single_include/nlohmann/json.hpp"
 using json = nlohmann::json;
@@ -35,6 +28,7 @@ using namespace std;
  const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
  const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
  const string JSONPATH = "ENLIGHTEN_DATA//ORIGINAL_DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
+ const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
  const double TOTAL = 5.88124e+11;
 
  
