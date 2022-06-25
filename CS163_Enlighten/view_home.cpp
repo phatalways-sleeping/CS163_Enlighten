@@ -83,10 +83,16 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					texting(do_search.search_info, event.text.unicode, 30);
 					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
 					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					if ((int)completeList.size() != 1 && (int)correctList.size() != 1)
+					for (auto s : correctList)
 					{
-						for (auto s : correctList)
-							completeList.push_back(s);
+						bool isExist = false;
+						for (auto t : completeList) {
+							if (t == s) {
+								isExist = true;
+								break;
+							}
+						}
+						if (!isExist) completeList.push_back(s);
 					}
 					for (int i = 0; i < 3; i++)
 					{
