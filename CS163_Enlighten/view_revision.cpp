@@ -218,7 +218,6 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 				}
 			}
 			new_question = false;
-			curQuestion++;
 		}
 
 		if (check_answer)
@@ -330,6 +329,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 			sleepHere(10.0);
 			done = false;
 			new_question = true;
+			curQuestion++;
 		}
 	}
 	deallocate(home);

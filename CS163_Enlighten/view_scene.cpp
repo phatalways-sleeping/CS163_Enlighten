@@ -126,7 +126,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		}
 		window.draw(search_bar.draw);
 		window.draw(word.text);
-		drawLongText(window, definition, false, 50);
+		drawLongText(window, definition, true, 50);
 		//window.draw(definition.text);
 		for (int i = 0; i < 3; i++)
 		{
