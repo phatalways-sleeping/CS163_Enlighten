@@ -4,8 +4,10 @@
 void sleepHere(double s)
 {
 	vector<int> v;
-	for (int i = 0; i < (double)10000000.0 * s; i++)
+	for (int i = 0; i < (double)10000000.0 * s; i++) {
 		v.push_back(i);
+		v.clear();
+	}
 	cout << "...\n";
 	v.clear();
 }
@@ -30,7 +32,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		// input text file
 		Trie T;
-		inputTxtFile(T, "ENLIGHTEN_DATA//ORIGINAL_DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
+		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
 
 		sleepHere(1.0);
 		dataset.user_Trie.push_back(T);

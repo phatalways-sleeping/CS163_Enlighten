@@ -11,6 +11,13 @@ vector <string> search_result(Trie T, string keyword, int nums) {
 		}
 	return res;
 }
+vector <string> &search_result(Trie &T, string keyword) {
+	Node* info = search(T, keyword);
+	vector <string> res;
+	if (info)
+		return info->def;
+	return res;
+}
 
 bool search_result(Trie T, string keyword, int nums, vector <string>& res) {
 	Node* info = search(T, keyword);

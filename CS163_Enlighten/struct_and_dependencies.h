@@ -27,7 +27,7 @@ using namespace std;
  const string use_data = "ENLIGHTEN_DATA//DATA";
  const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
  const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
- const string JSONPATH = "ENLIGHTEN_DATA//ORIGINAL_DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
+ const string JSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
  const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
  const double TOTAL = 5.88124e+11;
 

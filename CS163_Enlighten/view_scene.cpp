@@ -7,8 +7,10 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	int cur_id = dataset.cur_id;
-	vector<string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
-	vector<pair<string, string>> user_defi;
+	Node* word_info = search(dataset.user_Trie[cur_id], word_here);
+	//vector<string> &all_defi = search_result(dataset.user_Trie[cur_id], word_here);
+	vector<string> &all_defi = word_info->def;
+	vector<pair<string, string>>& user_defi = word_info->user_definitions;
 	int defi_id = -1;
 	int user_defi_id = -1;
 	int user_cur_page = 0;
@@ -207,11 +209,12 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		{
 			user_defi.push_back({dataset.username, edit_word.enter_defi.s});
 			// them dinh nghia cua nguoi dung
+			// sua file data ?
 		}
 		else if (check_me == 2)
 		{
 			// change the word directly
-			//definition.s =
+			// sua file data ?
 			string insert_word = word_here;
 			string insert_defi = edit_word.enter_defi.s;
 			insert(dataset.user_Trie[cur_id], insert_word, insert_defi);
