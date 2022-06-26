@@ -7,19 +7,25 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> pLeft = createElement("left", 352.0f, 130.0f);
-	pair<Object *, Object *> pRight = createElement("right", 376.0f, 130.0f);
 	Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	pair<Object *, Object *> revision = createElement("revision", 0.0f, 308.0f);
-	pair<Object *, Object *> bar[3];
+	pair<Object *, Object *> bar[3], next_bar[3];
 	Info word = createInfo("Graphic/bahnschrift.ttf", "Settings", 402.0f, 127.0f, 21);
-	Confirmation confirm = create();
+	Confirmation confirm = create(), confirm_pw = create("change_pw", "p0_cancel", "p0_ok", "p0_return");
+	LeftRight left_right(1);
+	Info text1 = createInfo("Graphic/Oswald-Light.ttf", "Enter old password", 345.0f, 327.0f, 30);
+	Info text2 = createInfo("Graphic/Oswald-Light.ttf", "Enter new password", 345.0f, 413.0f, 30);
+	Object w1 = createObject("Graphic/w.png", 317.0f, 315.0f);
+	Object w2 = createObject("Graphic/t.png", 317.0f, 396.0f);
 	for (int i = 0; i < 3; i++)
 	{
 		bar[i] = createElement("p8_" + to_string(i + 1), 360.0f, 267.0f + 125.0f * i);
+		next_bar[i] = createElement("p8_1_" + to_string(i + 1), 360.0f, 267.0f + 125.0f * i);
 	}
 	Event event;
 	int check = 0;
+	string c1 = "", c2 = "";
+	Status button = ResetDict;
 	while (page == 8)
 	{
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
@@ -40,12 +46,99 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 					// switchPage(b1.first->bound, mouse, 2, page);
 					switchPage(home.first->bound, mouse, 4, page);
 					// switchPage(revision.first->bound, mouse, 7, page);
-					if (isHere(bar[0], mouse) && check == 0)
+					if (check == 0)
 					{
-						check = -1;
+						if (is_admin)
+						{
+							if ((int)button < 4)
+							{
+								if (isHere(bar[0], mouse))
+								{
+									button = ResetDict;
+									check = -1;
+								}
+								else if (isHere(bar[1], mouse))
+								{
+									button = ResetAllDict;
+									check = -1;
+								}
+							}
+							else
+							{
+								if (isHere(bar[0], mouse))
+								{
+									button = ChangeData;
+									c1 = "Enter dictionary";
+									c2 = "Enter path";
+									changeInfo(text1, text2, c1, c2);
+									check = -1;
+								}
+								else if (isHere(bar[1], mouse))
+								{
+									button = ImportNew;
+									c1 = "Enter dictionary";
+									c2 = "Enter path";
+									changeInfo(text1, text2, c1, c2);
+									check = -1;
+								}
+								else if (isHere(bar[2], mouse))
+								{
+									button = RemDict;
+									c1 = "Enter dictionary";
+									c2 = "Enter reason";
+									changeInfo(text1, text2, c1, c2);
+									check = -1;
+								}
+							}
+							if ((int)button > 3 && isHere(left_right.left[2], mouse))
+							{
+								button = ChangePw;
+							}
+							else if ((int)button < 4 && isHere(left_right.right[2], mouse))
+							{
+								button = RemDict;
+							}
+						}
+						if (isHere(bar[2], mouse))
+						{
+							button = ChangePw;
+							c1 = "Enter old password";
+							c2 = "Enter new password";
+							changeInfo(text1, text2, c1, c2);
+							check = -1;
+						}
+					}
+					if (check == -1)
+					{
+						if (isHere(w1.bound, mouse))
+						{
+							text1.check = true;
+							text2.check = false;
+							text1.text.setString(text1.s);
+							if (text2.s == "") text2.text.setString(c2);
+						}
+						else if (isHere(w2.bound, mouse))
+						{
+							text2.check = true;
+							text1.check = false;
+							text2.text.setString(text2.s);
+							if (text1.s == "") text1.text.setString(c1);
+						}
+						else
+						{
+							text1.check = false;
+							text2.check = false;
+							if (text1.s == "") text1.text.setString(c1);
+							if (text2.s == "") text2.text.setString(c2);
+						}
 					}
 				}
 				break;
+			}
+			case Event::TextEntered:
+			{
+				texting(text2, event.text.unicode, 30);
+				texting(text1, event.text.unicode, 30);
 			}
 			default:
 				break;
@@ -62,32 +155,110 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 		window.draw(settings1.draw);
 		if (!check)
 		{
-			for (int i = 0; i < 3; i++)
+			if ((int)button < 4)
 			{
-				drawWhich(window, bar[i], mouse);
+				for (int i = 0; i < 3; i++)
+				{
+					drawWhich(window, bar[i], mouse);
+				}
 			}
+			else
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					drawWhich(window, next_bar[i], mouse);
+				}
+			}
+			left_right.draw(window, mouse, 2);
 		}
 		else
 		{
-			for (int i = 0; i < 3; i++)
+			if ((int)button < 4)
 			{
-				window.draw(bar[i].first->draw);
+				for (int i = 0; i < 3; i++)
+				{
+					window.draw(bar[i].first->draw);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < 3; i++)
+				{
+					window.draw(next_bar[i].first->draw);
+				}
+			}
+			window.draw(left_right.left[2].first->draw);
+			window.draw(left_right.right[2].first->draw);
+		}
+		int res;
+		if (button == ResetAllDict || button == ResetDict || button == RemDict)
+		{
+			res = checkConfirmation(window, check, confirm, mouse);
+		}
+		else
+		{
+			res = checkConfirmation(window, check, confirm_pw, mouse);
+		}
+		if (button == ChangePw)
+		{
+			if (res == 1 && check == -1)
+			{
+				window.draw(text1.text);
+				window.draw(text2.text);
+				drawText(window, text1);
+				drawText(window, text2);
+			}
+			else if (res == -1)
+			{
+				// change user's password
 			}
 		}
-		drawWhich(window, pLeft, mouse);
-		drawWhich(window, pRight, mouse);
-		checkConfirmation(window, check, confirm, mouse);
+		else if (is_admin) 
+		{
+			if (res == -1)
+			{
+				if (button == ResetAllDict)
+				{
+					// reset all dictionary
+				}
+				else if (button == ResetDict)
+				{
+					// reset the current only
+				}
+				else if (button == ChangeData)
+				{
+					// change current dataset
+				}
+				else if (button == RemDict)
+				{
+					// view all the users
+				}
+				else if (button == ImportNew)
+				{
+					// import new dictionary
+				}
+			}
+			else if (res == 1 && button != ResetAllDict && button != ResetDict && button != RemDict && check == -1)
+			{
+				window.draw(text1.text);
+				window.draw(text2.text);
+				drawText(window, text1);
+				drawText(window, text2);
+			}
+		}
+		left_right.draw(window, mouse, 0);
 		window.display();
 	}
 	for (int i = 0; i < 3; i++)
 	{
 		deallocate(bar[i]);
+		deallocate(next_bar[i]);
 	}
 	deallocate(del);
 	deallocate(fav);
 	deallocate(home);
-	deallocate(pLeft);
-	deallocate(pRight);
 	deallocate(user);
 	deallocate(confirm);
+	deallocate(confirm_pw);
+	left_right.deleteLR();
 }

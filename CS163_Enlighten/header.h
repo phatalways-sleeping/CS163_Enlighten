@@ -71,6 +71,7 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 void resetInfo(Info*& a, string s);
 void resetInfo(Info& a, string s);
 int checkString(Info a);
+void changeInfo(Info& a, Info& b, string name_a, string name_b);
 
 //---------------------Scene--------------------------
 void Scene1(RenderWindow &window, int &page, Enlighten &dataset);

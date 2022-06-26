@@ -47,9 +47,6 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 
 
 
-// chua co xong nheeeee
-
-
 void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset)
 {
 	bool tab = false;
@@ -119,6 +116,7 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 	}
 	deallocate(admin);
 	deallocate(user);
+	cerr << is_admin << endl;
 }
 
 

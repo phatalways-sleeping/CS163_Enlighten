@@ -31,7 +31,8 @@ using namespace std;
  const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
  const double TOTAL = 5.88124e+11;
 
- 
+ enum Status{ResetDict = 1, ResetAllDict = 2, ChangePw = 3, ChangeData = 4, ImportNew = 5, RemDict = 6};
+
 struct Object
 {
 	Sprite draw;

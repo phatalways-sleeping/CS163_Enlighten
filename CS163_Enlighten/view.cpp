@@ -1,6 +1,15 @@
 #pragma once
 #include "header.h"
 
+void changeInfo(Info& a, Info& b, string name_a, string name_b)
+{
+	a.s = "";
+	b.s = "";
+	a.text.setString(name_a);
+	b.text.setString(name_b);
+}
+
+
 void resetInfo(Info& a, string s)
 {
 	a.s = "";
