@@ -262,7 +262,7 @@ struct Edit
 				return 0;
 			}
 			int res = checkConfirmation(window, check, new_word, mouse);
-			if (is_admin)
+			if (is_admin && check == -1)
 			{
 				window.draw((is_fixed ? fixed.draw : unfixed.draw));
 			}
