@@ -211,7 +211,11 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		else if (check_me == 2)
 		{
 			// change the word directly
-			//definition.s = 
+			//definition.s =
+			string insert_word = word_here;
+			string insert_defi = edit_word.enter_defi.s;
+			insert(dataset.user_Trie[cur_id], insert_word, insert_defi);
+			all_defi.push_back(edit_word.enter_defi.s);
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
 			word_type.text.setString(word_type.s);
