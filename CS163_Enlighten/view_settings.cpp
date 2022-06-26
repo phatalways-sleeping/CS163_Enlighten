@@ -219,7 +219,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			{
 				if (button == ResetAllDict)
 				{
-					// reset all dictionary
+					// reset all dictionary 
 				}
 				else if (button == ResetDict)
 				{

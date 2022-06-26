@@ -328,6 +328,7 @@ void reset(Trie &T);
 
 //-------------------Search---------------------------------
 vector<string> search_result(Trie T, string keyword, int nums);
+bool search_result(Trie T, string keyword, int nums, vector <string>& res);
 //-------------------Search for definition------------------
 vector<string> splitword(string str);
 vector<string> search_def(Trie &T, string def, int nums);
