@@ -136,6 +136,14 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							}
 						}
 					}
+					if (isHere(left_right.left[2], mouse) && user_cur_page > 0)
+					{
+						user_cur_page--;
+					}
+					else if (isHere(left_right.right[2], mouse) && (user_cur_page + 1) * 3 < user_defi.size())
+					{
+						user_cur_page++;
+					}
 				}
 				else
 				{
