@@ -132,6 +132,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							if (isHere(deleteB[i], mouse))
 							{
 								// delete user_definition
+								user_defi.erase(user_defi.begin() + id);
 							}
 						}
 					}
