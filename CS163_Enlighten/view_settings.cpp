@@ -99,7 +99,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 								button = RemDict;
 							}
 						}
-						if (isHere(bar[2], mouse))
+						if (isHere(bar[2], mouse) && (int)button < 4)
 						{
 							button = ChangePw;
 							c1 = "Enter old password";
@@ -108,7 +108,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 							check = -1;
 						}
 					}
-					if (check == -1)
+					else if (check == -1)
 					{
 						if (isHere(w1.bound, mouse))
 						{
