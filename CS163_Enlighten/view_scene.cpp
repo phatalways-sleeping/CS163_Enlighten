@@ -1,31 +1,33 @@
 #pragma once
 #include "header.h"
 
-void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is_fav, Enlighten& dataset, string word_here)
+void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here)
 {
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	int cur_id = dataset.cur_id;
-	vector <string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
-	vector <pair<string, string>> user_defi;
+	vector<string> all_defi = search_result(dataset.user_Trie[cur_id], word_here, 20);
+	vector<pair<string, string>> user_defi;
 	int defi_id = -1;
 	int user_defi_id = -1;
 	int user_cur_page = 0;
 	string path;
-	if (dataset.is_admin) path = ADMIN;
-	else path = USERS;
+	if (dataset.is_admin)
+		path = ADMIN;
+	else
+		path = USERS;
 	string cur_defi = "";
-	if (all_defi.size()) {
+	if (all_defi.size())
+	{
 		cur_defi = all_defi[0];
 		defi_id = 0;
-
 	}
 	int id_fav_word = -1;
 	bool is_fav_word = inVector(word_here, dataset.favorite, id_fav_word);
 	Info word = createInfo("Graphic/Roboto-Regular.ttf", word_here, 380.0f, 180.0f, 64);
 	Info definition = createInfo("Graphic/Roboto-Regular.ttf", cur_defi, 380.0f, 264.0f, 26);
-	Info word_type = createInfo("Graphic/Roboto-Regular.ttf", "(" /*+ "word type" +*/, 390.0f + definition.bound.width, 210.0f, 30);
+	Info word_type = createInfo("Graphic/Roboto-Regular.ttf", "(" /*+ "word type" +*/, 390.0f + word.bound.width, 210.0f, 30);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -38,6 +40,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	pair<Object *, Object *> deleteB[3];
 	Object w = createObject("Graphic/w.png", 317.0f, 196.0f);
 	Object t = createObject("Graphic/t.png", 317.0f, 272.0f);
 	Object d = createObject("Graphic/d.png", 317.0f, 348.0f);
@@ -48,13 +51,15 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	Info *name[3], *defi[3];
 	for (int i = 0; i < 3; i++)
 	{
+		deleteB[i] = createElement("del", 980.0f, 410.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/p5_info_bar.png", 397.0f, 378.0f + 110.0f * i);
 		name[i] = createInfoTest("Graphic/Roboto-Regular.ttf", "demo username", 426.0f, 396.0f + 110.0f * i, 18);
 		defi[i] = createInfoTest("Graphic/RobotoCondensed-Bold.ttf", "demo definition here", 426.0f, 420.0f + 110.0f * i, 25);
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
-	bool flag = false;
+	
+	bool flag = false, is_fixed = false;
 	definition.s = cur_defi;
 	definition.text.setString(definition.s);
 	int check = 0;
@@ -79,6 +84,8 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 					switchPage(del.first->bound, mouse, 1, page);
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
+					if (isHere(edit_word.fixed.bound, mouse))
+						is_fixed ^= 1;
 				}
 				if (!flag)
 				{
@@ -101,7 +108,6 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 						cur_defi = all_defi[defi_id];
 						definition.s = cur_defi;
 						definition.text.setString(definition.s);
-
 					}
 					else if (isHere(left_right.right[1], mouse) && defi_id + 1 < all_defi.size())
 					{
@@ -116,6 +122,19 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 						edit_word.reset(existed_word);
 						check = -1;
 					}
+					else if (is_admin)
+					{
+						for (int i = 0; i < 3; i++)
+						{
+							int id = i + user_cur_page * 3;
+							if (id >= user_defi.size())
+								break;
+							if (isHere(deleteB[i], mouse))
+							{
+								// delete user_definition
+							}
+						}
+					}
 				}
 				else
 				{
@@ -129,7 +148,6 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 				{
 					texting(edit_word.enter_type, event.text.unicode, 30);
 					texting_endl(edit_word.enter_defi, event.text.unicode, 36);
-					
 				}
 				break;
 			}
@@ -159,7 +177,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 		window.draw(search_bar.draw);
 		window.draw(word.text);
 		drawLongText(window, definition, true, 50);
-		//window.draw(definition.text);
+		// window.draw(definition.text);
 		for (int i = 0; i < 3; i++)
 		{
 			int id = i + user_cur_page * 3;
@@ -172,16 +190,23 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
+			if (is_admin)
+				drawWhich(window, deleteB[i], mouse);
 		}
-		int check_me = edit_word.draw(window, mouse, flag, check, existed_word);
-		if (check_me)
+		int check_me = edit_word.draw(window, mouse, flag, check, existed_word, is_admin, is_fixed);
+		if (check_me == 1)
 		{
-			user_defi.push_back({ dataset.username, edit_word.enter_defi.s });
+			user_defi.push_back({dataset.username, edit_word.enter_defi.s});
 			// them dinh nghia cua nguoi dung
-
 		}
-		
-		
+		else if (check_me == 2)
+		{
+			// change the word directly
+			//definition.s = 
+			word_type.s = existed_word.type;
+			definition.text.setString(definition.s);
+			word_type.text.setString(word_type.s);
+		}
 		window.display();
 	}
 	deallocate(home);
@@ -198,6 +223,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 	for (int i = 0; i < 3; i++)
 	{
 		delete border[i], name[i], defi[i];
+		deallocate(deleteB[i]);
 	}
 	edit_word.deleteEdit();
 }
@@ -230,8 +256,10 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 	int cur_page = 0;
 	bool check = true;
 	string path;
-	if (dataset.is_admin) path = ADMIN;
-	else path = USERS;
+	if (dataset.is_admin)
+		path = ADMIN;
+	else
+		path = USERS;
 	int WHAT_LIST;
 	if (is_fav)
 		WHAT_LIST = FAVORITE_LIST;
@@ -303,12 +331,13 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 					{
 						if (i + cur_page * 5 >= size)
 							break;
-						if (isHere(border[i], mouse) && !name[i]->s.empty()) { // word display
+						if (isHere(border[i], mouse) && !name[i]->s.empty())
+						{ // word display
 							page = 5;
 							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
 							return;
 						}
-						if (isHere(rem[i], mouse))  // del 1 defi
+						if (isHere(rem[i], mouse)) // del 1 defi
 						{
 							size--;
 							if (size % 5 == 0 && cur_page > 0)
@@ -366,7 +395,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 				break;
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
-			//window.draw(defi[i]->text);
+			// window.draw(defi[i]->text);
 			drawLongText(window, defi[i]);
 			drawWhich(window, rem[i], mouse);
 		}
@@ -390,4 +419,3 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 		delete border[i], name[i], defi[i], rem[i];
 	}
 }
-

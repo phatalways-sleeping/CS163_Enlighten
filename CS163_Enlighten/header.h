@@ -228,6 +228,8 @@ struct Edit
 	Info enter_word = createInfo("Graphic/Oswald-Light.ttf", "Enter word", 345.0f, 210.0f, 30);
 	Info enter_type = createInfo("Graphic/Oswald-Light.ttf", "Enter type of word", 345.0f, 280.0f, 30);
 	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 358.0f, 30);
+	Object fixed = createObject("Graphic/p0_fixed.png", 837.0f, 196.0f);
+	Object unfixed = createObject("Graphic/p0_unfixed.png", 837.0f, 196.0f);
 	
 	Edit(string word, string type)
 	{
@@ -248,21 +250,27 @@ struct Edit
 		enter_defi.check = false;
 	}
 
-	int draw(RenderWindow& window, Vector2f& mouse, bool& flag, int& check, Vocabulary& existed_word)
+	// 1: dinh nghia nguoi dung, 2: dinh nghia admin
+	int draw(RenderWindow& window, Vector2f& mouse, bool& flag, int& check, Vocabulary& existed_word, const bool& is_admin, bool& is_fixed)
 	{
 		if (flag)
 		{
 			if (check == 0)
 			{
 				flag = false;
-				return false;
+				return 0;
 			}
 			int res = checkConfirmation(window, check, new_word, mouse);
+			if (is_admin)
+			{
+				window.draw((is_fixed ? fixed.draw : unfixed.draw));
+			}
 			if (res == -1)
 			{
 				existed_word.read(enter_defi.s);
 				existed_word.type = enter_type.s;
-				return true;
+				if (is_admin && is_fixed) return 2;
+				return 1;
 			}
 			else if (res == 0)
 			{
@@ -283,7 +291,7 @@ struct Edit
 		{
 			drawWhich(window, edit, mouse);
 		}
-		return false;
+		return 0;
 	}
 
 	void deleteEdit()
