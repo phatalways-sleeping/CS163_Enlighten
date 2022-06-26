@@ -113,6 +113,7 @@ void wordDisplay(RenderWindow& window, int& page, const bool& is_admin, bool& is
 					if (isHere(edit_word.edit, mouse))
 					{
 						flag = true;
+						edit_word.reset(existed_word);
 						check = -1;
 					}
 				}

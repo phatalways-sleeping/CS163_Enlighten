@@ -88,6 +88,16 @@ struct Vocabulary {
 	string type;
 	vector<string> definitions;
 
+	void resetWord(bool include_word)
+	{
+		if (include_word)
+		{
+			word = "";
+		}
+		type = "";
+		definitions.clear();
+	}
+
 	void read(string s)
 	{
 		/*stringstream readMe(s);
@@ -227,10 +237,26 @@ struct Edit
 		enter_type.text.setString(type);
 	}
 
-	int draw(RenderWindow& window, Vector2f& mouse, bool flag, int& check, Vocabulary& existed_word)
+	void reset(Vocabulary& word)
+	{
+		word.resetWord(false);
+		enter_type.s = "";
+		enter_type.check = false;
+		enter_type.text.setString("Enter type of word");
+		enter_defi.s = "";
+		enter_defi.text.setString("Enter definition");
+		enter_defi.check = false;
+	}
+
+	int draw(RenderWindow& window, Vector2f& mouse, bool& flag, int& check, Vocabulary& existed_word)
 	{
 		if (flag)
 		{
+			if (check == 0)
+			{
+				flag = false;
+				return false;
+			}
 			int res = checkConfirmation(window, check, new_word, mouse);
 			if (res == -1)
 			{
@@ -242,7 +268,7 @@ struct Edit
 			{
 				flag = false;
 			}
-			else
+			else if (check == -1)
 			{
 				window.draw(enter_word.text);
 				window.draw(enter_defi.text);
