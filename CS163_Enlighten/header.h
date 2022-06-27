@@ -89,7 +89,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here);
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
-void settings(RenderWindow &window, int &page, const bool &is_admin, string username, Enlighten &dataset);
+void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 //------------------Struct(cont)-------------------------
 struct Vocabulary {

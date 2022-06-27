@@ -47,7 +47,7 @@ int main()
             revision(window, page, dataset, level, difficulty);
             break;
         case 8:
-            settings(window, page, true, username,dataset);
+            settings(window, page, true, dataset);
             break;
         case 9:
             testQA(window, page, dataset, level, difficulty);

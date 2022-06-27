@@ -1,6 +1,6 @@
 #include "header.h"
 
-void settings(RenderWindow &window, int &page, const bool &is_admin, string username, Enlighten &dataset)
+void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset)
 {
 	Object screen = createObject("Graphic/border.png");
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -210,7 +210,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, string user
 			}
 			else if (res == -1)
 			{
-				if (changePassword(username, text1.s, text2.s, ADMIN)) 
+				if (changePassword(dataset.username ,text1.s, text2.s, ADMIN)) 
 				{
 					// successfully change the password
 				}
