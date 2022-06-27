@@ -5,7 +5,7 @@
 //------------------Functions with Data--------------------------
 void duplicateOriginalData(const string original_data_path, const string use_data);
 bool deallocateDuplicatedData(const string use_data);
-bool removeDatasets(string path, string name);
+bool removeDatasets(string source);
 bool resetCurrentDataset(string path, string name, string original_path);
 bool addNewDataSets(string path, string destination);
 bool addToUseData(string path, string destination);

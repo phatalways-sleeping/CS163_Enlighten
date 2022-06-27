@@ -24,7 +24,10 @@ bool deallocateDuplicatedData(const string use_data) {
 	return false;
 }
 
-bool removeDatasets(string path, string name) {
+bool removeDatasets(string source) {
+	int index_of_split = source.find_last_of("\//");
+	string path = source.substr(0, index_of_split), name = source.substr(index_of_split + 1);
+	string folder_name = upper(name.substr(0, name.find_last_of(".")));
 	ifstream infile(path + "//datasetsnames.txt");
 	if (infile.fail()) {
 		cout << "Error at opening datasets names.";
@@ -37,7 +40,7 @@ bool removeDatasets(string path, string name) {
 	while (getline(infile, line)) {
 		names.push_back(line);
 		i++;
-		if (line == name) {
+		if (line == folder_name) {
 			allow_to_modify = true;
 			index = i;
 		}
@@ -50,7 +53,7 @@ bool removeDatasets(string path, string name) {
 			for (int i = 0; i < names.size(); i++) outfile << names[i] << '\n';
 		}
 		outfile.close();
-		filesystem::remove_all(path + "//" + name);
+		filesystem::remove_all(path + "//" + folder_name);
 	}
 	return allow_to_modify;
 }
