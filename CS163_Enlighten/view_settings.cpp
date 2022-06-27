@@ -242,7 +242,8 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ChangeData)
 				{
-					// change dataset
+					/*removeDatasets(use_data + "//" + text1.s.substr(text1.s.find_last_of(".") + 1));
+					removeDatasets(original_data_path + "//" + );*/
 					// if (false) check = 2;
 				}
 				else if (button == RemDict)
