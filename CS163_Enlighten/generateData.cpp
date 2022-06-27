@@ -23,3 +23,34 @@ bool deallocateDuplicatedData(const string use_data) {
 	if (filesystem::remove_all(use_data)) return true;
 	return false;
 }
+
+bool removeDatasets(string path, string name) {
+	ifstream infile(path + "//datasetsnames.txt");
+	if (infile.fail()) {
+		cout << "Error at opening datasets names.";
+		exit(1);
+	}
+	vector<string> names;
+	bool allow_to_modify = false;
+	int index = -1, i = -1;
+	string line;
+	while (getline(infile, line)) {
+		names.push_back(line);
+		i++;
+		if (line == name) {
+			allow_to_modify = true;
+			index = i;
+		}
+	}
+	infile.close();
+	if (allow_to_modify) {
+		names.erase(names.begin() + index);
+		ofstream outfile(path + "//datasetsnames.txt", ios::out);
+		if (outfile.is_open()) {
+			for (int i = 0; i < names.size(); i++) outfile << names[i] << '\n';
+		}
+		outfile.close();
+		filesystem::remove_all(path + "//" + name);
+	}
+	return allow_to_modify;
+}
