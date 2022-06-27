@@ -154,5 +154,49 @@ bool addNewDataSets(string path, string destination) {
 	// Copying the new dataset into the newly created folder
 	filesystem::copy_file(source + "/" + dataset_name, destination + "/" + dataset_folder + "/" + dataset_name);
 
+	return addToUseData(destination + "/" + dataset_folder + "/" + dataset_name, use_data);
+}
+
+bool addToUseData(string path, string destination) {
+	int index_of_split = path.find_last_of("\//");
+	string dataset_name = path.substr(index_of_split + 1);
+	string dataset_folder = upper(dataset_name.substr(0, dataset_name.find_last_of(".")));
+	if (path.empty() || destination.empty() || dataset_folder.empty() || dataset_name.empty()) return false;
+	ifstream infile(destination + "//datasetsnames.txt");
+	if (infile.fail())
+	{
+		cout << "Error at opening datasets names.";
+		exit(1);
+	}
+	bool already_contain = false;
+	string line;
+	while (getline(infile, line)) {
+		if (line == dataset_folder)
+		{
+			already_contain = true;
+			break;
+		}
+	}
+	infile.close();
+
+	if (already_contain) filesystem::remove_all(destination + "//" + dataset_folder);
+	filesystem::create_directory(destination + "//" + dataset_folder);
+
+	if (!already_contain) {
+		ofstream outfile(destination + "//datasetsnames.txt", ios::app);
+		if (outfile.is_open()) {
+			outfile << dataset_folder << "\n";
+		}
+		outfile.close();
+	}
+
+	ofstream outfile(destination + "//" + dataset_folder + "//datasetsnames.txt", ios::out);
+	if (outfile.is_open()) {
+		outfile << dataset_name << "\n";
+	}
+	outfile.close();
+
+	// Copying the new dataset into the newly created folder
+	filesystem::copy_file(path, destination + "/" + dataset_folder + "/" + dataset_name);
 	return true;
 }

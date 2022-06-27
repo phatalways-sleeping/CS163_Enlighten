@@ -252,8 +252,14 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, string user
 				}
 				else if (button == ImportNew)
 				{
-					// import new dictionary
-					// if (false) check = 2;
+					if (addNewDataSets(text2.s, original_data_path)) 
+					{
+						// successfully added
+					}
+					else
+					{
+						check = 2;
+					}
 				}
 			}
 			else if (res == 1 && button != ResetAllDict && button != ResetDict && button != RemDict && check == -1)
