@@ -2,9 +2,10 @@
 
 #include "struct_and_dependencies.h"
 
-//------------------Copy Data--------------------------
+//------------------Functions with Data--------------------------
 void duplicateOriginalData(const string original_data_path, const string use_data);
 bool deallocateDuplicatedData(const string use_data);
+bool removeDatasets(string path, string name);
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 bool changePassword(string username, string old_pass, string new_pass,string path);
