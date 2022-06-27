@@ -35,6 +35,27 @@ bool insert(Trie& T, string word, string def) {
     }
     (root->def).push_back(def);
     root->word = word;
+    vector <string> examples;
+    pair <string, string> type_and_defi = { "", def };
+    root->definitions.push_back({ type_and_defi, examples });
+    return true;
+}
+bool insert(Trie& T, string word, string type, string def) {
+    if (word == "") return false;
+    Node* root = T.root;
+    for (unsigned int i = 0; i < word.size(); i++) {
+        int ch = word[i];
+        if (ch < 0 || ch > 255) return false;
+        if (!root->child[ch]) {
+            root->child[ch] = new Node();
+        }
+        root = root->child[ch];
+    }
+    (root->def).push_back(def);
+    root->word = word;
+    vector <string> examples;
+    pair <string, string> type_and_defi = { type, def };
+    root->definitions.push_back({ type_and_defi, examples });
     return true;
 }
 

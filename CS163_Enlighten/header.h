@@ -383,3 +383,4 @@ void sleepHere(double s);
 void typingWhat(Object& d, Object& w, Object&t, Vector2f& mouse, SearchBar& do_search);
 void typingWhat(Object& d, Object& w, Object& t, Vector2f& mouse, Edit& do_search);
 
+bool insert(Trie& T, string word, string type, string def);

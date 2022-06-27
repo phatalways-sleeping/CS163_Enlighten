@@ -18,6 +18,11 @@ bool insert(Trie& T, string word, const Node& current) {
         root = root->child[ch];
     }
     root->word = word; root->definitions = current.definitions; root->antonyms = current.antonyms; root->synonyms = current.synonyms; 
+    root->user_definitions = current.user_definitions;
+    for (auto info : current.definitions) {
+        string def = info.first.second;
+        root->def.push_back(def);
+    }
     return true;
 }
 
@@ -93,6 +98,8 @@ json writeToJSON(Node* root) {
         Node current = data[i];
         json meanings = json({});
         json elements_of_userdefinition = json({});
+        if (current.word == "dog")
+            cout << current.user_definitions.size() << endl;
         for (int j = 0; j < current.user_definitions.size(); j++)
             elements_of_userdefinition[current.user_definitions[j].first] = current.user_definitions[j].second;
         json elements_of_meanings = json({});

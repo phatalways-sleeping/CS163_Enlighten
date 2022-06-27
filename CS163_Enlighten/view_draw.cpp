@@ -32,8 +32,8 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		// input text file
 		Trie T;
-		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
-
+		//inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
+		readJson(T, JSONPATH);
 		sleepHere(1.0);
 		dataset.user_Trie.push_back(T);
 		count++;

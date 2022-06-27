@@ -64,6 +64,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	bool flag = false, is_fixed = false;
 	definition.s = cur_defi;
 	definition.text.setString(definition.s);
+
 	int check = 0;
 	while (page == 5)
 	{
@@ -205,9 +206,12 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 				drawWhich(window, deleteB[i], mouse);
 		}
 		int check_me = edit_word.draw(window, mouse, flag, check, existed_word, is_admin, is_fixed);
+		
 		if (check_me == 1)
 		{
-			user_defi.push_back({dataset.username, edit_word.enter_defi.s});
+			if (!edit_word.enter_type.s.empty() && edit_word.enter_type.s[0] != '(')
+				edit_word.enter_type.s = '(' + edit_word.enter_type.s + ") ";
+			user_defi.push_back({dataset.username, edit_word.enter_type.s + edit_word.enter_defi.s});
 			// them dinh nghia cua nguoi dung
 			// sua file data ?
 			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
@@ -221,8 +225,12 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			// change the word directly
 			// sua file data ?
 			string insert_word = word_here;
+			string insert_type = "";
+			if (!edit_word.enter_type.s.empty() && edit_word.enter_type.s[0] != '(')
+				edit_word.enter_type.s = '(' + edit_word.enter_type.s + ") ";
+			insert_type = edit_word.enter_type.s;
 			string insert_defi = edit_word.enter_defi.s;
-			insert(dataset.user_Trie[cur_id], insert_word, insert_defi);
+			insert(dataset.user_Trie[cur_id], insert_word, insert_type, insert_defi);
 			all_defi.push_back(edit_word.enter_defi.s);
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
