@@ -33,12 +33,25 @@ bool remove_eng(Trie& T, string word) {
     return true;
 }
 
+string normalize(string s) {
+    string ns = "";
+    for (int i = 0; i < s.size(); i++) {
+        if ('A' <= s[i] && s[i] <= 'Z') {
+            ns += s[i] - 'A' + 'a';
+        }
+        else {
+            ns += s[i];
+        }
+    }
+    return ns;
+}
+
 void convert(json data, Trie& root) {
     Node k;
     //clock_t start = clock();
     for (auto a = data.begin(); a != data.end(); a++) {
         clear(k);
-        k.word = a.key();
+        k.word = normalize(a.key());
         for (auto i = a->at("ANTONYMS").begin(); i != a->at("ANTONYMS").end(); i++) k.antonyms.push_back((string)*i);
         for (auto i = a->at("SYNONYMS").begin(); i != a->at("SYNONYMS").end(); i++) k.synonyms.push_back((string)*i);
         for (auto i = a->at("USERDEFINITIONS").begin(); i != a->at("USERDEFINITIONS").end(); i++) k.user_definitions.push_back({i.key(), i.value()});

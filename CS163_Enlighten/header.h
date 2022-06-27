@@ -8,6 +8,7 @@ bool deallocateDuplicatedData(const string use_data);
 bool removeDatasets(string path, string name);
 bool resetCurrentDataset(string path, string name, string original_path);
 bool addNewDataSets(string source, string destination, string dataset_folder, string dataset_name);
+string upper(string s);
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 bool changePassword(string username, string old_pass, string new_pass,string path);
@@ -23,6 +24,7 @@ void convert(json data, Trie &root);
 void convert(Node *T, vector<Node> &v);
 bool edit_eng(Trie &T, string word, string kind_word, string new_definition);
 json writeToJSON(const Trie &T);
+string normalize(string s);
 
 //--------------Autocomplete Word Functions-------------
 void fillCompleteList(Node *cur, string word, vector<string> &completeList, int limit);

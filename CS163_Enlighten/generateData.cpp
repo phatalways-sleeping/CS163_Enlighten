@@ -92,7 +92,24 @@ bool resetCurrentDataset(string path, string name, string original_path) {
 	return allow_to_modify;
 }
 
-bool addNewDataSets(string source, string destination, string dataset_folder, string dataset_name) {
+string upper(string s) {
+	string ns = "";
+	for (int i = 0; i < s.size(); i++) {
+		if ('a' <= s[i] && s[i] <= 'z') {
+			ns += s[i] - 'a' + 'A';
+		}
+		else {
+			ns += s[i];
+		}
+	}
+	return ns;
+}
+
+bool addNewDataSets(string path, string destination) {
+	int index_of_split = path.find_last_of("\//");
+	string source = path.substr(0, index_of_split);
+	string dataset_name = path.substr(index_of_split + 1);
+	string dataset_folder = upper(dataset_name.substr(0, dataset_name.find_last_of(".")));
 	// Checking if there is any error in arguments
 	if (source.empty() || destination.empty() || dataset_folder.empty() || dataset_name.empty()) return false;
 
