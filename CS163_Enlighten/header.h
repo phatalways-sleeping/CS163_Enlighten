@@ -7,7 +7,7 @@ void duplicateOriginalData(const string original_data_path, const string use_dat
 bool deallocateDuplicatedData(const string use_data);
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
-void changePassword(string username, string new_pass, string path);
+bool changePassword(string username, string old_pass, string new_pass,string path);
 bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string> &list, string path);
 void modify_csv(string username, int CASE, vector<string>& list, string path);
@@ -81,7 +81,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here);
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
-void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
+void settings(RenderWindow &window, int &page, const bool &is_admin, string username, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 //------------------Struct(cont)-------------------------
 struct Vocabulary {

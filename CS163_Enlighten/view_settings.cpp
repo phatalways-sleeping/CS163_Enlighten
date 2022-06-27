@@ -1,6 +1,6 @@
 #include "header.h"
 
-void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset)
+void settings(RenderWindow &window, int &page, const bool &is_admin, string username, Enlighten &dataset)
 {
 	Object screen = createObject("Graphic/border.png");
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
@@ -210,7 +210,14 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			}
 			else if (res == -1)
 			{
-				// change user's password
+				if (changePassword(username, text1.s, text2.s, ADMIN)) 
+				{
+					// successfully change the password
+				}
+				else
+				{
+					// 
+				}
 			}
 		}
 		else if (is_admin) 
@@ -219,7 +226,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			{
 				if (button == ResetAllDict)
 				{
-					// reset all dictionary 
+					duplicateOriginalData(original_data_path, use_data);
 				}
 				else if (button == ResetDict)
 				{

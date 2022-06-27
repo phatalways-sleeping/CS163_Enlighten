@@ -160,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CS163_Enlighten.cpp" />
+    <ClCompile Include="generateData.cpp" />
     <ClCompile Include="list_function.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Source.cpp" />

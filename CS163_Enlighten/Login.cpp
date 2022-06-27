@@ -44,10 +44,11 @@ bool login(string username, string password, string path, vector<string>& search
     return false;
 }
 
-void changePassword(string username, string new_pass, string path)
+bool changePassword(string username, string old_pass, string new_pass, string path)
 {
     ifstream file(path, ios::in);
     vector<vector<string>> v;
+    bool allow_to_modify = false;
     vector<string> k;
     string line, word;
     if (file.is_open())
@@ -61,28 +62,36 @@ void changePassword(string username, string new_pass, string path)
             v.push_back(k);
         }
     }
+    file.close();
     for (unsigned int i = 0; i < v.size(); i++)
     {
         if (v[i][0] == username)
         {
-            v[i][1] = new_pass;
+            if (v[i][1] == old_pass) 
+            {
+                v[i][1] = new_pass;
+                allow_to_modify = true;
+            }
             break;
         }
     }
-    file.close();
-    ofstream f(path, ios::out);
-    if (f.is_open())
+    if (allow_to_modify)
     {
-        for (unsigned int i = 0; i < v.size(); i++)
+        ofstream f(path, ios::out);
+        if (f.is_open())
         {
-            for (unsigned int j = 0; j < v[i].size(); j++)
+            for (unsigned int i = 0; i < v.size(); i++)
             {
-                f << v[i][j] << ',';
+                for (unsigned int j = 0; j < v[i].size(); j++)
+                {
+                    f << v[i][j] << ',';
+                }
+                f << '\n';
             }
-            f << '\n';
         }
+        f.close();
     }
-    f.close();
+    return allow_to_modify;
 }
 
 bool createNewAccount(string username, string password, string path)

@@ -72,6 +72,9 @@
     <ClCompile Include="list_function.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="generateData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct_and_dependencies.h">
