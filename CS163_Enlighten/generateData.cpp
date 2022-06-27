@@ -54,3 +54,40 @@ bool removeDatasets(string path, string name) {
 	}
 	return allow_to_modify;
 }
+
+bool resetCurrentDataset(string path, string name, string original_path) {
+	ifstream infile(path + "//datasetsnames.txt");
+	if (infile.fail()) {
+		cout << "Error at opening datasets names.";
+		exit(1);
+	}
+	bool allow_to_modify = false;
+	string line;
+	while (getline(infile, line)) {
+		if (line == name) {
+			allow_to_modify = true;
+			break;
+		}
+	}
+	infile.close();
+	if (!allow_to_modify) return false;
+	allow_to_modify = false;
+	infile.open(original_path + "//datasetsnames.txt");
+	if (infile.fail()) {
+		cout << "Error at opening datasets names.";
+		exit(1);
+	}
+	while (getline(infile, line)) {
+		if (line == name) {
+			allow_to_modify = true;
+			break;
+		}
+	}
+	if (allow_to_modify) {
+		filesystem::remove_all(path + "//" + name);
+		filesystem::create_directory(path + "//" + name);
+		filesystem::copy(original_path + "/" + name + "/", path + "/" + name + "/");
+	}
+
+	return allow_to_modify;
+}
