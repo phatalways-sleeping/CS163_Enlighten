@@ -242,13 +242,21 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ChangeData)
 				{
-					// change dataset
+					/*removeDatasets(use_data + "//" + text1.s.substr(text1.s.find_last_of(".") + 1));
+					removeDatasets(original_data_path + "//" + );*/
 					// if (false) check = 2;
 				}
 				else if (button == RemDict)
 				{
-					// view all the users
-					// if (false) check = 2;
+					int index_of_split = text2.s.find_last_of("\//");
+					string name = text2.s.substr(index_of_split + 1);
+					if (removeDatasets(use_data + "//" + name) && removeDatasets(original_data_path + "//" + name)) {
+						// successfully removed
+					}
+					else
+					{
+						check = 2;
+					}
 				}
 				else if (button == ImportNew)
 				{

@@ -70,7 +70,7 @@ struct Node
 	vector<pair<string, string>> user_definitions;  // { username, definition }
 	vector<string> antonyms;
 	vector<string> synonyms;
-
+	// vector<pair<pair<string, string>, vector<string>>> user_definitions;
 	//For recommendations
 	double freq = 0;
 
