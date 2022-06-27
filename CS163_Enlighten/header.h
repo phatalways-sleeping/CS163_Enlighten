@@ -24,7 +24,9 @@ bool remove_eng(Trie &T, string word);
 void convert(json data, Trie &root);
 void convert(Node *T, vector<Node> &v);
 bool edit_eng(Trie &T, string word, string kind_word, string new_definition);
-json writeToJSON(const Trie &T);
+json writeToJSON(Node* root);
+bool writeJson(const Trie& T, string path);
+bool readJson(Trie& T, string path);
 string normalize(string s);
 
 //--------------Autocomplete Word Functions-------------

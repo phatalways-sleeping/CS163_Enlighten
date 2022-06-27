@@ -86,17 +86,17 @@ bool edit_eng(Trie& T, string word, string username, string new_definition) {
     return true;
 }
 
-json writeToJSON(const Trie& T) {
-    vector<Node> data; convert(T.root, data);
+json writeToJSON(Node* root) {
+    vector<Node> data; convert(root, data);
     json main = json({});
-    for (unsigned int i = 0; i < data.size(); i++) {
+    for (int i = 0; i < data.size(); i++) {
         Node current = data[i];
         json meanings = json({});
         json elements_of_userdefinition = json({});
-        for (unsigned int j = 0; j < current.user_definitions.size(); j++)
+        for (int j = 0; j < current.user_definitions.size(); j++)
             elements_of_userdefinition[current.user_definitions[j].first] = current.user_definitions[j].second;
         json elements_of_meanings = json({});
-        for (unsigned int j = 0; j < current.definitions.size(); j++) {
+        for (int j = 0; j < current.definitions.size(); j++) {
             pair<pair<string, string>, vector<string>> p = current.definitions[j];
             json a = { p.first.first, p.first.second, p.second };
             elements_of_meanings[to_string(j + 1)] = a;
@@ -108,4 +108,32 @@ json writeToJSON(const Trie& T) {
         main[current.word] = meanings;
     }
     return main;
+}
+
+bool writeJson(const Trie& T, string path) {
+    if (path.empty() || !T.root) return false;
+    ofstream file(path, ios::out);
+    if (file.fail()) {
+        file.close();
+        return false;
+    }
+    json data = writeToJSON(T.root);
+    file << data;
+    file.close();
+    return true;
+}
+
+bool readJson(Trie& T, string path) {
+    if (path.empty()) return false;
+
+    ifstream data_file(path, ifstream::binary);
+    if (data_file.fail()) {
+        data_file.close();
+        return false;
+    }
+
+    json data; data_file >> data;
+    data_file.close();
+    convert(data, T);
+    return true;
 }
