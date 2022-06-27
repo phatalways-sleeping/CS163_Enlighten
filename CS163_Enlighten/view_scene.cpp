@@ -210,6 +210,11 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			user_defi.push_back({dataset.username, edit_word.enter_defi.s});
 			// them dinh nghia cua nguoi dung
 			// sua file data ?
+			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+				cout << "Can't write file " << JSONPATH << endl;
+			else {
+				cout << "Update " << JSONPATH << ": OK\n";
+			}
 		}
 		else if (check_me == 2)
 		{
@@ -222,6 +227,11 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
 			word_type.text.setString(word_type.s);
+			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+				cout << "Can't write file " << JSONPATH << endl;
+			else {
+				cout << "Update " << JSONPATH << ": OK\n";
+			}
 		}
 		window.display();
 	}

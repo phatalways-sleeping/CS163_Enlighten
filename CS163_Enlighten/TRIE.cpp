@@ -34,6 +34,7 @@ bool insert(Trie& T, string word, string def) {
         root = root->child[ch];
     }
     (root->def).push_back(def);
+    root->word = word;
     return true;
 }
 

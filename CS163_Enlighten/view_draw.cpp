@@ -208,9 +208,10 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 			{
 				for (int i = (int(k - 1) / 6 ) * 6; i < k; i++)
 				{
-					if (isHere(s.switch_dict.button[k], mouse))
+					if (isHere(s.switch_dict.button[i], mouse))
 					{
 						// switch dictionary
+						dataset.cur_id = i;
 						return 1;
 					}
 				}
