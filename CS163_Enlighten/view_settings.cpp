@@ -217,6 +217,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, string user
 				else
 				{
 					// 
+					check = 2;
 				}
 			}
 		}
@@ -236,20 +237,23 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, string user
 					}
 					else
 					{
-
+						check = 2;
 					}
 				}
 				else if (button == ChangeData)
 				{
-					// change current dataset
+					// change dataset
+					// if (false) check = 2;
 				}
 				else if (button == RemDict)
 				{
 					// view all the users
+					// if (false) check = 2;
 				}
 				else if (button == ImportNew)
 				{
 					// import new dictionary
+					// if (false) check = 2;
 				}
 			}
 			else if (res == 1 && button != ResetAllDict && button != ResetDict && button != RemDict && check == -1)

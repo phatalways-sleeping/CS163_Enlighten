@@ -49,13 +49,7 @@ struct Info
 	string s = "";
 };
 
-struct Confirmation
-{
-	pair<Object *, Object *> board;
-	pair<Object *, Object *> nah;
-	pair<Object *, Object *> of_course;
-	pair<Object *, Object *> out;
-};
+struct Confirmation;
 
 struct Vocabulary;
 

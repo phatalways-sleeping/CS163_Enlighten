@@ -180,6 +180,11 @@ bool isHere(FloatRect &bound, Vector2f &mouse)
 	return bound.contains(mouse);
 }
 
+bool isHere(const Object*& a, Vector2f& mouse)
+{
+	return a->bound.contains(mouse);
+}
+
 Info createInfo(string s, float x, float y, unsigned int size)
 {
 	Info a;

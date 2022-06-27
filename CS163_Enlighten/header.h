@@ -305,6 +305,16 @@ struct Edit
 	}
 };
 
+
+struct Confirmation
+{
+	pair<Object*, Object*> board;
+	pair<Object*, Object*> nah;
+	pair<Object*, Object*> of_course;
+	pair<Object*, Object*> out;
+	Object invalid = createObject("Graphic/invalid.png", 200.0f, 271.0f);
+};
+
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);
 

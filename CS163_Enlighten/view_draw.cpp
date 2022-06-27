@@ -75,6 +75,19 @@ int checkConfirmation(RenderWindow& window, int& check, const Confirmation& elem
 			}
 		}
 	}
+	else if (check == 2)
+	{
+		window.draw(element.invalid.draw);
+		drawWhich(window, element.out, mouse);
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (isHere(element.out, mouse))
+			{
+				check = 0;
+				return 0;
+			}
+		}
+	}
 	else
 	{
 		window.draw(element.board.second->draw);
