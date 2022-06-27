@@ -59,7 +59,13 @@ void convert(json data, Trie& root) {
         k.word = normalize(a.key());
         for (auto i = a->at("ANTONYMS").begin(); i != a->at("ANTONYMS").end(); i++) k.antonyms.push_back((string)*i);
         for (auto i = a->at("SYNONYMS").begin(); i != a->at("SYNONYMS").end(); i++) k.synonyms.push_back((string)*i);
-        for (auto i = a->at("USERDEFINITIONS").begin(); i != a->at("USERDEFINITIONS").end(); i++) k.user_definitions.push_back({i.key(), i.value()});
+        for (auto i = a->at("USERDEFINITIONS").begin(); i != a->at("USERDEFINITIONS").end(); i++) {
+            UserDef info;
+            info.definition = i.key();
+            info.username = i->at(0); info.like = i->at(1); info.dislike = i->at(2);
+            for (auto u = 0; u < i->at(3).size(); u++)  info.list.push_back({ i->at(3)[u][0], i->at(3)[u][1] });
+            k.user_definitions.push_back(info);
+        }
         auto meanings = a->at("MEANINGS");
         vector<string> examples;
         for (auto b = meanings.begin(); b != meanings.end(); b++) {
@@ -98,10 +104,12 @@ json writeToJSON(Node* root) {
         Node current = data[i];
         json meanings = json({});
         json elements_of_userdefinition = json({});
-        if (current.word == "dog")
-            cout << current.user_definitions.size() << endl;
-        for (int j = 0; j < current.user_definitions.size(); j++)
-            elements_of_userdefinition[current.user_definitions[j].first] = current.user_definitions[j].second;
+        for (int j = 0; j < current.user_definitions.size(); j++) {
+            json info = json::array();
+            info.push_back(current.user_definitions[j].username);  info.push_back(current.user_definitions[j].like);
+            info.push_back(current.user_definitions[j].dislike);  info.push_back(current.user_definitions[j].list);
+            elements_of_userdefinition[current.user_definitions[j].definition] = info;
+        }
         json elements_of_meanings = json({});
         for (int j = 0; j < current.definitions.size(); j++) {
             pair<pair<string, string>, vector<string>> p = current.definitions[j];

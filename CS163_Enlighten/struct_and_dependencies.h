@@ -59,6 +59,14 @@ struct LeftRight;
 
 struct Dictionary;
 
+struct UserDef {
+	string username;
+	string definition;
+	int like;
+	int dislike;
+	vector<pair<string, bool>> list;
+};
+
 struct Node
 {
 	//English-Vietnamese
@@ -67,10 +75,10 @@ struct Node
 	//English-English
 	string word;
 	vector<pair<pair<string, string>, vector<string>>> definitions; // { { kind_of_word , definition } , examples }
-	vector<pair<string, string>> user_definitions;  // { username, definition }
+	vector<UserDef> user_definitions;
 	vector<string> antonyms;
 	vector<string> synonyms;
-	// vector<pair<pair<string, string>, vector<string>>> user_definitions;
+	
 	//For recommendations
 	double freq = 0;
 
