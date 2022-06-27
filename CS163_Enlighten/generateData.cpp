@@ -91,3 +91,51 @@ bool resetCurrentDataset(string path, string name, string original_path) {
 
 	return allow_to_modify;
 }
+
+bool addNewDataSets(string source, string destination, string dataset_folder, string dataset_name) {
+	// Checking if there is any error in arguments
+	if (source.empty() || destination.empty() || dataset_folder.empty() || dataset_name.empty()) return false;
+
+	// Checking whether the current location already contains the dataset_folder
+	ifstream infile(destination + "//datasetsnames.txt");
+	if (infile.fail())
+	{
+		cout << "Error at opening datasets names.";
+		exit(1);
+	}
+	bool already_contain = false;
+	string line;
+	while (getline(infile, line)) {
+		if (line == dataset_folder)
+		{
+			already_contain = true;
+			break;
+		}
+	}
+	infile.close();
+
+	// If contains, remove and create the new one
+	if (already_contain) filesystem::remove_all(destination + "//" + dataset_folder);
+	filesystem::create_directory(destination + "//" + dataset_folder);
+
+	// Update the name to the datasetsnames.txt of the location folder
+	if (!already_contain) {
+		ofstream outfile(destination + "//datasetsnames.txt", ios::app);
+		if (outfile.is_open()) {
+			outfile << dataset_folder << "\n";
+		}
+		outfile.close();
+	}
+
+	// Create the datasetsnames.txt in the newly created folder
+	ofstream outfile(destination + "//" + dataset_folder + "//datasetsnames.txt", ios::out);
+	if (outfile.is_open()) {
+		outfile << dataset_name << "\n";
+	}
+	outfile.close();
+
+	// Copying the new dataset into the newly created folder
+	filesystem::copy_file(source + "/" + dataset_name, destination + "/" + dataset_folder + "/" + dataset_name);
+
+	return true;
+}

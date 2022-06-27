@@ -7,6 +7,7 @@ void duplicateOriginalData(const string original_data_path, const string use_dat
 bool deallocateDuplicatedData(const string use_data);
 bool removeDatasets(string path, string name);
 bool resetCurrentDataset(string path, string name, string original_path);
+bool addNewDataSets(string source, string destination, string dataset_folder, string dataset_name);
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 bool changePassword(string username, string old_pass, string new_pass,string path);

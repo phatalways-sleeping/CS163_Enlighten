@@ -230,7 +230,14 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, string user
 				}
 				else if (button == ResetDict)
 				{
-					// reset the current only
+					if (resetCurrentDataset(use_data, text1.s, original_data_path)) 
+					{
+						// successfully reset
+					}
+					else
+					{
+
+					}
 				}
 				else if (button == ChangeData)
 				{
