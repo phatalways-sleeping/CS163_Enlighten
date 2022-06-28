@@ -55,11 +55,14 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
-					for (int i = 0; i < size_searchBar; i++) {
-						if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
-							page = 5;
-							wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
-							return;
+					if (search_status == 1) {
+						for (int i = 0; i < size_searchBar; i++) {
+							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
+								search_status = 0;
+								page = 5;
+								wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
+								return;
+							}
 						}
 					}
 					switchPage(search_history.first->bound, mouse, 6, page, is_fav, false);
