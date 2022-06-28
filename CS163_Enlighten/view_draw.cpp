@@ -32,9 +32,9 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		// input text file
 		Trie T;
-		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
-		//readJson(T, JSONPATH);
-		sleepHere(3.0);
+		// inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt"); // ko xai cai nay nha 
+		readJson(T, JSONPATH);
+		//sleepHere(3.0);
 		dataset.user_Trie.push_back(T);
 		window.clear();
 		window.draw(screen.draw);

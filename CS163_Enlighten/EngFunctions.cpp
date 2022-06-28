@@ -140,15 +140,17 @@ bool writeJson(const Trie& T, string path) {
 
 bool readJson(Trie& T, string path) {
     if (path.empty()) return false;
-
+    clock_t start = clock();
     ifstream data_file(path, ifstream::binary);
     if (data_file.fail()) {
         data_file.close();
+        cout << "Can't read file " + path << endl;
         return false;
     }
 
     json data; data_file >> data;
     data_file.close();
     convert(data, T);
+    cout << "Read file " + path + " in " << getTime(start, clock()) / 1000.0 << "s\n";
     return true;
 }
