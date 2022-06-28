@@ -4,6 +4,18 @@
 
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here)
 {
+	pair<Object*, Object*> like = createElement("like", 873.0f, 412.0f);
+	pair<Object*, Object*> dislike = createElement("dislike", 926.0f, 417.0f);
+	Info like_count = createInfo("Graphic/VNI-Vari.TTF", "0", 900.0f, 415.0f, 17);
+	Info like_count_here = createInfo("Graphic/VNI-Vari.TTF", "0", 900.0f, 415.0f, 17);
+	like_count.text.setFillColor(Color(113, 171, 177, 255));
+	like_count_here.text.setFillColor(Color(73, 101, 104, 255));
+	Info dislike_count = createInfo("Graphic/VNI-Vari.TTF", "0", 952.0f, 415.0f, 17);
+	Info dislike_count_here = createInfo("Graphic/VNI-Vari.TTF", "0", 952.0f, 415.0f, 17);
+	dislike_count.text.setFillColor(Color(113, 171, 177, 255));
+	dislike_count.text.setFillColor(Color(73, 101, 104, 255));
+	// 1:like, 0: none, -1: dislike - check xem user da like/dislike chua
+	int like_status = 0;
 	Object screen = createObject("Graphic/p5_border.png");
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
@@ -244,6 +256,59 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 				cout << "Update " << JSONPATH << ": OK\n";
 			}
 		}
+		if (like_status == 0)
+		{
+			if (isHere(like, mouse) || isHere(like_count.bound, mouse))
+			{
+				window.draw(like.second->draw);
+				window.draw(like_count_here.text);
+			}
+			else
+			{
+				window.draw(like.first->draw);
+				window.draw(like_count.text);
+			}
+			if (isHere(dislike, mouse) || isHere(dislike_count.bound, mouse))
+			{
+				window.draw(dislike.second->draw);
+				window.draw(dislike_count_here.text);
+			}
+			else
+			{
+				window.draw(dislike.first->draw);
+				window.draw(dislike_count.text);
+			}
+		}
+		else if (like_status == -1)
+		{
+			if (isHere(like, mouse) || isHere(like_count.bound, mouse))
+			{
+				window.draw(like.second->draw);
+				window.draw(like_count_here.text);
+			}
+			else
+			{
+				window.draw(like.first->draw);
+				window.draw(like_count.text);
+			}
+			window.draw(dislike.first->draw);
+			window.draw(dislike_count.text);
+		}
+		else
+		{
+			if (isHere(dislike, mouse) || isHere(dislike_count.bound, mouse))
+			{
+				window.draw(dislike.second->draw);
+				window.draw(dislike_count_here.text);
+			}
+			else
+			{
+				window.draw(dislike.first->draw);
+				window.draw(dislike_count.text);
+			}
+			window.draw(like.first->draw);
+			window.draw(like_count.text);
+		}
 		window.display();
 	}
 	deallocate(home);
@@ -262,6 +327,8 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		delete border[i], name[i], defi[i];
 		deallocate(deleteB[i]);
 	}
+	deallocate(like);
+	deallocate(dislike);
 	edit_word.deleteEdit();
 }
 
