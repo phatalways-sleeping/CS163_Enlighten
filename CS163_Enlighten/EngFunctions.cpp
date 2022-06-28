@@ -10,8 +10,8 @@ bool insert(Trie& T, string word, const Node& current) {
     if (word == "") return false;
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) {
             root->child[ch] = new Node();
         }
@@ -29,8 +29,8 @@ bool insert(Trie& T, string word, const Node& current) {
 bool remove_eng(Trie& T, string word) {
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) return false;
         else root = root->child[ch];
     }
@@ -85,7 +85,7 @@ void convert(json data, Trie& root) {
 void convert(Node* T, vector<Node>& v) {
     if (!T) return;
     if (!T->word.empty()) v.push_back(*T);
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < TRIE_LIMIT; i++) {
         if (T->child[i]) convert(T->child[i], v);
     }
 }

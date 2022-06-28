@@ -10,7 +10,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	Node* word_info = search(dataset.user_Trie[cur_id], word_here);
 	//vector<string> &all_defi = search_result(dataset.user_Trie[cur_id], word_here);
 	vector<string> &all_defi = word_info->def;
-	vector<pair<string, string>>& user_defi = word_info->user_definitions;
+	vector<UserDef>& user_defi = word_info->user_definitions;
 	int defi_id = -1;
 	int user_defi_id = -1;
 	int user_cur_page = 0;
@@ -195,9 +195,9 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			int id = i + user_cur_page * 3;
 			if (id >= user_defi.size())
 				break;
-			name[i]->s = user_defi[id].first;
+			name[i]->s = user_defi[id].username;
 			name[i]->text.setString(name[i]->s);
-			defi[i]->s = user_defi[id].second;
+			defi[i]->s = user_defi[id].definition;
 			defi[i]->text.setString(defi[i]->s);
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);

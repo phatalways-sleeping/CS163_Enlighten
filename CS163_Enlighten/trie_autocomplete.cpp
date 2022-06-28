@@ -5,9 +5,9 @@ void fillCompleteList(Node* cur, string word, vector<string>& completeList, int 
 {
     if (!cur || int(completeList.size()) >= limit) return;
     if (int(cur->def.size()) > 0) completeList.push_back(word);
-    for (int i = 0; i <= 255; i++)
+    for (int i = 0; i < TRIE_LIMIT; i++)
     {
-        char ch = char(i);
+        char ch = char(i) + DEC;
         if (cur->child[i])
         {
             fillCompleteList(cur->child[i], word + ch, completeList, limit);
@@ -22,8 +22,8 @@ vector<string> autocomplete(Trie T, string word, int limit)
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++)
     {
-        int ch = word[i];
-        if (ch < 0 || ch > 255 || !root->child[ch]) return completeList;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT || !root->child[ch]) return completeList;
         root = root->child[ch];
     }
     fillCompleteList(root, word, completeList, limit);

@@ -9,12 +9,12 @@ pair<string, string> randomWord(Trie T) {
         if (root->def.size() > 0 && word != "") {
             for (int i = 0; i < 4; ++i) validChild.push_back(-1);
         }
-        for (int i = 0; i <= 255; ++i) {
+        for (int i = 0; i < TRIE_LIMIT; ++i) {
             if (root->child[i]) validChild.push_back(i);
         }
         int nextChild = validChild[Rand(0ll, validChild.size() - 1)];
         if (nextChild == -1) return { word, root->def[Rand(0ll, root->def.size() - 1)] };
-        word += char(nextChild);
+        word += char(nextChild + DEC);
         root = root->child[nextChild];
     }
 }

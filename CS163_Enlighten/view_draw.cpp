@@ -32,20 +32,24 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		// input text file
 		Trie T;
-		//inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets5000.txt");
-		readJson(T, JSONPATH);
-		sleepHere(1.0);
+		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
+		//readJson(T, JSONPATH);
+		sleepHere(3.0);
 		dataset.user_Trie.push_back(T);
-		count++;
 		window.clear();
 		window.draw(screen.draw);
 		if (count < 10)
 			window.draw(loading[count]->draw);
-		else
-			window.draw(loading[9]->draw);
+		count++;
 		window.display();
 	}
-
+	for (int i = count; i < 10; ++i) {
+		sleepHere(10.0);
+		window.clear();
+		window.draw(screen.draw);
+		window.draw(loading[i]->draw);
+		window.display();
+	}
 	for (int i = 0; i < 10; i++)
 	{
 		delete loading[i];

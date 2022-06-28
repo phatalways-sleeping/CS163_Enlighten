@@ -21,17 +21,20 @@ using json = nlohmann::json;
 using namespace sf;
 using namespace std;
 
- const int FAVORITE_LIST = 2;
- const int SEARCH_HISTORY = 1;
- const string original_data_path = "ENLIGHTEN_DATA//ORIGINAL_DATA";
- const string use_data = "ENLIGHTEN_DATA//DATA";
- const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
- const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
- const string JSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
- const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
- const double TOTAL = 5.88124e+11;
+const int FAVORITE_LIST = 2;
+const int SEARCH_HISTORY = 1;
+const string original_data_path = "ENLIGHTEN_DATA//ORIGINAL_DATA";
+const string use_data = "ENLIGHTEN_DATA//DATA";
+const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
+const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
+const string JSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
+const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
+const double TOTAL = 5.88124e+11;
 
- enum Status{ResetDict = 1, ResetAllDict = 2, ChangePw = 3, ChangeData = 4, ImportNew = 5, RemDict = 6};
+const int TRIE_LIMIT = 95;
+const int DEC = 32;
+
+enum Status{ResetDict = 1, ResetAllDict = 2, ChangePw = 3, ChangeData = 4, ImportNew = 5, RemDict = 6};
 
 struct Object
 {
@@ -82,10 +85,10 @@ struct Node
 	//For recommendations
 	double freq = 0;
 
-	Node *child[256];
+	Node *child[TRIE_LIMIT];
 	Node()
 	{
-		for (int i = 0; i < 256; i++)
+		for (int i = 0; i < TRIE_LIMIT; i++)
 			child[i] = NULL;
 	}
 };

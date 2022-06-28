@@ -14,8 +14,8 @@ bool getstr(string s, string& word, string& def) {
 Node* search(Trie T, string word) {
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return NULL;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return NULL;
         if (!root->child[ch]) return NULL;
         else root = root->child[ch];
     }
@@ -26,8 +26,8 @@ bool insert(Trie& T, string word, string def) {
     if (word == "") return false;
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) {
             root->child[ch] = new Node();
         }
@@ -44,8 +44,8 @@ bool insert(Trie& T, string word, string type, string def) {
     if (word == "") return false;
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) {
             root->child[ch] = new Node();
         }
@@ -62,8 +62,8 @@ bool insert(Trie& T, string word, string type, string def) {
 bool edit(Trie& T, string word, int id, string def) {
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) return false;
         else root = root->child[ch];
     }
@@ -74,8 +74,8 @@ bool edit(Trie& T, string word, int id, string def) {
 bool remove(Trie& T, string word) {
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
-        int ch = word[i];
-        if (ch < 0 || ch > 255) return false;
+        int ch = word[i] - DEC;
+        if (ch < 0 || ch >= TRIE_LIMIT) return false;
         if (!root->child[ch]) return false;
         else root = root->child[ch];
     }
@@ -85,7 +85,7 @@ bool remove(Trie& T, string word) {
 
 void deallocateNode(Node *&node) {
     if (!node) return;
-    for (int i = 0; i < 256; ++i) {
+    for (int i = 0; i < TRIE_LIMIT; ++i) {
         if (node->child[i]) deallocateNode(node->child[i]);
     }
     node->def.clear();
@@ -137,7 +137,7 @@ void writeBinaryFile(ofstream& f, Node* node) {
         f.write(s.c_str(), s.size());
         f.write("\0", sizeof(char));
     }
-    for (int i = 0; i < 256; i++) {
+    for (int i = 0; i < TRIE_LIMIT; i++) {
         if (node->child[i]) {
             f.write((char*)&i, sizeof(int));
             writeBinaryFile(f, node->child[i]);
