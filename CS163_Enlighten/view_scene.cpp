@@ -93,7 +93,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		like_count_here[i]->text.setFillColor(Color(73, 101, 104, 255));
 		dislike_count[i]->text.setFillColor(Color(113, 171, 177, 255));
 		dislike_count_here[i]->text.setFillColor(Color(73, 101, 104, 255));
-		special[i] = createObjectTest("Graphic/p_top.png", 392.0f, 375.0f + 110.0f * i);
+		special[i] = createObjectTest("Graphic/p_top.png", 375.0f, 375.0f + 110.0f * i);
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
@@ -346,6 +346,10 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			like_count_here[i]->s = to_string(user_defi[id].like);
 			dislike_count[i]->s = to_string(user_defi[id].dislike);
 			dislike_count_here[i]->s = to_string(user_defi[id].dislike);
+			// show special
+			if (user_defi[id].like - user_defi[id].dislike >= special_value) {
+				window.draw(special[i]->draw);
+			}
 			//
 			like_count[i]->text.setString(like_count[i]->s);
 			like_count_here[i]->text.setString(like_count_here[i]->s);
