@@ -1,5 +1,6 @@
 #pragma once
 #include "header.h"
+#include "test_function.h"
 
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here)
 {
@@ -211,7 +212,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		{
 			if (!edit_word.enter_type.s.empty() && edit_word.enter_type.s[0] != '(')
 				edit_word.enter_type.s = '(' + edit_word.enter_type.s + ") ";
-			user_defi.push_back({dataset.username, edit_word.enter_type.s + edit_word.enter_defi.s});
+			user_defi.push_back(UserDef(dataset.username, edit_word.enter_type.s + edit_word.enter_defi.s));
 			// them dinh nghia cua nguoi dung
 			// sua file data ?
 			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))

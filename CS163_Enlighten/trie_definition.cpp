@@ -1,6 +1,5 @@
 #pragma once
 #include "header.h"
-
 bool build_definition_trie_TxtFile(Trie& T_def, string fileName) {
     ifstream f(fileName);
     if (!f.is_open()) {

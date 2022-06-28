@@ -93,7 +93,7 @@ void convert(Node* T, vector<Node>& v) {
 bool edit_eng(Trie& T, string word, string username, string new_definition) {
     Node* current = search(T, word);
     if (!current) return false;
-    current->user_definitions.push_back({ username, new_definition });
+    current->user_definitions.push_back(UserDef(username, new_definition));
     return true;
 }
 
