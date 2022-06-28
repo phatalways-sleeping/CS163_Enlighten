@@ -16,15 +16,16 @@ Node* search(Trie &T, string word) {
     for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i] - DEC;
         if (ch < 0 || ch >= TRIE_LIMIT) {
-            insert(T, word, "");
+            //insert(T, word, "");
             return NULL;
         }
         if (!root->child[ch]) {
-            insert(T, word, "");
+            //insert(T, word, "");
             return NULL;
         }
         else root = root->child[ch];
     }
+    if (!root || root->word.empty()) return NULL;
     return root;
 }
 
