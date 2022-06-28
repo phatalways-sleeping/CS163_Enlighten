@@ -11,12 +11,18 @@ bool getstr(string s, string& word, string& def) {
     return true;
 }
 
-Node* search(Trie T, string word) {
+Node* search(Trie &T, string word) {
     Node* root = T.root;
     for (unsigned int i = 0; i < word.size(); i++) {
         int ch = word[i] - DEC;
-        if (ch < 0 || ch >= TRIE_LIMIT) return NULL;
-        if (!root->child[ch]) return NULL;
+        if (ch < 0 || ch >= TRIE_LIMIT) {
+            insert(T, word, "");
+            return NULL;
+        }
+        if (!root->child[ch]) {
+            insert(T, word, "");
+            return NULL;
+        }
         else root = root->child[ch];
     }
     return root;

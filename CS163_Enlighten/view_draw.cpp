@@ -14,6 +14,7 @@ void sleepHere(double s)
 
 void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int number_of_dataset)
 {
+	number_of_dataset = 1;
 	Object *loading[10];
 	for (int i = 0; i < 10; i++)
 	{
@@ -30,18 +31,21 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 			page = -1;
 			return;
 		}
-		// input text file
-		Trie T;
-		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt"); // ko xai cai nay nha 
-		//readJson(T, JSONPATH);
-		//sleepHere(3.0);
-		dataset.user_Trie.push_back(T);
+	
 		window.clear();
 		window.draw(screen.draw);
 		if (count < 10)
 			window.draw(loading[count]->draw);
 		count++;
 		window.display();
+		// input text file
+		Trie T;
+		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt"); // ko xai cai nay nha 
+		//readJson(T, JSONPATH);
+
+
+		//sleepHere(3.0);
+		dataset.user_Trie.push_back(T);
 	}
 	for (int i = count; i < 10; ++i) {
 		sleepHere(10.0);
@@ -189,8 +193,8 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 		window.draw(s.change.second->draw);
 		window.draw(s.search.first->draw);
 		bool check = false;
-		int temp = s.switch_dict.assign(dataset.dictionary_name, count, check);
-		int k = count > dataset.dictionary_name.size() ? dataset.dictionary_name.size() : count;
+		int temp = s.switch_dict.assign(dataset.user_Trie, count, check);
+		int k = count > dataset.dictionary_name.size() ? dataset.user_Trie.size() : count;
 		s.switch_dict.draw(window, temp, mouse, check);
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{

@@ -92,6 +92,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
+void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool& is_fav, bool right_word);
 
 //------------------check word/definition in fav/his list---------
@@ -111,7 +112,7 @@ bool outputBinaryFile(Trie T, string fileName);
 void readBinaryFile(ifstream &f, Node *&node);
 bool inputBinaryFile(Trie &T, string fileName);
 bool getstr(string s, string &word, string &def);
-Node *search(Trie T, string keyword); // return all definitions
+Node *search(Trie &T, string keyword); // return all definitions
 bool insert(Trie &T, string word, string def);
 bool edit(Trie &T, string word, int id, string def); // edit the id-th definition of word
 bool remove(Trie &T, string word);
@@ -128,7 +129,7 @@ vector<string> search_def(Trie &T, string def, int nums);
 bool build_definition_trie_TxtFile(Trie &T_def, string fileName);
 bool cmp(pair<int, string> x, pair<int, string> y);
 //-------------------Auto correct---------------------------
-vector<string> correct_words(const Trie &T, string word, int nums);
+vector<string> correct_words(Trie &T, string word, int nums);
 bool insert(Trie &T, string word, double freq);
 vector<string> EV(string path, vector<string> v);
 void getTree(string path, Trie &root);
@@ -252,14 +253,14 @@ struct Dictionary
 			drawWhich(window, right, mouse);
 		}
 	}
-	int assign(vector<string>& dict_name, int begin, bool& check)
+	int assign(vector<Trie>& dict, int begin, bool& check)
 	{
-		int res = dict_name.size();
+		int res = dict.size();
 		int k = res < (begin + 6) ? res : (begin + 6);
 		for (int i = begin; i < k; i++)
 		{
-			name[i]->s = dict_name[i];
-			name[i]->text.setString(dict_name[i]);
+			name[i]->s = dict[i].name;
+			name[i]->text.setString(dict[i].name);
 			name[i]->text.setFillColor(Color::White);
 			changePos(name[i], 332.0f + 220.0f * (i % 3) - round(name[i]->bound.width / 2), 370.0f + 80.0f * (int)(i / 3));
 		}

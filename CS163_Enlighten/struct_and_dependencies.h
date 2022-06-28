@@ -113,6 +113,8 @@ struct Edit;
 
 struct Trie
 {
+	string name;
+	string path;
 	Node *root = new Node();
 };
 
