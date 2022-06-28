@@ -92,7 +92,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
-void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset);
+void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool& is_fav, bool right_word);
 
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);

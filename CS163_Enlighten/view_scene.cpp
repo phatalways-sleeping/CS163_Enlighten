@@ -264,14 +264,14 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 }
 
 // page 12
-void searchResult(RenderWindow& window, int& page, string result_word, Enlighten& dataset, bool right_word)
+void searchResult(RenderWindow& window, int& page, string result_word, Enlighten& dataset, bool& is_fav, bool right_word)
 {
 	Object screen = createObject("Graphic/border.png");
 	Info* word;
 	if(right_word)
-		word = createInfoTest("Graphic/bahnschrift.ttf", "Search result for " + result_word, 402.0f, 127.0f, 21);
+		word = createInfoTest("Graphic/bahnschrift.ttf", "Search result for \"" + result_word + "\"", 402.0f, 127.0f, 21);
 	else 
-		word = createInfoTest("Graphic/bahnschrift.ttf", "Do you mean " + result_word, 402.0f, 127.0f, 21);
+		word = createInfoTest("Graphic/bahnschrift.ttf", "Do you mean \"" + result_word + "\"", 402.0f, 127.0f, 21);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
 	Object search_bar = createObject("Graphic/search_bar.png", 360.0f, 26.0f);
 	pair<Object*, Object*> home = createElement("home", 0.0f, 168.0f);
@@ -282,33 +282,31 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
 	pair<Object*, Object*> add = createElement("add", 308.0f, 26.0f);
 	pair<Object*, Object*> change = createElement("switch", 810.0f, 26.0f);
-	pair<Object*, Object*> clear = createElement("clear", 886.0f, 120.0f);
 	pair<Object*, Object*> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
 	Object* border[5];
-	pair<Object*, Object*> rem[5];
 	Info* name[5], * defi[5];
 	LeftRight left_right(1);
 
-	/*int cur_page = 0;
+	int cur_page = 0;
 	bool check = true;
-	string path;
-	if (dataset.is_admin)
-		path = ADMIN;
-	else
-		path = USERS;
-	int WHAT_LIST;
-	if (is_fav)
-		WHAT_LIST = FAVORITE_LIST;
-	else
-		WHAT_LIST = SEARCH_HISTORY;
 	int cur_id = dataset.cur_id;
 	int size = 100;
-	vector<string>& cur_list = is_fav ? dataset.favorite : dataset.history;
-	size = min(size, (int)cur_list.size());*/
+	vector<string> cur_list = autocomplete(dataset.user_Trie[cur_id], result_word, 50);
+	vector<string> correct_list = correct_words(dataset.user_Trie[cur_id], result_word, 50);
+	for (auto s1 : correct_list) {
+		bool isExist = false;
+		for (auto s2 : cur_list) {
+			if (s1 == s2) {
+				isExist = true;
+				break;
+			}
+		}
+		if(!isExist) cur_list.push_back(s1);
+	}
+	size = min(size, (int)cur_list.size());
 	//-------------------------------------------------------------------
 	for (int i = 0; i < 5; i++)
 	{
-		rem[i] = createElement("del", 980.0f, 210.0f + 110.0f * i);
 		border[i] = createObjectTest("Graphic/bar.png", 360.0f, 178.0f + 110.0f * i);
 		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "", 390.0f, 190.0f + 110.0f * i, 23);
 		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "", 390.0f, 225.0f + 110.0f * i, 17);
@@ -319,7 +317,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 
 	while (page == 12)
 	{
-		/*if (check)
+		if (check)
 		{
 
 			for (int i = 0; i < 5; i++)
@@ -327,7 +325,6 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 				if (i + cur_page * 5 >= size)
 					break;
 				name[i]->s = cur_list[i + cur_page * 5];
-				cerr << i << ": " << name[i]->s << endl;
 				name[i]->text.setString(name[i]->s);
 			}
 
@@ -343,7 +340,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 				}
 			}
 		}
-		check = false;*/
+		check = false;
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
 		while (window.pollEvent(event))
 		{
@@ -358,52 +355,33 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 			}
 			case Event::MouseButtonReleased:
 			{
-				//if (event.mouseButton.button == Mouse::Left)
-				//{
-				//	switchPage(del.first->bound, mouse, 1, page);
-				//	switchPage(revision.first->bound, mouse, 7, page);
-				//	switchPage(home1.bound, mouse, 4, page);
-				//	for (int i = 0; i < 5; i++)
-				//	{
-				//		if (i + cur_page * 5 >= size)
-				//			break;
-				//		if (isHere(border[i], mouse) && !name[i]->s.empty())
-				//		{ // word display
-				//			page = 5;
-				//			wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
-				//			return;
-				//		}
-				//		if (isHere(rem[i], mouse)) // del 1 defi
-				//		{
-				//			size--;
-				//			if (size % 5 == 0 && cur_page > 0)
-				//			{
-				//				cur_page--;
-				//			}
-				//			check = true;
-				//			cur_list.erase(cur_list.begin() + i + cur_page * 5);
-				//			// update(dataset.username, WHAT_LIST, cur_list, path);
-				//		}
-				//	}
-				//	if (isHere(clear, mouse))
-				//	{ // clear all
-				//		cur_list.clear();
-				//		check = true;
-				//		size = 0;
-				//		cur_page = 0;
-				//		// update(dataset.username, WHAT_LIST, cur_list, path);
-				//	}
-				//	else if (isHere(left_right.left[2], mouse) && cur_page > 0)
-				//	{
-				//		cur_page--;
-				//		check = true;
-				//	}
-				//	else if (isHere(left_right.right[2], mouse) && (cur_page + 1) * 5 < size)
-				//	{
-				//		cur_page++;
-				//		check = true;
-				//	}
-				//}
+				if (event.mouseButton.button == Mouse::Left)
+				{
+					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(home1.bound, mouse, 4, page);
+					for (int i = 0; i < 5; i++)
+					{
+						if (i + cur_page * 5 >= size)
+							break;
+						if (isHere(border[i], mouse) && !name[i]->s.empty())
+						{ // word display
+							page = 5;
+							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
+							return;
+						}
+					}
+					if (isHere(left_right.left[2], mouse) && cur_page > 0)
+					{
+						cur_page--;
+						check = true;
+					}
+					else if (isHere(left_right.right[2], mouse) && (cur_page + 1) * 5 < size)
+					{
+						cur_page++;
+						check = true;
+					}
+				}
 				break;
 			}
 			default:
@@ -422,19 +400,17 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
 		left_right.draw(window, mouse, 2);
-		drawWhich(window, clear, mouse);
 		window.draw(search_bar.draw);
-		//for (int i = 0; i < 5; i++)
-		//{
-		//	int id = i + cur_page * 5;
-		//	if (id >= size)
-		//		break;
-		//	window.draw(border[i]->draw);
-		//	window.draw(name[i]->text);
-		//	// window.draw(defi[i]->text);
-		//	drawLongText(window, defi[i]);
-		//	drawWhich(window, rem[i], mouse);
-		//}
+		for (int i = 0; i < 5; i++)
+		{
+			int id = i + cur_page * 5;
+			if (id >= size)
+				break;
+			window.draw(border[i]->draw);
+			window.draw(name[i]->text);
+			// window.draw(defi[i]->text);
+			drawLongText(window, defi[i]);
+		}
 		window.draw(word->text);
 		window.display();
 	}
@@ -447,12 +423,11 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	deallocate(add);
 	deallocate(change);
 	left_right.deleteLR();
-	deallocate(clear);
 	deallocate(rem_fav);
 	delete word;
 	for (int i = 0; i < 5; i++)
 	{
-		delete border[i], name[i], defi[i], rem[i];
+		delete border[i], name[i], defi[i];
 	}
 }
 
