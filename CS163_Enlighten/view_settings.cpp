@@ -231,7 +231,10 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ResetDict)
 				{
-					if (resetCurrentDataset(use_data, text1.s, original_data_path)) 
+					string name = dataset.user_Trie[dataset.cur_id].path.substr(dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//") + 1);
+					int i = name.find_last_of(".");
+					string folder = upper(name.substr(0, i));
+					if (resetCurrentDataset(use_data, folder, original_data_path)) 
 					{
 						// successfully reset
 					}
@@ -242,14 +245,19 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ChangeData)
 				{
-					/*removeDatasets(use_data + "//" + text1.s.substr(text1.s.find_last_of(".") + 1));
-					removeDatasets(original_data_path + "//" + );*/
-					// if (false) check = 2;
+					int i = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
+					string folderpath = dataset.user_Trie[dataset.cur_id].path.substr(0, i);
+					if (changeDataset(text2.s, folderpath)) { // text2.s only be the path to the FOLDER contains the datasets
+
+					}
+					else {
+						check = 2;
+					}
 				}
 				else if (button == RemDict)
 				{
-					int index_of_split = text2.s.find_last_of("\//");
-					string name = text2.s.substr(index_of_split + 1);
+					int index_of_split = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
+					string name = dataset.user_Trie[dataset.cur_id].path.substr(index_of_split + 1);
 					if (removeDatasets(use_data + "//" + name) && removeDatasets(original_data_path + "//" + name)) {
 						// successfully removed
 					}

@@ -25,7 +25,7 @@ bool deallocateDuplicatedData(const string use_data) {
 }
 
 bool removeDatasets(string source) {
-	int index_of_split = source.find_last_of("\//");
+	int index_of_split = source.find_last_of("\\//");
 	string path = source.substr(0, index_of_split), name = source.substr(index_of_split + 1);
 	string folder_name = upper(name.substr(0, name.find_last_of(".")));
 	ifstream infile(path + "//datasetsnames.txt");
@@ -109,7 +109,7 @@ string upper(string s) {
 }
 
 bool addNewDataSets(string path, string destination) {
-	int index_of_split = path.find_last_of("\//");
+	int index_of_split = path.find_last_of("\\//");
 	string source = path.substr(0, index_of_split);
 	string dataset_name = path.substr(index_of_split + 1);
 	string dataset_folder = upper(dataset_name.substr(0, dataset_name.find_last_of(".")));
@@ -161,7 +161,7 @@ bool addNewDataSets(string path, string destination) {
 }
 
 bool addToUseData(string path, string destination) {
-	int index_of_split = path.find_last_of("\//");
+	int index_of_split = path.find_last_of("\\//");
 	string dataset_name = path.substr(index_of_split + 1);
 	string dataset_folder = upper(dataset_name.substr(0, dataset_name.find_last_of(".")));
 	if (path.empty() || destination.empty() || dataset_folder.empty() || dataset_name.empty()) return false;
@@ -201,5 +201,21 @@ bool addToUseData(string path, string destination) {
 
 	// Copying the new dataset into the newly created folder
 	filesystem::copy_file(path, destination + "/" + dataset_folder + "/" + dataset_name);
+	return true;
+}
+
+bool changeDataset(string folderpath, string destination) {
+	vector<string> names;
+	for (const auto& file : filesystem::directory_iterator(folderpath)) {
+		int i = file.path().string().find_last_of("\\//");
+		names.push_back(file.path().string().substr(i + 1));
+	}
+
+	filesystem::remove_all(destination + "//");
+	filesystem::copy(folderpath + "/", destination + "/");
+
+	ofstream file(destination + "//datasetsnames.txt", ios::out);
+	for (auto i : names) file << i << '\n';
+	file.close();
 	return true;
 }

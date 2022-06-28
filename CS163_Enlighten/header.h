@@ -10,6 +10,8 @@ bool resetCurrentDataset(string path, string name, string original_path);
 bool addNewDataSets(string path, string destination);
 bool addToUseData(string path, string destination);
 string upper(string s);
+bool changeDataset(string folderpath, string destination);
+
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
 bool changePassword(string username, string old_pass, string new_pass,string path);
