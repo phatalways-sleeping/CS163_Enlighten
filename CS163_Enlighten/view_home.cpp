@@ -73,7 +73,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					}
 					else if (isHere(do_search.switch_dict.right, mouse))
 					{
-						count = (count < dataset.dictionary_name.size() - 6 ? count + 6 : count);
+						count = (count < dataset.user_Trie.size() - 6 ? count + 6 : count);
 					}
 					else if (search_status == 2)
 					{

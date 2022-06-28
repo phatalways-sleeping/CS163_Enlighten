@@ -130,7 +130,7 @@ struct Enlighten
 	vector<Trie> user_Trie;
 	vector<string> favorite;
 	vector<string> history;
-	//vector<string> dictionary_name;
+	vector<string> dictionary_name;
 
 	Enlighten() {
 		is_admin = false;

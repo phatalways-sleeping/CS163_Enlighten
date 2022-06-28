@@ -194,7 +194,7 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 		window.draw(s.search.first->draw);
 		bool check = false;
 		int temp = s.switch_dict.assign(dataset.user_Trie, count, check);
-		int k = count > dataset.user_Trie.size() ? dataset.user_Trie.size() : count;
+		int k = count > dataset.dictionary_name.size() ? dataset.user_Trie.size() : count;
 		s.switch_dict.draw(window, temp, mouse, check);
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{

@@ -140,7 +140,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						edit_word.reset(existed_word);
 						check = -1;
 					}
-					else if (is_admin)
+					if (is_admin)
 					{
 						for (int i = 0; i < 3; i++)
 						{
@@ -151,6 +151,29 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							{
 								// delete user_definition
 								user_defi.erase(user_defi.begin() + id);
+								if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+									cout << "Can't write file " << JSONPATH << endl;
+								else {
+									cout << "Update " << JSONPATH << ": OK\n";
+								}
+							}
+						}
+					}
+					else {
+						for (int i = 0; i < 3; i++)
+						{
+							int id = i + user_cur_page * 3;
+							if (id >= user_defi.size())
+								break;
+							if (user_defi[id].username == dataset.username && isHere(deleteB[i], mouse))
+							{
+								// delete user_definition
+								user_defi.erase(user_defi.begin() + id);
+								if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+									cout << "Can't write file " << JSONPATH << endl;
+								else {
+									cout << "Update " << JSONPATH << ": OK\n";
+								}
 							}
 						}
 					}
@@ -217,7 +240,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
-			if (is_admin)
+			if (is_admin || user_defi[id].username == dataset.username)
 				drawWhich(window, deleteB[i], mouse);
 		}
 		int check_me = edit_word.draw(window, mouse, flag, check, existed_word, is_admin, is_fixed);
