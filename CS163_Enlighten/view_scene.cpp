@@ -773,6 +773,9 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 						if (isHere(border[i], mouse) && !name[i]->s.empty())
 						{ // word display
 							page = 5;
+							if (dataset.is_admin)
+							wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
+							else
 							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
 							return;
 						}

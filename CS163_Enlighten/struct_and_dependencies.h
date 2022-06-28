@@ -139,4 +139,4 @@ struct Enlighten
 	}
 };
 
-struct AdminButton;
+struct Admin;

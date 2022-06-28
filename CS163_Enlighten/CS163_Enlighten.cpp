@@ -5,11 +5,6 @@ int main()
 {
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
-    dataset.dictionary_name.push_back("Eng/Vie");
-    dataset.dictionary_name.push_back("Vie/Eng");
-    dataset.dictionary_name.push_back("Eng/Eng");
-    dataset.dictionary_name.push_back("Slang");
-    dataset.dictionary_name.push_back("Emoji");
     string &username = dataset.username;
 
     RenderWindow window;
@@ -23,7 +18,6 @@ int main()
         switch (page)
         {
         case 1:
-            // load Trie
             Scene1(window, page, dataset);
             break;
         case 2:
