@@ -56,7 +56,6 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	}
 }
 
-// 0: nothing - nodraw, -1: confirm something, 1: nothing still draw
 int checkConfirmation(RenderWindow& window, int& check, const Confirmation& element, Vector2f& mouse)
 {
 	if (check == 0)

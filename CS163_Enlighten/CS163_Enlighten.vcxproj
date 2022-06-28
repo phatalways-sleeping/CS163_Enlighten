@@ -164,6 +164,7 @@
     <ClCompile Include="list_function.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="struct_definition.cpp" />
     <ClCompile Include="trie_autocomplete.cpp" />
     <ClCompile Include="trie_autocorrect.cpp" />
     <ClCompile Include="trie.cpp" />

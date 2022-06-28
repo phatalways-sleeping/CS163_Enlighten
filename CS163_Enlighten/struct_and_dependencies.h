@@ -137,3 +137,5 @@ struct Enlighten
 		user_Trie.clear();
 	}
 };
+
+struct AdminButton;
