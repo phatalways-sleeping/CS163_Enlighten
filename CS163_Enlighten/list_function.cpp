@@ -27,3 +27,7 @@ vector <pair<string, bool>> nullvector() {
 	vector <pair<string, bool>> ret;
 	return ret;
 }
+
+bool like_compare(UserDef x, UserDef y) {
+	return x.like > y.like;
+}

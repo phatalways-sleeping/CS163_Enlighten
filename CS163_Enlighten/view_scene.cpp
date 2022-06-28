@@ -99,10 +99,14 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	bool flag = false, is_fixed = false;
 	definition.s = cur_defi;
 	definition.text.setString(definition.s);
-
 	int check = 0;
+	bool sort_user_list = false;
 	while (page == 5)
 	{
+		if (sort_user_list) {
+			sort(user_defi.begin(), user_defi.end(), like_compare);
+			sort_user_list = false;
+		}
 		Vector2f mouse = window.mapPixelToCoords(Mouse::getPosition(window));
 		while (window.pollEvent(event))
 		{
@@ -170,6 +174,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						if (isHere(deleteB[i], mouse) && (is_admin || user_defi[id].username == dataset.username))
 						{
 							// delete user_definition
+							sort_user_list = true;
 							user_defi.erase(user_defi.begin() + id);
 							if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 								cout << "Can't write file " << JSONPATH << endl;
@@ -183,6 +188,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						{
 							if (isHere(like[i], mouse) || isHere(like[i].first->bound, mouse))
 							{
+								sort_user_list = true;
 								user_defi[id].like++;
 								user_defi[id].list.push_back({ dataset.username, 1 });
 								// update json tai day :(
@@ -193,6 +199,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							}
 							if (isHere(dislike[i], mouse) || isHere(dislike_count[i]->bound, mouse))
 							{
+								sort_user_list = true;
 								user_defi[id].dislike++;
 								user_defi[id].list.push_back({ dataset.username, 0 });
 								// update json tai day :(
@@ -206,6 +213,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						{
 							if (isHere(like[i], mouse) || isHere(like_count[i]->bound, mouse)) // dislike ma bam like
 							{
+								sort_user_list = true;
 								user_defi[id].like++;
 								user_defi[id].dislike--;
 								user_defi[id].list[like_id].second ^= 1;
@@ -222,6 +230,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							}
 							
 							if (isHere(dislike[i], mouse) || isHere(dislike_count[i]->bound, mouse)) { // dislike ma huy dislike
+								sort_user_list = true;
 								user_defi[id].dislike--;
 								user_defi[id].list.erase(user_defi[id].list.begin() + like_id);
 								// update json tai day :(
@@ -237,6 +246,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						{
 							if (isHere(dislike[i], mouse) || isHere(dislike_count[i]->bound, mouse)) // like ma bam dislike
 							{
+								sort_user_list = true;
 								user_defi[id].like--;
 								user_defi[id].dislike++;
 								user_defi[id].list[like_id].second ^= 1;
@@ -253,6 +263,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							}
 						
 							if (isHere(like[i], mouse) || isHere(like_count[i]->bound, mouse)) { // like ma huy like
+								sort_user_list = true;
 								user_defi[id].like--;
 								user_defi[id].list.erase(user_defi[id].list.begin() + like_id);
 								// update json tai day :(
