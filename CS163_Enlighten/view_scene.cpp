@@ -13,7 +13,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	Info dislike_count = createInfo("Graphic/VNI-Vari.TTF", "0", 952.0f, 415.0f, 17);
 	Info dislike_count_here = createInfo("Graphic/VNI-Vari.TTF", "0", 952.0f, 415.0f, 17);
 	dislike_count.text.setFillColor(Color(113, 171, 177, 255));
-	dislike_count.text.setFillColor(Color(73, 101, 104, 255));
+	dislike_count_here.text.setFillColor(Color(73, 101, 104, 255));
 	// 1:like, 0: none, -1: dislike - check xem user da like/dislike chua
 	int like_status = 0;
 	Object screen = createObject("Graphic/p5_border.png");
