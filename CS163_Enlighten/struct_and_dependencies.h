@@ -113,6 +113,8 @@ struct Edit;
 
 struct Trie
 {
+	string name;
+	string path;
 	Node *root = new Node();
 };
 
@@ -128,7 +130,7 @@ struct Enlighten
 	vector<Trie> user_Trie;
 	vector<string> favorite;
 	vector<string> history;
-	vector<string> dictionary_name;
+	//vector<string> dictionary_name;
 
 	Enlighten() {
 		is_admin = false;

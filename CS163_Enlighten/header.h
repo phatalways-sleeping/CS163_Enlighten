@@ -92,6 +92,8 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
+void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool right_word);
+void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);
@@ -251,14 +253,14 @@ struct Dictionary
 			drawWhich(window, right, mouse);
 		}
 	}
-	int assign(vector<string>& dict_name, int begin, bool& check)
+	int assign(vector<Trie>& dict, int begin, bool& check)
 	{
-		int res = dict_name.size();
+		int res = dict.size();
 		int k = res < (begin + 6) ? res : (begin + 6);
 		for (int i = begin; i < k; i++)
 		{
-			name[i]->s = dict_name[i];
-			name[i]->text.setString(dict_name[i]);
+			name[i]->s = dict[i].name;
+			name[i]->text.setString(dict[i].name);
 			name[i]->text.setFillColor(Color::White);
 			changePos(name[i], 332.0f + 220.0f * (i % 3) - round(name[i]->bound.width / 2), 370.0f + 80.0f * (int)(i / 3));
 		}
