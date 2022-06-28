@@ -111,7 +111,6 @@ struct Node
 
 struct Edit;
 
-
 struct Trie
 {
 	Node *root = new Node();
