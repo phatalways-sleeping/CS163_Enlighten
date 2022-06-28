@@ -2,7 +2,7 @@
 #include "header.h"
 //----------------------------------------------------------------------------------------------------
 
-vector <string> correct_words(const Trie& T, string word, int nums) {
+vector <string> correct_words(Trie& T, string word, int nums) {
     vector <string> ret;
     string new_word = word;
     Node* info = search(T, word);

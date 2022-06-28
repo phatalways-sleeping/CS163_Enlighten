@@ -110,7 +110,7 @@ bool outputBinaryFile(Trie T, string fileName);
 void readBinaryFile(ifstream &f, Node *&node);
 bool inputBinaryFile(Trie &T, string fileName);
 bool getstr(string s, string &word, string &def);
-Node *search(Trie T, string keyword); // return all definitions
+Node *search(Trie &T, string keyword); // return all definitions
 bool insert(Trie &T, string word, string def);
 bool edit(Trie &T, string word, int id, string def); // edit the id-th definition of word
 bool remove(Trie &T, string word);
@@ -127,7 +127,7 @@ vector<string> search_def(Trie &T, string def, int nums);
 bool build_definition_trie_TxtFile(Trie &T_def, string fileName);
 bool cmp(pair<int, string> x, pair<int, string> y);
 //-------------------Auto correct---------------------------
-vector<string> correct_words(const Trie &T, string word, int nums);
+vector<string> correct_words(Trie &T, string word, int nums);
 bool insert(Trie &T, string word, double freq);
 vector<string> EV(string path, vector<string> v);
 void getTree(string path, Trie &root);
