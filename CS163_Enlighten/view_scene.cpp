@@ -76,6 +76,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	Info* like_count_here[3]; 
 	Info* dislike_count[3]; 
 	Info* dislike_count_here[3];
+	Object* special[3];
 	for (int i = 0; i < 3; i++)
 	{
 		deleteB[i] = createElement("del", 980.0f, 410.0f + 110.0f * i);
@@ -92,6 +93,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		like_count_here[i]->text.setFillColor(Color(73, 101, 104, 255));
 		dislike_count[i]->text.setFillColor(Color(113, 171, 177, 255));
 		dislike_count_here[i]->text.setFillColor(Color(73, 101, 104, 255));
+		special[i] = createObjectTest("Graphic/p_top.png", 392.0f, 375.0f + 110.0f * i);
 	}
 	Event event;
 	changePos(add.second, 260.0f, 26.0f);
@@ -487,6 +489,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		deallocate(deleteB[i]);
 		deallocate(like[i]);
 		deallocate(dislike[i]);
+		delete(special[i]);
 	}
 	
 	edit_word.deleteEdit();
