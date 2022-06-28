@@ -285,6 +285,9 @@ struct SearchBar
 	Info enter_type = createInfo("Graphic/Oswald-Light.ttf", "Enter type of word", 345.0f, 280.0f, 30);
 	Info enter_defi = createInfo("Graphic/Oswald-Light.ttf", "Enter definition", 345.0f, 358.0f, 30);
 	Info* result[3];
+	Object search_normal = createObject("Graphic/d_search.png", 391.0f, 207.0f);
+	Object search_defi = createObject("Graphic/d_search_here.png", 391.0f, 207.0f);
+	bool is_normal = true;
 	SearchBar()
 	{
 		for (int i = 0; i < 3; i++)

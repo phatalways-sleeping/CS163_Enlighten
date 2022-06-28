@@ -79,6 +79,10 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					{
 						typingWhat(d, w, t, mouse, do_search);
 					}
+					else if (isHere(do_search.search_normal.bound, mouse))
+					{
+						do_search.is_normal ^= 1;
+					}
 				}
 				break;
 			}

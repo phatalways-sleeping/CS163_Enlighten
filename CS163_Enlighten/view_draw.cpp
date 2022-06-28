@@ -137,12 +137,13 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 				resetInfo(s.enter_type, "Enter type of word");
 				add_status = -1;
 			}
-			else if (!isHere(s.search, mouse))
+			else if (!isHere(s.search, mouse) && !isHere(s.board.bound, mouse))
 			{
 				s.search_info->check = false;
 				s.search_info->s = "";
 				status = 0;
 			}
+			
 		}
 		drawWhich(window, s.add, mouse);
 		drawWhich(window, s.change, mouse);
@@ -156,6 +157,8 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 		}
 		window.draw(s.search_info->text);
 		drawText(window, s.search_info);
+		if (s.is_normal) window.draw(s.search_normal.draw);
+		else window.draw(s.search_defi.draw);
 		break;
 	}
 	// adding
