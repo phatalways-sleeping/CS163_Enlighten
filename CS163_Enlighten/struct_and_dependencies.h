@@ -65,6 +65,22 @@ struct UserDef {
 	int like;
 	int dislike;
 	vector<pair<string, bool>> list;
+	UserDef() {}
+	
+	UserDef(string __username, string __definition, int __like, int __dislike, vector <pair<string, bool>> __list) {
+		username = __username;
+		definition = __definition;
+		like = __like;
+		dislike = __dislike;
+		list = __list;
+	}
+	UserDef(string __username, string __definition){
+		username = __username;
+		definition = __definition;
+		like = 0;
+		dislike = 0;
+		list.clear();
+	}
 };
 
 struct Node

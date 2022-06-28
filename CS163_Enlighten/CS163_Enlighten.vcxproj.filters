@@ -83,6 +83,9 @@
     <ClInclude Include="header.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
+    <ClInclude Include="test_function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DataStructure\readme.md" />
