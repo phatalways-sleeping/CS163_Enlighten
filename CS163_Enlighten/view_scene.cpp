@@ -4,7 +4,10 @@
 
 void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here)
 {
-	
+	if (is_admin) {
+		wordDisplayAdmin(window, page, is_fav, dataset, word_here);
+		return;
+	}
 	// Object settings1 = createObject("Graphic/settings1.png", 0.0f, 448.0f);
 	// Object revision1 = createObject("Graphic/revision1.png", 0.0f, 308.0f);
 	int cur_id = dataset.cur_id;
