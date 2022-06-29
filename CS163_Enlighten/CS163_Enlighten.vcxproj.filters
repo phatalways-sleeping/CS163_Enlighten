@@ -81,6 +81,9 @@
     <ClCompile Include="view_display_word.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="view_profile.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="struct_and_dependencies.h">

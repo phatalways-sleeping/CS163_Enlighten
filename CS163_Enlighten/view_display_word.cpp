@@ -122,7 +122,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 					if (admin.status == Admin::State::Open)
 					{
 						admin.status = Admin::State::DoSth;
-						if (isHere(admin.add, mouse))
+						if (isHere(admin.add, mouse) && user_cur_page * 3 < (int)user_defi.size())
 						{
 							admin.button = Admin::AButton::Add;
 						}
@@ -137,7 +137,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 						{
 							admin.button = Admin::AButton::Rem;
 						}
-						else if (isHere(admin.del, mouse))
+						else if (isHere(admin.del, mouse) && user_cur_page * 3 < (int) user_defi.size())
 						{
 							admin.button = Admin::AButton::Del;
 						}
@@ -146,9 +146,51 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 							admin.status = Admin::State::Open;
 						}
 					}
-					else if (admin.status == Admin::State::DoSth && isHere(admin.choose, mouse))
+					else if (admin.status == Admin::State::DoSth)
 					{
-						admin.status = Admin::State::Open;
+						if (isHere(admin.choose, mouse))
+						{
+							admin.status = Admin::State::Open;
+						}
+						switch (admin.button)
+						{
+						case Admin::AButton::Add:
+							for (int i = 0; i < 3; i++)
+							{
+								int id_c = i + user_cur_page * 3;
+								if (id_c >= user_defi.size())
+									break;
+								if (isHere(admin.p_add[i], mouse))
+								{
+									check = -1;
+									index = i;
+								}
+							}
+							break;
+						case Admin::AButton::Del:
+							for (int i = 0; i < 3; i++)
+							{
+								int id_c = i + user_cur_page * 3;
+								if (id_c >= user_defi.size())
+									break;
+								if (isHere(admin.p_del[i], mouse))
+								{
+									check = -1;
+									index = i;
+								}
+							}
+							break;
+						case Admin::AButton::Rem:
+							if (isHere(admin.p_rem, mouse))
+							{
+								check = -1;
+								index = -1;
+								//index = i;
+							}
+							break;
+						default:
+							break;
+						}
 					}
 						//for (int i = 0; i < 3; i++)
 						//{
@@ -182,6 +224,15 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 				{
 					texting(edit_word.enter_type, event.text.unicode, 30);
 					texting_endl(edit_word.enter_defi, event.text.unicode, 36);
+				}
+				break;
+			}
+			case Event::KeyReleased:
+			{
+				if (event.key.code == Keyboard::Backspace || event.key.code == Keyboard::Delete)
+				{
+					if ((int)admin.status == 2 && check == 0)
+						admin.status = Admin::State::Close;
 				}
 				break;
 			}

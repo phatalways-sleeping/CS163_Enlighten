@@ -96,6 +96,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool& is_fav, bool right_word);
+void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);
@@ -444,11 +445,6 @@ struct Admin
 					if (id_c >= max_size)
 						break;
 					drawWhich(window, p_add[i], mouse);
-					if (isHere(p_add[i], mouse))
-					{
-						check = -1;
-						index = i;
-					}
 				}
 				res = checkConfirmation(window, check, confirm, mouse);
 			}
@@ -464,11 +460,6 @@ struct Admin
 					if (id_c >= max_size)
 						break;
 					drawWhich(window, p_del[i], mouse);
-					if (isHere(p_del[i], mouse))
-					{
-						check = -1;
-						index = i;
-					}
 				}
 				res = checkConfirmation(window, check, confirm, mouse);
 			}
@@ -491,12 +482,7 @@ struct Admin
 				window.draw(add.first->draw);
 				window.draw(del.first->draw);
 				window.draw(edit.first->draw);
-				if (isHere(p_rem, mouse))
-				{
-					check = -1;
-					index = -1;
-					//index = i;
-				}
+				drawWhich(window, p_rem, mouse);
 				res = checkConfirmation(window, check, confirm, mouse);
 			}
 			if (res == -1)

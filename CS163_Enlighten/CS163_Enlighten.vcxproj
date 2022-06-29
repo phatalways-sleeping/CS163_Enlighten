@@ -178,6 +178,7 @@
     <ClCompile Include="view_draw.cpp" />
     <ClCompile Include="view_first.cpp" />
     <ClCompile Include="view_home.cpp" />
+    <ClCompile Include="view_profile.cpp" />
     <ClCompile Include="view_revision.cpp" />
     <ClCompile Include="view_scene.cpp" />
     <ClCompile Include="view_settings.cpp" />
