@@ -44,6 +44,7 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHist
             else {
                 A.first = mergeList[Rand(0, mergeList.size() - 1)];
                 Node* defA = search(T, A.first);
+                // bug khi tu trong his va fav ko xuat hien trong tu dien
                 A.second = defA->def[Rand(0, defA->def.size() - 1)];
             }
             bool isStop = true;
