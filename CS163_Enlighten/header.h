@@ -19,6 +19,10 @@ bool createNewAccount(string username, string password, string path);
 void update(string username, int CASE, vector<string> &list, string path);
 void modify_csv(string username, int CASE, vector<string>& list, string path);
 
+//-------------------Profile Functions-----------------
+bool readUserProfile(string path, string username, Profile& profile);
+bool readAllUserProfile(string path, vector<Profile>& profiles);
+bool writeUserProfile(string path, string username, const Profile& profile);
 //------------------Trie for English Definitions-----------
 void clear(Node &m);
 bool insert(Trie &T, string word, const Node &current);
