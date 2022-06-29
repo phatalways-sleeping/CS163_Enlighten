@@ -515,11 +515,11 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 			user_defi.push_back(UserDef(dataset.username, edit_word.enter_type.s + edit_word.enter_defi.s));
 			// them dinh nghia cua nguoi dung
 			// sua file data ?
-			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+			/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 				cout << "Can't write file " << JSONPATH << endl;
 			else {
 				cout << "Update " << JSONPATH << ": OK\n";
-			}
+			}*/
 		}
 		else if (check_me == 2)
 		{
@@ -536,11 +536,12 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
 			word_type.text.setString(word_type.s);
-			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+			// sua file data here
+			/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 				cout << "Can't write file " << JSONPATH << endl;
 			else {
 				cout << "Update " << JSONPATH << ": OK\n";
-			}
+			}*/
 		}
 		bool done = admin.draw(window, mouse, check, (int)user_defi.size(), user_cur_page, index, flag);
 		if (done)
@@ -552,7 +553,19 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 				
 				break;
 			case Admin::AButton::Del:
-				for (int i = 0; i < 3; i++)
+				done = false;
+				if (index < user_defi.size()) {
+					int id = index;
+					sort_user_list = true;
+					user_defi.erase(user_defi.begin() + id);
+					// sua file data
+					/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+						cout << "Can't write file " << JSONPATH << endl;
+					else {
+						cout << "Update " << JSONPATH << ": OK\n";
+					}*/
+				}
+				/*for (int i = 0; i < 3; i++)
 				{
 					int id = i + user_cur_page * 3;
 					if (id >= user_defi.size())
@@ -568,7 +581,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 							cout << "Update " << JSONPATH << ": OK\n";
 						}
 					}
-				}
+				}*/
 				break;
 			case Admin::AButton::Rem:
 				break;

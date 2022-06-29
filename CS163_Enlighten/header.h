@@ -490,6 +490,7 @@ struct Admin
 			break;
 			return false;
 		}
+		return false;
 	}
 	void deleteButton()
 	{
