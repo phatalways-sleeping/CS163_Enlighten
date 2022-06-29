@@ -31,3 +31,28 @@ vector <pair<string, bool>> nullvector() {
 bool like_compare(UserDef x, UserDef y) {
 	return x.like > y.like;
 }
+string cutWordtype(string x) {
+	if (x.size() <= 3) return "";
+	if (x[0] != '(') return "";
+	string ret = "";
+	for (auto ch : x) if (ch != ')') ret.push_back(ch);
+	else {
+		ret.push_back(')');
+		return ret;
+	}
+	return "";
+}
+string cutDefinition(string x) {
+	if (x.size() == 0) return "";
+	if (x[0] != '(') return  x;
+	bool flag = false;
+	for (int i = 0; i < x.size(); i++) {
+		if (x[i] == ')') {
+			string ret = "";
+			for (int j = i + 1; j < x.size(); j++)
+				ret.push_back(x[j]);
+			return ret;
+		}
+	}
+	return "";
+}

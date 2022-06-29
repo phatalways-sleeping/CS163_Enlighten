@@ -400,6 +400,14 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 		}
 		window.draw(search_bar.draw);
 		window.draw(word.text);
+		if (defi_id == -1) {
+			definition.s = "";
+			definition.text.setString(definition.s);
+		}
+		else if (defi_id < all_defi.size()) {
+			definition.s = all_defi[defi_id];
+			definition.text.setString(definition.s);
+		}
 		drawLongText(window, definition, true, 50);
 		// window.draw(definition.text);
 		for (int i = 0; i < 3; i++)
@@ -533,9 +541,11 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 			string insert_defi = edit_word.enter_defi.s;
 			insert(dataset.user_Trie[cur_id], insert_word, insert_type, insert_defi);
 			all_defi.push_back(edit_word.enter_defi.s);
+			defi_id = all_defi.size() - 1;
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
 			word_type.text.setString(word_type.s);
+			
 			// sua file data here
 			/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 				cout << "Can't write file " << JSONPATH << endl;
@@ -544,16 +554,33 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 			}*/
 		}
 		bool done = admin.draw(window, mouse, check, (int)user_defi.size(), user_cur_page, index, flag);
-		if (done)
+		if (done && index < user_defi.size())
 		{
 			// index: index cua user_def can thao tac
 			switch (admin.button)
 			{
 			case Admin::AButton::Add:
-				
+			{
+				string insert_word = word_here;
+				string insert_type = cutWordtype(user_defi[index].definition);
+				string insert_defi = cutDefinition(user_defi[index].definition);
+				insert(dataset.user_Trie[cur_id], insert_word, insert_type, insert_defi);
+				all_defi.push_back(insert_defi);
+				defi_id = all_defi.size() - 1;
+				/*word_type.s = existed_word.type;
+				definition.text.setString(definition.s);
+				word_type.text.setString(word_type.s);*/
+				// sua file data
+				/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+					cout << "Can't write file " << JSONPATH << endl;
+				else {
+					cout << "Update " << JSONPATH << ": OK\n";
+				}*/
+
 				break;
+			}
 			case Admin::AButton::Del:
-				done = false;
+			{
 				if (index < user_defi.size()) {
 					int id = index;
 					sort_user_list = true;
@@ -583,8 +610,27 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 					}
 				}*/
 				break;
+			}
 			case Admin::AButton::Rem:
+			{
+				string remove_word = word_here;
+				string remove_type = cutWordtype(user_defi[index].definition);
+				string remove_defi = cutDefinition(user_defi[index].definition);
+
+				//  ham remove definition khoi trie ?
+				//	insert(dataset.user_Trie[cur_id], insert_word, insert_type, insert_defi);
+
+				all_defi.erase(all_defi.begin() + index);
+				defi_id = all_defi.size() - 1;
+				// sua file data
+					/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+						cout << "Can't write file " << JSONPATH << endl;
+					else {
+						cout << "Update " << JSONPATH << ": OK\n";
+					}*/
+
 				break;
+			}
 			default:
 				break;
 			}
