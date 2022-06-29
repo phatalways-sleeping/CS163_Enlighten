@@ -1,6 +1,11 @@
 #pragma once
 #include "header.h"
 
+bool playSound(string fileName)
+{
+	return PlaySound(LPCWSTR(fileName.c_str()), NULL, SND_SYNC);
+}
+
 void changeInfo(Info& a, Info& b, string name_a, string name_b)
 {
 	a.s = "";

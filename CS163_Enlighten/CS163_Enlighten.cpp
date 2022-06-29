@@ -19,6 +19,7 @@ int main()
         {
         case 1:
             Scene1(window, page, dataset);
+            playSound("hmc.mp3");
             break;
         case 2:
             setRole(window, page, is_admin, dataset);

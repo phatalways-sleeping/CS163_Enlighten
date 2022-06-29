@@ -165,6 +165,9 @@ void typingWhat(Object& d, Object& w, Object&t, Vector2f& mouse, SearchBar& do_s
 void typingWhat(Object& d, Object& w, Object& t, Vector2f& mouse, Edit& do_search);
 bool insert(Trie& T, string word, string type, string def);
 
+//--------------------Play Sound-------------------------
+bool playSound(string fileName);
+
 
 
 struct Confirmation

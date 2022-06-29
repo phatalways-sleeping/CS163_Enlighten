@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
 #include <iostream>
+#include <windows.h>
 #include <math.h>
 #include <sstream>
 #include <string>
@@ -38,7 +39,6 @@ const double TOTAL = 5.88124e+11;
 
 const int TRIE_LIMIT = 95;
 const int DEC = 32;
-
 enum Status{ResetDict = 1, ResetAllDict = 2, ChangePw = 3, ChangeData = 4, ImportNew = 5, RemDict = 6};
 
 struct Object
