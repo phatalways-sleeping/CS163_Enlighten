@@ -46,6 +46,9 @@ int main()
         case 9:
             testQA(window, page, dataset, level, difficulty);
             break;
+        case 11:
+            profile(window, page, dataset);
+            break;
         case 12:
             searchResult(window, page, "hello", dataset, is_fav, 1);
             break;
