@@ -80,6 +80,8 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	Info* dislike_count[3]; 
 	Info* dislike_count_here[3];
 	Object* special[3];
+	SearchBar do_search;
+	Vocabulary new_word;
 	for (int i = 0; i < 3; i++)
 	{
 		deleteB[i] = createElement("del", 980.0f, 410.0f + 110.0f * i);
@@ -106,6 +108,13 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	definition.text.setString(definition.s);
 	int check = 0;
 	bool sort_user_list = false;
+
+	int size_searchBar = min(3, (int)dataset.history.size());
+	for (int i = 0; i < size_searchBar; ++i) {
+		do_search.result[i]->s = dataset.history[i];
+		do_search.result[i]->text.setString(dataset.history[i]);
+	}
+	int search_status = 0, add_status = 0, count = 0;
 	while (page == 5)
 	{
 		if (sort_user_list) {
@@ -129,6 +138,36 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 				{
 					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
 					switchPage(del.first->bound, mouse, 1, page);
+					if (search_status == 1) {
+						for (int i = 0; i < size_searchBar; i++) {
+							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
+								search_status = 0;
+								page = 5;
+								if (is_admin)
+									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
+								else
+									wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
+								return;
+							}
+						}
+					}
+					switchPage(settings.first->bound, mouse, 8, page);
+					if (isHere(do_search.switch_dict.left, mouse))
+					{
+						count = (count == 0 ? 0 : count - 6);
+					}
+					else if (isHere(do_search.switch_dict.right, mouse))
+					{
+						count = (count < dataset.user_Trie.size() - 6 ? count + 6 : count);
+					}
+					else if (search_status == 2)
+					{
+						typingWhat(d, w, t, mouse, do_search);
+					}
+					else if (isHere(do_search.search_normal.bound, mouse))
+					{
+						do_search.is_normal ^= 1;
+					}
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					if (isHere(edit_word.fixed.bound, mouse))
@@ -307,6 +346,65 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 					texting(edit_word.enter_type, event.text.unicode, 30);
 					texting_endl(edit_word.enter_defi, event.text.unicode, 36);
 				}
+				if (search_status == 1)
+				{
+					if (event.text.unicode == 13) {
+						if (do_search.result[0]->s == "") {
+							page = 12;
+							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0);
+						}
+						else {
+							page = 12;
+							searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s);
+						}
+						return;
+					}
+					texting(do_search.search_info, event.text.unicode, 30);
+					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					for (auto s : correctList)
+					{
+						bool isExist = false;
+						for (auto t : completeList) {
+							if (t == s) {
+								isExist = true;
+								break;
+							}
+						}
+						if (!isExist) completeList.push_back(s);
+					}
+					for (int i = 0; i < 3; i++)
+					{
+						do_search.result[i]->s = "";
+						do_search.result[i]->text.setString("");
+					}
+
+					if (do_search.search_info->s.empty()) {
+						size_searchBar = min(3, (int)dataset.history.size());
+						for (int i = 0; i < size_searchBar; ++i) {
+							do_search.result[i]->s = dataset.history[i];
+							do_search.result[i]->text.setString(dataset.history[i]);
+						}
+					}
+					else {
+						size_searchBar = min(3, (int)completeList.size());
+						for (int i = 0; i < size_searchBar; ++i) {
+							do_search.result[i]->s = completeList[i];
+							do_search.result[i]->text.setString(completeList[i]);
+						}
+					}
+
+
+				}
+				else if (search_status == 2)
+				{
+					texting_endl(do_search.enter_defi, event.text.unicode, 36);
+					texting(do_search.enter_word, event.text.unicode, 30);
+					texting(do_search.enter_type, event.text.unicode, 30);
+				}
+				else {
+
+				}
 				break;
 			}
 			default:
@@ -475,6 +573,15 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			else {
 				cout << "Update " << JSONPATH << ": OK\n";
 			}
+		}
+		int check_search = searching(window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
+		if (check_search == 1)
+		{
+			// added new word
+		}
+		else if (check_search > 0)
+		{
+			// switch to other dictionary
 		}
 		
 		window.display();
