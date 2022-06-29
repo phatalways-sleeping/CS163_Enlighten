@@ -36,6 +36,7 @@ void revision(RenderWindow &window, int &page, Enlighten &dataset, int &level, b
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					// switchPage(b1.first->bound, mouse, 2, page);
+					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(home.first->bound, mouse, 4, page);
 					if (!difficulty)
 					{
@@ -156,6 +157,8 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
+					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(home.first->bound, mouse, 4, page);
 					if (curQuestion < (int)listQuestion.size())
 					{
 						for (int i = 0; i < 4; i++)
@@ -326,7 +329,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 
 		if (done)
 		{
-			sleepHere(10.0);
+			sleepHere(100.0);
 			done = false;
 			new_question = true;
 			curQuestion++;

@@ -122,7 +122,7 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 
 
 
-void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_name, vector<string>& history, vector<string>& favourite, Enlighten& dataset)
+void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_name, Enlighten& dataset)
 {
 	Event event;
 	bool see = false, entered = false, change = false, wrong_password = false;
@@ -203,7 +203,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					change = false;
 					if (is_admin)
 					{
-						if (login(username.s, pw.s, ADMIN, history, favourite))
+						if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -213,7 +213,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 					}
 					else
 					{
-						if (login(username.s, pw.s, USERS, history, favourite))
+						if (login(username.s, pw.s, USERS, dataset.history, dataset.favorite))
 						{
 							user_name = username.s;
 							page = 4;
@@ -283,7 +283,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			cerr << "here\n";
 			if (is_admin)
 			{
-				if (login(username.s, pw.s, ADMIN, history, favourite))
+				if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 				{
 					user_name = username.s;
 					page = 4;
@@ -293,7 +293,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 			}
 			else
 			{
-				if (login(username.s, pw.s, USERS, history, favourite))
+				if (login(username.s, pw.s, USERS, dataset.history, dataset.favorite))
 				{
 					user_name = username.s;
 					page = 4;

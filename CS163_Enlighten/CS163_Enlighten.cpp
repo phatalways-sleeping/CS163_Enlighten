@@ -26,10 +26,10 @@ int main()
         case 3:
             dataset.history.clear();
             dataset.favorite.clear();
-            logIn(window, page, is_admin, username, dataset.history, dataset.favorite, dataset);
+            logIn(window, page, is_admin, username, dataset);
             break;
         case 4:
-            home(window, page, is_admin, username, is_fav, dataset.history, dataset);
+            home(window, page, is_admin, username, is_fav, dataset);
             break;
         case 5:
             wordDisplay(window, page, is_admin, is_fav, dataset, "nhuvinh");

@@ -1,6 +1,6 @@
 #include "header.h"
 
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, vector<string> history, Enlighten &dataset)
+void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, Enlighten &dataset)
 {
 
 	Object screen = createObject("Graphic/p4.png");
@@ -21,18 +21,18 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	Vocabulary new_word;
 	for (int i = 0; i < 12; i++)
 	{
-		if (i >= history.size())
+		if (i >= dataset.history.size())
 		{
 			sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", "", 464.0f, 510.0f, 20);
 			continue;
 		}
-		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", history[i], 464.0f, 510.0f, 20);
+		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", dataset.history[i], 464.0f, 510.0f, 20);
 		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
 	}
-	int size_searchBar = min(3, (int)history.size());
+	int size_searchBar = min(3, (int)dataset.history.size());
 	for (int i = 0; i < size_searchBar; ++i) {
-		do_search.result[i]->s = history[i];
-		do_search.result[i]->text.setString(history[i]);
+		do_search.result[i]->s = dataset.history[i];
+		do_search.result[i]->text.setString(dataset.history[i]);
 	}
 	int search_status = 0, add_status = 0, count = 0;
 
@@ -128,10 +128,10 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 					}
 					
 					if (do_search.search_info->s.empty()) {
-						size_searchBar = min(3, (int)history.size());
+						size_searchBar = min(3, (int)dataset.history.size());
 						for (int i = 0; i < size_searchBar; ++i) {
-							do_search.result[i]->s = history[i];
-							do_search.result[i]->text.setString(history[i]);
+							do_search.result[i]->s = dataset.history[i];
+							do_search.result[i]->text.setString(dataset.history[i]);
 						}
 					}
 					else {

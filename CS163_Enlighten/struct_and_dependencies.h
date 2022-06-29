@@ -27,8 +27,13 @@ const string original_data_path = "ENLIGHTEN_DATA//ORIGINAL_DATA";
 const string use_data = "ENLIGHTEN_DATA//DATA";
 const string USERS = "ENLIGHTEN_DATA//USERS_INFORMATIONS//users.csv";
 const string ADMIN = "ENLIGHTEN_DATA//USERS_INFORMATIONS//admins.csv";
+const string PROFILE = "ENLIGHTEN_DATA//USERS_INFORMATIONS//profiles.csv";
 const string JSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json";
 const string USEJSONPATH = "ENLIGHTEN_DATA//DATA//ENGLISH_DEFINITIONS//English_Definitions.json"; // Use this to test the user definitions
+const string links[] = { "DA.json", "DB.json", "DC.json", "DD.json" , "DE.json", "DF.json", "DG.json",
+						"DH.json", "DI.json", "DJ.json", "DK.json", "DL.json", "DM.json", "DN.json", "DO.json", "DP.json",
+								"DQ.json", "DR.json", "DS.json", "DT.json", "DU.json", "DV.json", "DW.json", "DX.json", "DY.json", "DZ.json" };
+
 const double TOTAL = 5.88124e+11;
 
 const int TRIE_LIMIT = 95;
@@ -61,6 +66,13 @@ struct SearchBar;
 struct LeftRight;
 
 struct Dictionary;
+
+struct Profile {
+	string username;
+	vector<string> dates_login;
+	long level;
+	double scores;
+};
 
 struct UserDef {
 	string username;
