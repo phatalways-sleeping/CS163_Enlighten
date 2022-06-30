@@ -636,7 +636,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 						}*/
 				}
 				else {
-					// invalid
+					// invalid   
 				}
 				break;
 			}

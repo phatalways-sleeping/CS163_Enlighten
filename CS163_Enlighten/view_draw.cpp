@@ -40,12 +40,15 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		window.display();
 		// input text file
 		Trie T;
+		Trie T_def;
+		build_definition_trie_TxtFile(T_def, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
 		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt"); // ko xai cai nay nha 
 		//readJson(T, JSONPATH);
 
 
 		//sleepHere(3.0);
 		dataset.user_Trie.push_back(T);
+		dataset.def_Trie.push_back(T_def);
 	}
 	for (int i = count; i < 10; ++i) {
 		sleepHere(10.0);

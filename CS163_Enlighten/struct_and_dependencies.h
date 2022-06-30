@@ -140,6 +140,7 @@ struct Enlighten
 	string username;
 	bool is_admin;
 	vector<Trie> user_Trie;
+	vector<Trie> def_Trie;
 	vector<string> favorite;
 	vector<string> history;
 	vector<string> dictionary_name;

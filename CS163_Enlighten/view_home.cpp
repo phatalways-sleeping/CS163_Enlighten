@@ -110,18 +110,25 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 						break;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					for (auto s : correctList)
-					{
-						bool isExist = false;
-						for (auto t : completeList) {
-							if (t == s) {
-								isExist = true;
-								break;
+					vector<string> completeList;
+					vector <string> correctList;
+					if (do_search.is_normal) {
+						completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						for (auto s : correctList)
+						{
+							bool isExist = false;
+							for (auto t : completeList) {
+								if (t == s) {
+									isExist = true;
+									break;
+								}
 							}
+							if (!isExist) completeList.push_back(s);
 						}
-						if (!isExist) completeList.push_back(s);
+					}
+					else {
+						completeList = search_def(dataset.def_Trie[dataset.cur_id], do_search.search_info->s, 3);
 					}
 					for (int i = 0; i < 3; i++)
 					{
