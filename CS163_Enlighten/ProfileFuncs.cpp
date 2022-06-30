@@ -29,7 +29,7 @@ bool readUserProfile(string path, string username, Profile& profile) {
                 if (j == 0) {
                     profile.username = v[i][j];
                 }
-                if (v[i][j] == "rank") profile.level = stoi(v[i][j + 1]);
+                if (v[i][j] == "rank") profile.streak = stoi(v[i][j + 1]);
                 if (v[i][j] == "score") profile.scores = stod(v[i][j + 1]);
                 if (v[i][j] == "dates") {
                     for (int z = j + 1; z < v[i].size(); z++) profile.dates_login.push_back(v[i][z]);
@@ -66,7 +66,7 @@ bool readAllUserProfile(string path, vector<Profile>& profiles) {
         Profile current_profile;
         for (int j = 0; j < v[i].size(); j++) {
             if (j == 0) current_profile.username = v[i][j];
-            if (v[i][j] == "rank") current_profile.level = stoi(v[i][j + 1]);
+            if (v[i][j] == "rank") current_profile.streak = stoi(v[i][j + 1]);
             if (v[i][j] == "score") current_profile.scores = stod(v[i][j + 1]);
             if (v[i][j] == "dates") {
                 for (int z = j + 1; z < v[i].size(); z++) current_profile.dates_login.push_back(v[i][z]);
@@ -93,7 +93,7 @@ bool writeUserProfile(string path, string username, const Profile& profile) {
         ofstream file(path, ios::out);
         if (file.is_open()) {
             for (int i = 0; i < profiles.size(); i++) {
-                file << profiles[i].username << ",rank," << to_string(profiles[i].level) << ",score," << to_string(profiles[i].scores) << ",dates,";
+                file << profiles[i].username << ",rank," << to_string(profiles[i].streak) << ",score," << to_string(profiles[i].scores) << ",dates,";
                 for (int j = 0; j < profiles[i].dates_login.size(); j++) file << profiles[i].dates_login[j] << ",";
                 file << '\n';
             }

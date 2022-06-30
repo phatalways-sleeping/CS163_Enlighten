@@ -3,7 +3,6 @@
 
 int main()
 {
-    
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     string &username = dataset.username;
@@ -57,8 +56,8 @@ int main()
             break;
         default:
             window.close();
-            return 0;
         }
     }
+    //writeUserProfile(PROFILE, dataset.username, dataset.user);
     return 0;
 }

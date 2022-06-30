@@ -1,12 +1,57 @@
 #include "header.h"
+#include "user.cpp"
 
 void profile(RenderWindow& window, int& page, Enlighten& dataset)
 {
+	vector<int> level_point;
+	level_point.push_back(5000);
+	level_point.push_back(8000);
+	level_point.push_back(10000);
+	level_point.push_back(15000);
+	level_point.push_back(23000);
+	level_point.push_back(32000);
+	level_point.push_back(43000);
+	level_point.push_back(56000);
+	level_point.push_back(68000);
+	level_point.push_back(77000);
+	level_point.push_back(85000);
+	level_point.push_back(99000);
+	Level lv(level_point);
+	setLevel(dataset.user, lv);
+	Profile& us = dataset.user;
+	checkAchievements(dataset);
 	// variables need input data
-	string p_username = "Username", p_level = "Level 2 - A Great Explorer";
-	int p_low_level = 0, p_high_level = 0, p_score_cur = 2300, p_score_want = 4500;
-	int percent = p_score_want / p_score_cur;
-	bool badges[5] = { false, true, false, false, true };
+	string p_username = us.username, p_level = "Level " + to_string(us.level) + " - A Great Explorer";
+	int p_low_level = us.level, p_high_level = us.level + 1;
+	int p_score_cur = 0, p_score_want = 0;
+	for (int i = 0; i < lv.require.size(); i++)
+	{
+		if (us.level + 1 == lv.require[i].second)
+		{
+			p_score_want = lv.require[i].first;
+			break;
+		}
+	}
+	p_score_cur = (int)us.scores; 
+	int percent = p_score_want / p_score_cur - 1;
+	if (!percent)
+	{
+		p_low_level++;
+		p_high_level++;
+		for (int i = 0; i < lv.require.size(); i++)
+		{
+			if (p_low_level + 1 == lv.require[i].second)
+			{
+				p_score_want = lv.require[i].first;
+				break;
+			}
+		}
+	}
+	bool badges[5];
+	for (int i = 0; i < 5; i++)
+	{
+		badges[i] = us.badges[i];
+	}
 	//----
 
 	int check = 0;
@@ -49,7 +94,7 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 	Info score_cur = createInfo("Graphic/RobotoCondensed-Bold.ttf", to_string(p_score_cur), 640.0f, 492.0f, 20);
 	Info score_want = createInfo("Graphic/RobotoCondensed-Bold.ttf", to_string(p_score_want), 995.0f, 492.0f, 20);
 	changePos(score_cur, 414.0f + round(score_cur_bar.bound.width - score_cur.bound.width / 2), 492.0f);
-	Object* achievement[5];
+	Object* achievement[5], *name[5];
 	Info text1 = createInfo("Graphic/Oswald-Light.ttf", "Enter old password", 345.0f, 327.0f, 30);
 	Info text2 = createInfo("Graphic/Oswald-Light.ttf", "Enter new password", 345.0f, 413.0f, 30);
 	Object w1 = createObject("Graphic/w.png", 317.0f, 315.0f);
@@ -60,6 +105,8 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			achievement[i] = createObjectTest("Graphic/a_" + to_string(check1[i].second) + "_here.png", 405.0f + 127.0f * i, 547.0f );
 		else 
 			achievement[i] = createObjectTest("Graphic/a_" + to_string(check1[i].second) + ".png", 405.0f + 127.0f * i, 547.0f );
+		name[i] = createObjectTest("Graphic/q" + to_string(check1[i].second) + ".png", 0.0f, 671.0f);
+		changePos(name[i], round(achievement[i]->bound.left + achievement[i]->bound.width / 2 - name[i]->bound.width / 2), 671.0f);
 	}
 	while (page == 11)
 	{
@@ -136,8 +183,11 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			window.draw(edit.first->draw);
 			window.draw(change_pw.first->draw);
 		}
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 5; i++) 
+		{
 			window.draw(achievement[i]->draw);
+			window.draw(name[i]->draw);
+		}
 		window.draw(low_level.text);
 		window.draw(high_level.text);
 		window.draw(score_cur.text);
@@ -171,5 +221,5 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 	deallocate(change_pw);
 	deallocate(confirm_pw);
 	for (int i = 0; i < 5; i++)
-		delete achievement[i];
+		delete achievement[i], name[i];
 }

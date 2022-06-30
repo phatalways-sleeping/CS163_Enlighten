@@ -70,8 +70,10 @@ struct Dictionary;
 struct Profile {
 	string username;
 	vector<string> dates_login;
-	long level;
+	long streak;
+	int level;
 	double scores;
+	bool badges[5];
 };
 
 struct UserDef {
@@ -145,7 +147,7 @@ struct Enlighten
 	vector<string> favorite;
 	vector<string> history;
 	vector<string> dictionary_name;
-
+	Profile user;
 	Enlighten() {
 		is_admin = false;
 		cur_id = 0;

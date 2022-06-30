@@ -98,6 +98,9 @@
     <ClInclude Include="test_function.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="user.cpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="DataStructure\readme.md" />

@@ -204,6 +204,7 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 					{
 						if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 						{
+							readUserProfile(PROFILE, username.s, dataset.user);
 							user_name = username.s;
 							page = 4;
 						}
@@ -215,6 +216,7 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 						if (login(username.s, pw.s, USERS, dataset.history, dataset.favorite))
 						{
 							user_name = username.s;
+							readUserProfile(PROFILE, username.s, dataset.user);
 							page = 4;
 						}
 						else
@@ -284,6 +286,7 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 				if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 				{
 					user_name = username.s;
+					readUserProfile(PROFILE, username.s, dataset.user);
 					page = 4;
 				}
 				else
@@ -294,6 +297,7 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 				if (login(username.s, pw.s, USERS, dataset.history, dataset.favorite))
 				{
 					user_name = username.s;
+					readUserProfile(PROFILE, username.s, dataset.user);
 					page = 4;
 				}
 				else

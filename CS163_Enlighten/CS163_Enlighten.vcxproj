@@ -188,6 +188,7 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="struct_and_dependencies.h" />
     <ClInclude Include="test_function.h" />
+    <ClInclude Include="user.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DataStructure\readme.md" />
