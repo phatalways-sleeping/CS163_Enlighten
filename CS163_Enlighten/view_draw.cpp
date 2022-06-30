@@ -1,6 +1,6 @@
 #pragma once
 #include "header.h"
-
+#include "test_function.h"
 void sleepHere(double s)
 {
 	vector<int> v;
@@ -14,7 +14,6 @@ void sleepHere(double s)
 
 void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int number_of_dataset)
 {
-	number_of_dataset = 1;
 	Object *loading[10];
 	for (int i = 0; i < 10; i++)
 	{
@@ -23,6 +22,9 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	Event event;
 	Object screen = createObject("Graphic/p1.png");
 	int count = 0;
+	ifstream dict_name_file(dict_name_path);
+	dict_name_file >> number_of_dataset;
+	//dict_name_file.ignore('\n');
 	while (count < number_of_dataset)
 	{
 		if (window.pollEvent(event) && event.type == Event::Closed)
@@ -41,7 +43,14 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		// input text file
 		Trie T;
 		Trie T_def;
-		build_definition_trie_TxtFile(T_def, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
+		string dictName, dictPath;
+		dict_name_file >> dictName >> dictPath;
+		T.name = dictName; 
+		T.path = dictPath; 
+		inputTxtFile(T, dictPath);
+		T_def.name = dictName;
+		T_def.path = dictPath;
+		build_definition_trie_TxtFile(T_def,dictPath);
 		//readJson(T, JSONPATH);
 
 
@@ -60,6 +69,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	{
 		delete loading[i];
 	}
+	dict_name_file.close();
 }
 
 int checkConfirmation(RenderWindow& window, int& check, const Confirmation& element, Vector2f& mouse)

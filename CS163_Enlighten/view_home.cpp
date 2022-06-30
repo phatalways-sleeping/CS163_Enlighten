@@ -191,6 +191,7 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 		else if (check_search > 0)
 		{
 			// switch to other dictionary
+			
 		}
 		window.display();
 	}

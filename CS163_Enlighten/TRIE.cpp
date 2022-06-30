@@ -3,7 +3,7 @@
 
 bool getstr(string s, string& word, string& def) {
     if (s.size() < 3) return false;
-    int pos = s.find(':');
+    int pos = s.find('\t');
     if (pos == s.size()) return false;
     word = s.substr(0, pos);
     def = s.substr(pos + 1);
