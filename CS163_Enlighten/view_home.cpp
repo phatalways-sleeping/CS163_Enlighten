@@ -69,9 +69,9 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 							}
 						}
 					}
-					switchPage(search_history.first->bound, mouse, 6, page, is_fav, false);
-					switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false);
-					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
+					switchPage(search_history.first->bound, mouse, 13, page);
+					switchPage(do_search.search_history.first->bound, mouse, 13, page);
+					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
 					if (isHere(do_search.switch_dict.left, mouse))

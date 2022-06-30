@@ -133,8 +133,8 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false);
-					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
+					switchPage(do_search.search_history.first->bound, mouse, 13, page);
+					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(del.first->bound, mouse, 1, page);
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
@@ -698,6 +698,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(home1.bound, mouse, 4, page);
 					for (int i = 0; i < 5; i++)
 					{
@@ -770,8 +771,11 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	}
 }
 
-void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
+void myList(RenderWindow &window, int &page, Enlighten &dataset)
 {
+	// page = 6: favorite list
+	// page = 13: history list
+	bool is_fav = (page == 6);
 	Object screen = createObject("Graphic/border.png");
 	Info *word;
 	if (is_fav)
@@ -831,7 +835,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	bool isBreak = false;
-	while (page == 6)
+	while (page == 6 || page == 13)
 	{
 		if (check)
 		{
@@ -874,11 +878,11 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(home1.bound, mouse, 4, page);
-					if (is_fav && switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false)) {
+					if (is_fav && switchPage(do_search.search_history.first->bound, mouse, 13, page)) {
 						isBreak = true;
 						break;
 					}
-					if (!is_fav && switchPage(fav.first->bound, mouse, 6, page, is_fav, true)) {
+					if (!is_fav && switchPage(fav.first->bound, mouse, 6, page)) {
 						isBreak = true;
 						break;
 					}
