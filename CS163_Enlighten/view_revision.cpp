@@ -38,7 +38,7 @@ void revision(RenderWindow &window, int &page, Enlighten &dataset, int &level, b
 					// switchPage(b1.first->bound, mouse, 2, page);
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(home.first->bound, mouse, 4, page);
-					//switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
+					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(settings.first->bound, mouse, 8, page);
 					if (!difficulty)
 					{

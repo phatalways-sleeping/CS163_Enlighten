@@ -94,7 +94,7 @@ void setRole(RenderWindow &window, int &page, Enlighten &dataset);
 void logIn(RenderWindow &window, int &page, string &user_name, Enlighten &dataset);
 void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav, Enlighten &dataset);
 void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset, string word_here);
-void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
+void myList(RenderWindow &window, int &page, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);

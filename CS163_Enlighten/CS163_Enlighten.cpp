@@ -35,7 +35,7 @@ int main()
             wordDisplay(window, page, is_fav, dataset, "nhuvinh");
             break;
         case 6:
-            myList(window, page, is_fav, dataset);
+            myList(window, page, dataset);
             break;
         case 7:
             revision(window, page, dataset, level, difficulty);
@@ -51,6 +51,9 @@ int main()
             break;
         case 12:
             searchResult(window, page, "hello", dataset, is_fav, 1);
+            break;
+        case 13:
+            myList(window, page, dataset);
             break;
         default:
             window.close();
