@@ -632,12 +632,15 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	pair<Object*, Object*> fav = createElement("p4_fav", 963.0f, 31.0f);
 	pair<Object*, Object*> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object*, Object*> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object*, Object*> add = createElement("add", 308.0f, 26.0f);
-	pair<Object*, Object*> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object*, Object*> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
+	Object w = createObject("Graphic/w.png", 317.0f, 196.0f);
+	Object t = createObject("Graphic/t.png", 317.0f, 272.0f);
+	Object d = createObject("Graphic/d.png", 317.0f, 348.0f);
 	Object* border[5];
 	Info* name[5], * defi[5];
 	LeftRight left_right(1);
+	SearchBar do_search;
+	Vocabulary new_word;
 
 	int cur_page = 0;
 	bool check = true;
@@ -669,9 +672,14 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 		name[i] = createInfoTest("Graphic/Roboto-Medium.ttf", "", 390.0f, 190.0f + 110.0f * i, 23);
 		defi[i] = createInfoTest("Graphic/RobotoCondensed-Regular.ttf", "", 390.0f, 225.0f + 110.0f * i, 17);
 	}
-
+	int size_searchBar = min(3, (int)dataset.history.size());
+	for (int i = 0; i < size_searchBar; ++i) {
+		do_search.result[i]->s = dataset.history[i];
+		do_search.result[i]->text.setString(dataset.history[i]);
+	}
+	int search_status = 0, add_status = 0, count = 0;
+	bool isBreak = false;
 	Event event;
-	changePos(add.second, 260.0f, 26.0f);
 
 	while (page == 12)
 	{
@@ -719,15 +727,20 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(home1.bound, mouse, 4, page);
-					for (int i = 0; i < 5; i++)
-					{
-						if (i + cur_page * 5 >= size)
-							break;
-						if (isHere(border[i], mouse) && !name[i]->s.empty())
-						{ // word display
-							page = 5;
-							wordDisplay(window, page, is_fav, dataset, name[i]->s);
-							return;
+					switchPage(do_search.search_history.first->bound, mouse, 13, page);
+					switchPage(settings.first->bound, mouse, 8, page);
+					if (search_status == 1) {
+						for (int i = 0; i < size_searchBar; i++) {
+							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
+								search_status = 0;
+								page = 5;
+								if (dataset.is_admin)
+									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
+								else
+									wordDisplay(window, page, is_fav, dataset, do_search.result[i]->s);
+								isBreak = true;
+								break;
+							}
 						}
 					}
 					if (isHere(left_right.left[2], mouse) && cur_page > 0)
@@ -740,21 +753,127 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 						cur_page++;
 						check = true;
 					}
+					if (isHere(do_search.switch_dict.left, mouse))
+					{
+						count = (count == 0 ? 0 : count - 6);
+					}
+					else if (isHere(do_search.switch_dict.right, mouse))
+					{
+						count = (count < dataset.user_Trie.size() - 6 ? count + 6 : count);
+					}
+					else if (search_status == 2)
+					{
+						typingWhat(d, w, t, mouse, do_search);
+					}
+					else if (isHere(do_search.search_normal.bound, mouse))
+					{
+						do_search.is_normal ^= 1;
+					}
+					else if(search_status == 0) {
+						for (int i = 0; i < 5; i++)
+						{
+							if (i + cur_page * 5 >= size)
+								break;
+							if (isHere(border[i], mouse) && !name[i]->s.empty())
+							{ // word display
+								page = 5;
+								wordDisplay(window, page, is_fav, dataset, name[i]->s);
+								return;
+							}
+						}
+					}
+				}
+				break;
+			}
+			case Event::TextEntered:
+			{
+				if (search_status == 1)
+				{
+					if (event.text.unicode == 13) {
+						if (do_search.is_normal) {
+							if (do_search.result[0]->s == "") {
+								page = 12;
+								searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 1);
+							}
+							else {
+								page = 12;
+								searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s, 1);
+							}
+						}
+						else {
+							page = 12;
+							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 0);
+						}
+						isBreak = true;
+						break;
+					}
+					texting(do_search.search_info, event.text.unicode, 30);
+					vector<string> completeList(0);
+					vector<string> correctList(0);
+					if (do_search.is_normal) {
+						completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						for (auto s : correctList)
+						{
+							bool isExist = false;
+							for (auto t : completeList) {
+								if (t == s) {
+									isExist = true;
+									break;
+								}
+							}
+							if (!isExist) completeList.push_back(s);
+						}
+					}
+					else {
+						completeList = search_def(dataset.def_Trie[dataset.cur_id], do_search.search_info->s, 3);
+					}
+					for (int i = 0; i < 3; i++)
+					{
+						do_search.result[i]->s = "";
+						do_search.result[i]->text.setString("");
+					}
+
+					if (do_search.search_info->s.empty()) {
+						size_searchBar = min(3, (int)dataset.history.size());
+						for (int i = 0; i < size_searchBar; ++i) {
+							do_search.result[i]->s = dataset.history[i];
+							do_search.result[i]->text.setString(dataset.history[i]);
+						}
+					}
+					else {
+						size_searchBar = min(3, (int)completeList.size());
+						for (int i = 0; i < size_searchBar; ++i) {
+							do_search.result[i]->s = completeList[i];
+							do_search.result[i]->text.setString(completeList[i]);
+						}
+					}
+
+
+				}
+				else if (search_status == 2)
+				{
+					texting_endl(do_search.enter_defi, event.text.unicode, 36);
+					texting(do_search.enter_word, event.text.unicode, 30);
+					texting(do_search.enter_type, event.text.unicode, 30);
+				}
+				else {
+
 				}
 				break;
 			}
 			default:
 				break;
 			}
+			if (isBreak) break;
 		}
+		if (isBreak) break;
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
-		drawWhich(window, change, mouse);
-		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
@@ -771,6 +890,15 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 			drawLongText(window, defi[i]);
 		}
 		window.draw(word->text);
+		int check_search = searching(window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
+		if (check_search == 1)
+		{
+			// added new word
+		}
+		else if (check_search > 0)
+		{
+			// switch to other dictionary
+		}
 		window.display();
 	}
 	deallocate(home);
@@ -779,8 +907,6 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	deallocate(fav);
 	deallocate(user);
 	deallocate(del);
-	deallocate(add);
-	deallocate(change);
 	left_right.deleteLR();
 	deallocate(rem_fav);
 	delete word;
