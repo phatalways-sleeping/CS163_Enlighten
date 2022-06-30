@@ -27,6 +27,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	//dict_name_file.ignore('\n');
 	while (count < number_of_dataset)
 	{
+		playSound("hmc.mp3");
 		if (window.pollEvent(event) && event.type == Event::Closed)
 		{
 			window.close();
