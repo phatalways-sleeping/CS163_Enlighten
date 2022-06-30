@@ -35,7 +35,7 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 		do_search.result[i]->text.setString(dataset.history[i]);
 	}
 	int search_status = 0, add_status = 0, count = 0;
-
+	bool isBreak = false;
 	Event event;
 	while (page == 4)
 	{
@@ -61,10 +61,11 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 								search_status = 0;
 								page = 5;
 								if (is_admin)
-								wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
-							else
-								wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
-							return;
+									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
+								else
+									wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
+								isBreak = true;
+								break;
 							}
 						}
 					}
@@ -105,7 +106,8 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 							page = 12;
 							searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s);
 						}
-						return;
+						isBreak = true;
+						break;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
 					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
@@ -158,7 +160,9 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 			default:
 				break;
 			}
+			if (isBreak) break;
 		}
+		if (isBreak) break;
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);
@@ -189,10 +193,12 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 	deallocate(fav);
 	deallocate(user);
 	deallocate(del);
+	deallocate(search_history);
 	left_right.deleteLR();
 	deallocate(do_search);
 	for (int i = 0; i < 12; i++)
 	{
 		delete sh[i];
 	}
+	new_word.resetWord(1);
 }

@@ -419,7 +419,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
 		drawWhich(window, change, mouse);
-		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse);
@@ -431,7 +430,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		{
 			drawWhich(window, rem_fav, mouse);
 		}
-		window.draw(search_bar.draw);
 		window.draw(word.text);
 		drawLongText(window, definition, true, 50);
 		// window.draw(definition.text);
@@ -926,9 +924,9 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 						{ // word display
 							page = 5;
 							if (dataset.is_admin)
-							wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
+								wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
 							else
-							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
+								wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
 							return;
 						}
 						if (isHere(rem[i], mouse)) // del 1 defi
@@ -1038,7 +1036,6 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
 		drawWhich(window, change, mouse);
-		drawWhich(window, add, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
