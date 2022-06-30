@@ -2,8 +2,9 @@
 #include "header.h"
 
 
-void clear(Node& m) {
-    m.antonyms.clear(); m.synonyms.clear(); m.definitions.clear(); m.word.clear();
+void clear(Node& root) {
+    root.antonyms.clear(); root.definitions.clear(); root.synonyms.clear();
+    root.def.clear(); root.user_definitions.clear(); root.word.clear();
 }
 
 bool insert(Trie& T, string word, const Node& current) {
@@ -35,6 +36,7 @@ bool remove_eng(Trie& T, string word) {
         else root = root->child[ch];
     }
     root->antonyms.clear(); root->definitions.clear(); root->synonyms.clear();
+    root->def.clear(); root->user_definitions.clear(); root->word.clear();
     return true;
 }
 
