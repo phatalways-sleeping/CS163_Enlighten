@@ -46,8 +46,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
-	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object *, Object *> add_to_fav = createElement("p5_add_fav", 886.0f, 115.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
 	pair<Object *, Object *> deleteB[3];
@@ -101,7 +99,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		special[i] = createObjectTest("Graphic/p_top.png", 375.0f, 375.0f + 110.0f * i);
 	}
 	Event event;
-	changePos(add.second, 260.0f, 26.0f);
 	
 	bool flag = false, is_fixed = false;
 	definition.s = cur_defi;
@@ -418,7 +415,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
-		drawWhich(window, change, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse);
@@ -591,8 +587,6 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 	deallocate(fav);
 	deallocate(user);
 	deallocate(del);
-	deallocate(add);
-	deallocate(change);
 	left_right.deleteLR();
 	deallocate(add_to_fav);
 	deallocate(rem_fav);
@@ -792,8 +786,6 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);
 	pair<Object *, Object *> user = createElement("p4_user", 1010.0f, 30.0f);
 	pair<Object *, Object *> del = createElement("p4_del", 1056.0f, 32.0f);
-	pair<Object *, Object *> add = createElement("add", 308.0f, 26.0f);
-	pair<Object *, Object *> change = createElement("switch", 810.0f, 26.0f);
 	pair<Object *, Object *> clear = createElement("clear", 886.0f, 120.0f);
 	pair<Object *, Object *> rem_fav = createElement("p5_rem_fav", 886.0f, 115.0f);
 	Object w = createObject("Graphic/w.png", 317.0f, 196.0f);
@@ -832,7 +824,6 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 	}
 
 	Event event;
-	changePos(add.second, 260.0f, 26.0f);
 	int size_searchBar = min(3, (int)dataset.history.size());
 	for (int i = 0; i < size_searchBar; ++i) {
 		do_search.result[i]->s = dataset.history[i];
@@ -1035,7 +1026,6 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
 		drawWhich(window, fav, mouse);
-		drawWhich(window, change, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
 		left_right.draw(window, mouse, 0);
@@ -1071,8 +1061,6 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 	deallocate(fav);
 	deallocate(user);
 	deallocate(del);
-	deallocate(add);
-	deallocate(change);
 	left_right.deleteLR();
 	deallocate(clear);
 	deallocate(rem_fav);
