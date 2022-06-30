@@ -1088,31 +1088,33 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 					}
 					// switchPage(search_history.first->bound, mouse, x, page);
 					switchPage(revision.first->bound, mouse, 7, page);
-					for (int i = 0; i < 5; i++)
-					{
-						if (i + cur_page * 5 >= size)
-							break;
-						if (isHere(border[i], mouse) && !name[i]->s.empty())
-						{ // word display
-							page = 5;
-							if (dataset.is_admin)
-								wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
-							else
-								wordDisplay(window, page, is_fav, dataset, name[i]->s);
-							isBreak = true;
-							break;
-						}
-						if (isHere(rem[i], mouse)) // del 1 defi
+					if (search_status == 0) {
+						for (int i = 0; i < 5; i++)
 						{
-							size--;
-							if (size % 5 == 0 && cur_page > 0)
-							{
-								cur_page--;
+							if (i + cur_page * 5 >= size)
+								break;
+							if (isHere(border[i], mouse) && !name[i]->s.empty())
+							{ // word display
+								page = 5;
+								if (dataset.is_admin)
+									wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
+								else
+									wordDisplay(window, page, is_fav, dataset, name[i]->s);
+								isBreak = true;
+								break;
 							}
-							check = true;
-							cur_list.erase(cur_list.begin() + show_list[i + cur_page * 5].second);
-							show_list.erase(show_list.begin() + i + cur_page * 5);
-							// update(dataset.username, WHAT_LIST, cur_list, path);
+							if (isHere(rem[i], mouse)) // del 1 defi
+							{
+								size--;
+								if (size % 5 == 0 && cur_page > 0)
+								{
+									cur_page--;
+								}
+								check = true;
+								cur_list.erase(cur_list.begin() + show_list[i + cur_page * 5].second);
+								show_list.erase(show_list.begin() + i + cur_page * 5);
+								// update(dataset.username, WHAT_LIST, cur_list, path);
+							}
 						}
 					}
 					if (isBreak) break;
