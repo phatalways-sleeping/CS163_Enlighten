@@ -44,8 +44,10 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					// switchPage(b1.first->bound, mouse, 2, page);
+					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(home.first->bound, mouse, 4, page);
-					// switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(revision.first->bound, mouse, 7, page);
 					if (check == 0)
 					{
 						if (is_admin)
