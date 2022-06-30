@@ -21,18 +21,18 @@ int main()
             Scene1(window, page, dataset);
             break;
         case 2:
-            setRole(window, page, is_admin, dataset);
+            setRole(window, page, dataset);
             break;
         case 3:
             dataset.history.clear();
             dataset.favorite.clear();
-            logIn(window, page, is_admin, username, dataset);
+            logIn(window, page, username, dataset);
             break;
         case 4:
-            home(window, page, is_admin, username, is_fav, dataset);
+            home(window, page, username, is_fav, dataset);
             break;
         case 5:
-            wordDisplay(window, page, is_admin, is_fav, dataset, "nhuvinh");
+            wordDisplay(window, page, is_fav, dataset, "nhuvinh");
             break;
         case 6:
             myList(window, page, is_fav, dataset);

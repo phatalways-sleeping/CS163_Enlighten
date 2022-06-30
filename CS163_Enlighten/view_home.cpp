@@ -1,6 +1,6 @@
 #include "header.h"
 
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, Enlighten &dataset)
+void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav, Enlighten &dataset)
 {
 
 	Object screen = createObject("Graphic/p4.png");
@@ -60,10 +60,10 @@ void home(RenderWindow &window, int &page, bool &is_admin, const string &user_na
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
 								search_status = 0;
 								page = 5;
-								if (is_admin)
+								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
-									wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
+									wordDisplay(window, page, is_fav, dataset, do_search.result[i]->s);
 								isBreak = true;
 								break;
 							}

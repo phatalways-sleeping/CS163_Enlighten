@@ -47,7 +47,7 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 
 
 
-void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset)
+void setRole(RenderWindow &window, int &page, Enlighten &dataset)
 {
 	bool tab = false;
 	Object screen = createObject("Graphic/p3.png");
@@ -72,15 +72,15 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 			{
 				if (event.mouseButton.button == Mouse::Left)
 				{
-					switchPage(user.first->bound, mouse, 3, page, is_admin, false);
-					switchPage(admin.first->bound, mouse, 3, page, is_admin, true);
+					switchPage(user.first->bound, mouse, 3, page, dataset.is_admin, false);
+					switchPage(admin.first->bound, mouse, 3, page, dataset.is_admin, true);
 				}
 				break;
 			}
 			case Event::TextEntered:
 			{
 				if (event.text.unicode == 9) { // tab
-					is_admin ^= 1;
+					dataset.is_admin ^= 1;
 					tab = true;
 				}
 				else if (event.text.unicode == 13) { // enter
@@ -97,13 +97,13 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 		drawWhich(window, admin, mouse);
 		drawWhich(window, user, mouse);
 		if (isHere(admin, mouse)) {
-			is_admin = true;
+			dataset.is_admin = true;
 		}
 		else if (isHere(user, mouse)) {
-			is_admin = false;
+			dataset.is_admin = false;
 		}
 		if (tab && !isHere(admin, mouse) && !isHere(user, mouse)) {
-			if (is_admin)
+			if (dataset.is_admin)
 			{
 				window.draw(admin.second->draw);
 			}
@@ -116,13 +116,12 @@ void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset
 	}
 	deallocate(admin);
 	deallocate(user);
-	cerr << is_admin << endl;
 }
 
 
 
 
-void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_name, Enlighten& dataset)
+void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& dataset)
 {
 	Event event;
 	bool see = false, entered = false, change = false, wrong_password = false;
@@ -201,7 +200,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 				else if (event.text.unicode == 13 || event.text.unicode == '\n')
 				{ // -> enter -> login
 					change = false;
-					if (is_admin)
+					if (dataset.is_admin)
 					{
 						if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 						{
@@ -280,8 +279,7 @@ void logIn(RenderWindow& window, int& page, const bool& is_admin, string& user_n
 
 		if (change && !wrong_password)
 		{
-			cerr << "here\n";
-			if (is_admin)
+			if (dataset.is_admin)
 			{
 				if (login(username.s, pw.s, ADMIN, dataset.history, dataset.favorite))
 				{

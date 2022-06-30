@@ -2,9 +2,9 @@
 #include "header.h"
 #include "test_function.h"
 
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here)
+void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset, string word_here)
 {
-	if (is_admin) {
+	if (dataset.is_admin) {
 		wordDisplayAdmin(window, page, is_fav, dataset, word_here);
 		return;
 	}
@@ -141,10 +141,10 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
 								search_status = 0;
 								page = 5;
-								if (is_admin)
+								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
-									wordDisplay(window, page, is_admin, is_fav, dataset, do_search.result[i]->s);
+									wordDisplay(window, page, is_fav, dataset, do_search.result[i]->s);
 								return;
 							}
 						}
@@ -213,7 +213,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 						int id = i + user_cur_page * 3;
 						if (id >= user_defi.size())
 							break;
-						if (isHere(deleteB[i], mouse) && (is_admin || user_defi[id].username == dataset.username))
+						if (isHere(deleteB[i], mouse) && (dataset.is_admin || user_defi[id].username == dataset.username))
 						{
 							// delete user_definition
 							sort_user_list = true;
@@ -456,7 +456,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 			window.draw(border[i]->draw);
 			window.draw(name[i]->text);
 			window.draw(defi[i]->text);
-			if (is_admin || user_defi[id].username == dataset.username)
+			if (dataset.is_admin || user_defi[id].username == dataset.username)
 				drawWhich(window, deleteB[i], mouse);
 			
 			if (like_status[i] == 0)
@@ -533,7 +533,7 @@ void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is
 				window.draw(like_count[i]->text);*/
 			}
 		}
-		int check_me = edit_word.draw(window, mouse, flag, check, existed_word, is_admin, is_fixed);
+		int check_me = edit_word.draw(window, mouse, flag, check, existed_word, dataset.is_admin, is_fixed);
 		
 		if (check_me == 1)
 		{
@@ -706,7 +706,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 						if (isHere(border[i], mouse) && !name[i]->s.empty())
 						{ // word display
 							page = 5;
-							wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
+							wordDisplay(window, page, is_fav, dataset, name[i]->s);
 							return;
 						}
 					}
@@ -830,6 +830,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 		do_search.result[i]->text.setString(dataset.history[i]);
 	}
 	int search_status = 0, add_status = 0, count = 0;
+	bool isBreak = false;
 	while (page == 6)
 	{
 		if (check)
@@ -873,8 +874,14 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(home1.bound, mouse, 4, page);
-					switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false);
-					switchPage(fav.first->bound, mouse, 6, page, is_fav, true);
+					if (is_fav && switchPage(do_search.search_history.first->bound, mouse, 6, page, is_fav, false)) {
+						isBreak = true;
+						break;
+					}
+					if (!is_fav && switchPage(fav.first->bound, mouse, 6, page, is_fav, true)) {
+						isBreak = true;
+						break;
+					}
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
@@ -883,10 +890,12 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
-									wordDisplay(window, page, dataset.is_admin, is_fav, dataset, do_search.result[i]->s);
-								return;
+									wordDisplay(window, page, is_fav, dataset, do_search.result[i]->s);
+								isBreak = true;
+								break;
 							}
 						}
+						if (isBreak) break;
 					}
 					switchPage(settings.first->bound, mouse, 8, page);
 					if (isHere(do_search.switch_dict.left, mouse))
@@ -917,8 +926,9 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 							if (dataset.is_admin)
 								wordDisplayAdmin(window, page, is_fav, dataset, name[i]->s);
 							else
-								wordDisplay(window, page, dataset.is_admin, is_fav, dataset, name[i]->s);
-							return;
+								wordDisplay(window, page, is_fav, dataset, name[i]->s);
+							isBreak = true;
+							break;
 						}
 						if (isHere(rem[i], mouse)) // del 1 defi
 						{
@@ -932,6 +942,7 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 							// update(dataset.username, WHAT_LIST, cur_list, path);
 						}
 					}
+					if (isBreak) break;
 					if (isHere(clear, mouse))
 					{ // clear all
 						cur_list.clear();
@@ -1019,7 +1030,9 @@ void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset)
 			default:
 				break;
 			}
+			if (isBreak) break;
 		}
+		if (isBreak) break;
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);

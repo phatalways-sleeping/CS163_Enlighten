@@ -139,6 +139,7 @@ struct Enlighten
 	int cur_id;
 	string username;
 	bool is_admin;
+	bool is_fav;
 	vector<Trie> user_Trie;
 	vector<Trie> def_Trie;
 	vector<string> favorite;

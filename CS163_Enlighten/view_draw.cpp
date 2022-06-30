@@ -42,7 +42,6 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		Trie T;
 		Trie T_def;
 		build_definition_trie_TxtFile(T_def, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
-		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt"); // ko xai cai nay nha 
 		//readJson(T, JSONPATH);
 
 
