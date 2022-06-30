@@ -125,6 +125,57 @@ int checkConfirmation(RenderWindow& window, int& check, const Confirmation& elem
 	return 1;
 }
 
+int checkConfirmation(RenderWindow& window, Event& event, int& check, const Confirmation& element, Vector2f& mouse)
+{
+	if (check == 0)
+		return 0;
+	if (check == -1)
+	{
+		window.draw(element.board.first->draw);
+		drawWhich(window, element.nah, mouse);
+		drawWhich(window, element.of_course, mouse);
+		if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+		{
+			if (isHere(element.nah, mouse)) {
+				check = 0;
+				return 0;
+			}
+			else if (isHere(element.of_course, mouse))
+			{
+				check = 1;
+				return -1;
+			}
+		}
+	}
+	else if (check == 2)
+	{
+		window.draw(element.invalid.draw);
+		drawWhich(window, element.out, mouse);
+		if (Mouse::isButtonPressed(Mouse::Left))
+		{
+			if (isHere(element.out, mouse))
+			{
+				check = 0;
+				return 0;
+			}
+		}
+	}
+	else
+	{
+		window.draw(element.board.second->draw);
+		drawWhich(window, element.out, mouse);
+		if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left)
+		{
+			if (isHere(element.out, mouse))
+			{
+				check = 0;
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
 // -1: added, >0: switch
 int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, int &add_status, Enlighten &dataset, Event &event, int count, Vocabulary& new_word)
 {

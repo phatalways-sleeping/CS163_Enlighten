@@ -202,7 +202,7 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 		window.draw(score_bar.draw);
 		window.draw(score_cur_bar.draw);
 		window.draw(level.text);
-		int res = checkConfirmation(window, check, confirm_pw, mouse);
+		int res = checkConfirmation(window, event, check, confirm_pw, mouse);
 		if (check == -1)
 		{
 			window.draw(text1.text);

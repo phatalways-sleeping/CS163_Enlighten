@@ -196,11 +196,11 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 		int res;
 		if (button == ResetAllDict || button == ResetDict || button == RemDict)
 		{
-			res = checkConfirmation(window, check, confirm, mouse);
+			res = checkConfirmation(window, event, check, confirm, mouse);
 		}
 		else
 		{
-			res = checkConfirmation(window, check, confirm_pw, mouse);
+			res = checkConfirmation(window, event, check, confirm_pw, mouse);
 		}
 		if (button == ChangePw)
 		{
@@ -215,6 +215,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			{
 				if (changePassword(dataset.username ,text1.s, text2.s, ADMIN)) 
 				{
+					check = 1;
 					// successfully change the password
 				}
 				else
@@ -239,6 +240,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 					string folder = upper(name.substr(0, i));
 					if (resetCurrentDataset(use_data, folder, original_data_path)) 
 					{
+						check = 1;
 						// successfully reset
 					}
 					else
@@ -263,6 +265,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 					string name = dataset.user_Trie[dataset.cur_id].path.substr(index_of_split + 1);
 					if (removeDatasets(use_data + "//" + name) && removeDatasets(original_data_path + "//" + name)) {
 						// successfully removed
+						check = 1;
 					}
 					else
 					{
@@ -273,6 +276,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				{
 					if (addNewDataSets(text2.s, original_data_path)) 
 					{
+						check = 1;
 						// successfully added
 					}
 					else
