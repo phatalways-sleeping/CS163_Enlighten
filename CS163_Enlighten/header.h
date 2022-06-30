@@ -90,17 +90,16 @@ void changeInfo(Info& a, Info& b, string name_a, string name_b);
 
 //---------------------Scene--------------------------
 void Scene1(RenderWindow& window, int& page, Enlighten& dataset);
-void setRole(RenderWindow &window, int &page, bool &is_admin, Enlighten &dataset);
-void logIn(RenderWindow &window, int &page, const bool &is_admin, string &user_name, Enlighten &dataset);
-void home(RenderWindow &window, int &page, bool &is_admin, const string &user_name, bool &is_fav, Enlighten &dataset);
-void wordDisplay(RenderWindow &window, int &page, const bool &is_admin, bool &is_fav, Enlighten &dataset, string word_here);
+void setRole(RenderWindow &window, int &page, Enlighten &dataset);
+void logIn(RenderWindow &window, int &page, string &user_name, Enlighten &dataset);
+void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav, Enlighten &dataset);
+void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset, string word_here);
 void myList(RenderWindow &window, int &page, bool &is_fav, Enlighten &dataset);
 void revision(RenderWindow &window, int &page, Enlighten &dataset, int& level, bool difficulty);
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset);
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool& is_fav, bool right_word);
-void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 void profile(RenderWindow& window, int& page, Enlighten& dataset);
 
 //------------------check word/definition in fav/his list---------
