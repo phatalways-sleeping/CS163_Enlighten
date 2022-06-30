@@ -132,7 +132,13 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					if (isHere(change_pw, mouse) && check == 0)
+					{
 						check = -1;
+						text1.text.setString("Enter old password here");
+						text1.s = "";
+						text2.s = "";
+						text2.text.setString("Enter new password here");
+					}
 					else if (isHere(w1.bound, mouse))
 					{
 						text1.check = true;
@@ -206,7 +212,15 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 		}
 		if (res == -1)
 		{
-			// changepw
+			if (changePassword(dataset.username, text1.s, text2.s, ADMIN))
+			{
+				check = 1;
+				// successfully change the password
+			}
+			else
+			{
+				check = 2;
+			}
 		}
 		window.display();
 	}
