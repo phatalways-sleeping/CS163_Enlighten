@@ -734,6 +734,14 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
 								search_status = 0;
 								page = 5;
+								for (int j = 0; j < dataset.history.size(); j++) {
+									if (dataset.history[j] == do_search.result[i]->s) {
+										dataset.history.erase(dataset.history.begin() + j);
+										break;
+									}
+								}
+								dataset.history.insert(dataset.history.begin(), do_search.result[i]->s);
+								//update(dataset.username, WHAT_LIST, dataset.history, path);
 								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
@@ -776,6 +784,14 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 								break;
 							if (isHere(border[i], mouse) && !name[i]->s.empty())
 							{ // word display
+								for (int j = 0; j < dataset.history.size(); j++) {
+									if (dataset.history[j] == name[i]->s) {
+										dataset.history.erase(dataset.history.begin() + j);
+										break;
+									}
+								}
+								dataset.history.insert(dataset.history.begin(), name[i]->s);
+								//update(dataset.username, WHAT_LIST, dataset.history, path);
 								page = 5;
 								wordDisplay(window, page, is_fav, dataset, name[i]->s);
 								return;
@@ -962,7 +978,14 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 	int cur_id = dataset.cur_id;
 	int size = 100;
 	vector<string> &cur_list = is_fav ? dataset.favorite : dataset.history;
-	size = min(size, (int)cur_list.size());
+	vector<pair<string, int>> show_list;
+	for (int i = 0; i < cur_list.size(); i++) {
+		string s = cur_list[i];
+		Node* defi_search = search(dataset.user_Trie[cur_id], s);
+		if (defi_search && defi_search->def.size())
+			show_list.push_back({ s, i });
+	}
+	size = min(size, (int)show_list.size());
 	//-------------------------------------------------------------------
 	for (int i = 0; i < 5; i++)
 	{
@@ -988,7 +1011,7 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 				if (i + cur_page * 5 >= size)
 					break;
-				name[i]->s = cur_list[i + cur_page * 5];
+				name[i]->s = show_list[i + cur_page * 5].first;
 				name[i]->text.setString(name[i]->s);
 			}
 
@@ -1087,7 +1110,8 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 								cur_page--;
 							}
 							check = true;
-							cur_list.erase(cur_list.begin() + i + cur_page * 5);
+							cur_list.erase(cur_list.begin() + show_list[i + cur_page * 5].second);
+							show_list.erase(show_list.begin() + i + cur_page * 5);
 							// update(dataset.username, WHAT_LIST, cur_list, path);
 						}
 					}
@@ -1095,6 +1119,7 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 					if (isHere(clear, mouse))
 					{ // clear all
 						cur_list.clear();
+						show_list.clear();
 						check = true;
 						size = 0;
 						cur_page = 0;

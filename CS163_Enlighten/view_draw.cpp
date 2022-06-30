@@ -27,7 +27,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 	//dict_name_file.ignore('\n');
 	while (count < number_of_dataset)
 	{
-		playSound("hmc.mp3");
+		//playSound("hmc.mp3");
 		if (window.pollEvent(event) && event.type == Event::Closed)
 		{
 			window.close();
@@ -211,7 +211,7 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 		window.draw(s.search.first->draw);
 		bool check = false;
 		int temp = s.switch_dict.assign(dataset.user_Trie, count, check);
-		int k = count > dataset.dictionary_name.size() ? dataset.user_Trie.size() : count;
+		int k = count > dataset.user_Trie.size() ? dataset.user_Trie.size() : count;
 		s.switch_dict.draw(window, temp, mouse, check);
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
@@ -230,12 +230,15 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 			}
 			else
 			{
-				for (int i = (int(k - 1) / 6 ) * 6; i < k; i++)
+				int cur_p = (k - 1) / 6;
+				for (int i = 0; i < 6; i++)
 				{
-					if (isHere(s.switch_dict.button[i], mouse))
+					int id = i + cur_p * 6;
+					if (isHere(s.switch_dict.button[id], mouse))
 					{
 						// switch dictionary
-						dataset.cur_id = i;
+						dataset.cur_id = id;
+						status = 0;
 						return 1;
 					}
 				}

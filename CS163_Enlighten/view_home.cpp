@@ -36,6 +36,16 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	bool isBreak = false;
+	string path;
+	if (dataset.is_admin)
+		path = ADMIN;
+	else
+		path = USERS;
+	int WHAT_LIST;
+	if (is_fav)
+		WHAT_LIST = FAVORITE_LIST;
+	else
+		WHAT_LIST = SEARCH_HISTORY;
 	Event event;
 	while (page == 4)
 	{
@@ -60,6 +70,14 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
 								search_status = 0;
 								page = 5;
+								for (int j = 0; j < dataset.history.size(); j++) {
+									if (dataset.history[j] == do_search.result[i]->s) {
+										dataset.history.erase(dataset.history.begin() + j);
+										break;
+									}
+								}
+								dataset.history.insert(dataset.history.begin(), do_search.result[i]->s);
+								//update(dataset.username, WHAT_LIST, dataset.history, path);
 								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
