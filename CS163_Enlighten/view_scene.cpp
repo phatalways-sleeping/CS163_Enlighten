@@ -138,6 +138,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+					switchPage(user.first->bound, mouse, 11, page);
 					switchPage(home.first->bound, mouse, 4, page);
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
@@ -728,6 +729,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(home1.bound, mouse, 4, page);
 					switchPage(do_search.search_history.first->bound, mouse, 13, page);
+					switchPage(user.first->bound, mouse, 11, page);
 					switchPage(settings.first->bound, mouse, 8, page);
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
@@ -1045,6 +1047,7 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(user.first->bound, mouse, 11, page);
 					switchPage(home1.bound, mouse, 4, page);
 					if (is_fav && switchPage(do_search.search_history.first->bound, mouse, 13, page)) {
 						isBreak = true;

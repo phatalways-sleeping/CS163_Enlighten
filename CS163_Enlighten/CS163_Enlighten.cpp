@@ -8,7 +8,6 @@ int main()
     Enlighten dataset;
     string &username = dataset.username;
     PlaySound(TEXT("hmc.wav"), NULL, SND_LOOP | SND_ASYNC);
-
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1, level = 0;

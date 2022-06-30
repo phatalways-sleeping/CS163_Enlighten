@@ -76,6 +76,12 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			}
 			case Event::MouseButtonReleased:
 			{
+				switchPage(del.first->bound, mouse, 1, page);
+				switchPage(fav.first->bound, mouse, 6, page);
+				switchPage(home1.bound, mouse, 4, page);
+				switchPage(revision.first->bound, mouse, 7, page);
+				switchPage(user.first->bound, mouse, 11, page);
+				switchPage(settings.first->bound, mouse, 8, page);
 				if (event.mouseButton.button == Mouse::Left)
 				{
 					if (isHere(change_pw, mouse) && check == 0)

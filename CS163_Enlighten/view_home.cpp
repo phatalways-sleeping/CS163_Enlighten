@@ -92,6 +92,7 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+					switchPage(user.first->bound, mouse, 11, page);
 					if (isHere(do_search.switch_dict.left, mouse))
 					{
 						count = (count == 0 ? 0 : count - 6);
