@@ -7,13 +7,13 @@ int main()
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     string &username = dataset.username;
+    PlaySound(TEXT("hmc.wav"), NULL, SND_FILENAME | SND_ASYNC);
 
     RenderWindow window;
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1, level = 0;
     bool &is_admin = dataset.is_admin, is_fav = true, difficulty = true;
     loadingDataset(window, dataset, page, 1);
-
     while (window.isOpen())
     {
         switch (page)
