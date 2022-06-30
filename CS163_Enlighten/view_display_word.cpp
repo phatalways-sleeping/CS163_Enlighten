@@ -120,6 +120,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+					switchPage(home.first->bound, mouse, 4, page);
 					if (isHere(edit_word.fixed.bound, mouse))
 						is_fixed ^= 1;
 					if (search_status == 1) {

@@ -138,6 +138,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 					switchPage(del.first->bound, mouse, 1, page);
 					switchPage(revision.first->bound, mouse, 7, page);
 					switchPage(settings.first->bound, mouse, 8, page);
+					switchPage(home.first->bound, mouse, 4, page);
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
