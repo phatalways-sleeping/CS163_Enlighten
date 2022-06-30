@@ -136,6 +136,8 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 					switchPage(do_search.search_history.first->bound, mouse, 13, page);
 					switchPage(fav.first->bound, mouse, 6, page);
 					switchPage(del.first->bound, mouse, 1, page);
+					switchPage(revision.first->bound, mouse, 7, page);
+					switchPage(settings.first->bound, mouse, 8, page);
 					if (search_status == 1) {
 						for (int i = 0; i < size_searchBar; i++) {
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
@@ -149,7 +151,6 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 							}
 						}
 					}
-					switchPage(settings.first->bound, mouse, 8, page);
 					if (isHere(do_search.switch_dict.left, mouse))
 					{
 						count = (count == 0 ? 0 : count - 6);
@@ -166,8 +167,6 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 					{
 						do_search.is_normal ^= 1;
 					}
-					// switchPage(search_history.first->bound, mouse, x, page);
-					switchPage(revision.first->bound, mouse, 7, page);
 					if (isHere(edit_word.fixed.bound, mouse))
 						is_fixed ^= 1;
 				}
