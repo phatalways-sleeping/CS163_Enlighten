@@ -11,7 +11,7 @@ int main()
     window.create(VideoMode(1112, 769), "CS163-Project");
     int page = 1, level = 0;
     bool &is_admin = dataset.is_admin, is_fav = true, difficulty = true;
-    loadingDataset(window, dataset, page, 3);
+    loadingDataset(window, dataset, page, 1);
 
     while (window.isOpen())
     {
@@ -50,7 +50,7 @@ int main()
             profile(window, page, dataset);
             break;
         case 12:
-            searchResult(window, page, "hello", dataset, is_fav, 1);
+            searchResult(window, page, "hello", dataset, is_fav, 1, 1);
             break;
         case 13:
             myList(window, page, dataset);

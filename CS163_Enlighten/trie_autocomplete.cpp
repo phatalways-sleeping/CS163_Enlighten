@@ -4,7 +4,9 @@
 void fillCompleteList(Node* cur, string word, vector<string>& completeList, int limit)
 {
     if (!cur || int(completeList.size()) >= limit) return;
-    if (int(cur->def.size()) > 0) completeList.push_back(word);
+    if (int(cur->def.size()) > 0) {
+        completeList.push_back(word);
+    }
     for (int i = 0; i < TRIE_LIMIT; i++)
     {
         char ch = char(i) + DEC;

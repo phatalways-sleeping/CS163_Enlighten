@@ -40,6 +40,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		window.display();
 		// input text file
 		Trie T;
+		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
 		Trie T_def;
 		build_definition_trie_TxtFile(T_def, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
 		//readJson(T, JSONPATH);

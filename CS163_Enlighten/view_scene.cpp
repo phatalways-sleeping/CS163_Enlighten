@@ -347,29 +347,42 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 				if (search_status == 1)
 				{
 					if (event.text.unicode == 13) {
-						if (do_search.result[0]->s == "") {
-							page = 12;
-							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0);
+						if (do_search.is_normal) {
+							if (do_search.result[0]->s == "") {
+								page = 12;
+								searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 1);
+							}
+							else {
+								page = 12;
+								searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s, 1);
+							}
 						}
 						else {
 							page = 12;
-							searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s);
+							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 0);
 						}
 						return;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					for (auto s : correctList)
-					{
-						bool isExist = false;
-						for (auto t : completeList) {
-							if (t == s) {
-								isExist = true;
-								break;
+					vector<string> completeList;
+					vector <string> correctList;
+					if (do_search.is_normal) {
+						completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						for (auto s : correctList)
+						{
+							bool isExist = false;
+							for (auto t : completeList) {
+								if (t == s) {
+									isExist = true;
+									break;
+								}
 							}
+							if (!isExist) completeList.push_back(s);
 						}
-						if (!isExist) completeList.push_back(s);
+					}
+					else {
+						completeList = search_def(dataset.def_Trie[dataset.cur_id], do_search.search_info->s, 3);
 					}
 					for (int i = 0; i < 3; i++)
 					{
@@ -603,7 +616,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 }
 
 // page 12
-void searchResult(RenderWindow& window, int& page, string result_word, Enlighten& dataset, bool& is_fav, bool right_word)
+void searchResult(RenderWindow& window, int& page, string result_word, Enlighten& dataset, bool& is_fav, bool right_word, bool is_normal)
 {
 	Object screen = createObject("Graphic/border.png");
 	Info* word;
@@ -629,18 +642,24 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 	int cur_page = 0;
 	bool check = true;
 	int cur_id = dataset.cur_id;
-	int size = 100;
-	vector<string> cur_list = autocomplete(dataset.user_Trie[cur_id], result_word, 50);
-	vector<string> correct_list = correct_words(dataset.user_Trie[cur_id], result_word, 50);
-	for (auto s1 : correct_list) {
-		bool isExist = false;
-		for (auto s2 : cur_list) {
-			if (s1 == s2) {
-				isExist = true;
-				break;
+	int size = 50;
+	vector<string> cur_list;
+	if (is_normal) {
+		cur_list = autocomplete(dataset.user_Trie[cur_id], result_word, 50);
+		vector<string> correct_list = correct_words(dataset.user_Trie[cur_id], result_word, 50);
+		for (auto s1 : correct_list) {
+			bool isExist = false;
+			for (auto s2 : cur_list) {
+				if (s1 == s2) {
+					isExist = true;
+					break;
+				}
 			}
+			if (!isExist) cur_list.push_back(s1);
 		}
-		if(!isExist) cur_list.push_back(s1);
+	}
+	else {
+		cur_list = search_def(dataset.def_Trie[cur_id], result_word, 50);
 	}
 	size = min(size, (int)cur_list.size());
 	//-------------------------------------------------------------------
@@ -973,29 +992,43 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 				if (search_status == 1)
 				{
 					if (event.text.unicode == 13) {
-						if (do_search.result[0]->s == "") {
-							page = 12;
-							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0);
+						if (do_search.is_normal) {
+							if (do_search.result[0]->s == "") {
+								page = 12;
+								searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 1);
+							}
+							else {
+								page = 12;
+								searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s, 1);
+							}
 						}
 						else {
 							page = 12;
-							searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s);
+							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 0);
 						}
-						return;
+						isBreak = true;
+						break;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					vector <string> correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
-					for (auto s : correctList)
-					{
-						bool isExist = false;
-						for (auto t : completeList) {
-							if (t == s) {
-								isExist = true;
-								break;
+					vector<string> completeList;
+					vector <string> correctList;
+					if (do_search.is_normal) {
+						completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
+						for (auto s : correctList)
+						{
+							bool isExist = false;
+							for (auto t : completeList) {
+								if (t == s) {
+									isExist = true;
+									break;
+								}
 							}
+							if (!isExist) completeList.push_back(s);
 						}
-						if (!isExist) completeList.push_back(s);
+					}
+					else {
+						completeList = search_def(dataset.def_Trie[dataset.cur_id], do_search.search_info->s, 3);
 					}
 					for (int i = 0; i < 3; i++)
 					{

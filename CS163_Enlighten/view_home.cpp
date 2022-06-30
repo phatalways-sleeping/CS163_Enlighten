@@ -98,20 +98,26 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 				if (search_status == 1)
 				{
 					if (event.text.unicode == 13) {
-						if (do_search.result[0]->s == "") {
-							page = 12;
-							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0);
+						if (do_search.is_normal) {
+							if (do_search.result[0]->s == "") {
+								page = 12;
+								searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 1);
+							}
+							else {
+								page = 12;
+								searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s, 1);
+							}
 						}
 						else {
 							page = 12;
-							searchResult(window, page, do_search.result[0]->s, dataset, is_fav, do_search.result[0]->s == do_search.search_info->s);
+							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 0);
 						}
 						isBreak = true;
 						break;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
-					vector<string> completeList;
-					vector <string> correctList;
+					vector<string> completeList(0);
+					vector<string> correctList(0);
 					if (do_search.is_normal) {
 						completeList = autocomplete(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
 						correctList = correct_words(dataset.user_Trie[dataset.cur_id], do_search.search_info->s, 3);
