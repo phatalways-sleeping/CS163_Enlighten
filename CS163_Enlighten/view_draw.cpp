@@ -42,6 +42,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		window.display();
 		// input text file
 		Trie T;
+		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
 		Trie T_def;
 		string dictName, dictPath;
 		dict_name_file >> dictName >> dictPath;
