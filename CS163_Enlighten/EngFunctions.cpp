@@ -135,6 +135,7 @@ bool writeJson(const Trie& T, string path) {
         return false;
     }
     json data = writeToJSON(T.root);
+   // cout << "Ok het r\n";
     file << data;
     file.close();
     return true;
@@ -142,6 +143,8 @@ bool writeJson(const Trie& T, string path) {
 
 bool readJson(Trie& T, string path) {
     if (path.empty()) return false;
+    while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
+    path += "json";
     clock_t start = clock();
     ifstream data_file(path, ifstream::binary);
     if (data_file.fail()) {

@@ -43,17 +43,17 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		window.display();
 		// input text file
 		Trie T;
-		inputTxtFile(T, "ENLIGHTEN_DATA//DATA/ENGLISH_TO_VIETNAMESE/Datasets130000.txt");
 		Trie T_def;
 		string dictName, dictPath;
 		dict_name_file >> dictName >> dictPath;
 		T.name = dictName; 
 		T.path = dictPath; 
 		inputTxtFile(T, dictPath);
+		readJson(T, dictPath);
 		T_def.name = dictName;
 		T_def.path = dictPath;
 		build_definition_trie_TxtFile(T_def,dictPath);
-		//readJson(T, JSONPATH);
+		
 
 
 		//sleepHere(3.0);

@@ -56,3 +56,21 @@ string cutDefinition(string x) {
 	}
 	return "";
 }
+
+void saveDatasets(Enlighten dataset) {
+	// save dictionary
+	for (Trie T : dataset.user_Trie){
+		string path = T.path;
+		while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
+		path += "json";
+		writeJson(T, path);
+		cout << "Save file " << T.name << ": Ok\n";
+	}
+	// save history
+	string path;
+	if (dataset.is_admin) path = ADMIN;
+	else path = USERS;
+	update(dataset.username, SEARCH_HISTORY, dataset.history, path);
+	// save fav
+	update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+}
