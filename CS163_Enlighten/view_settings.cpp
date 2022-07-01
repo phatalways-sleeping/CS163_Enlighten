@@ -3,7 +3,6 @@
 
 void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &dataset)
 {
-	saveDatasets(dataset);
 	Object screen = createObject("Graphic/border.png");
 	pair<Object *, Object *> home = createElement("home", 0.0f, 168.0f);
 	pair<Object *, Object *> fav = createElement("p4_fav", 963.0f, 31.0f);

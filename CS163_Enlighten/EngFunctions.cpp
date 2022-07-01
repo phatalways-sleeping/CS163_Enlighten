@@ -156,6 +156,6 @@ bool readJson(Trie& T, string path) {
     json data; data_file >> data;
     data_file.close();
     convert(data, T);
-    cout << "Read file " + path + " in " << getTime(start, clock()) / 1000.0 << "s\n";
+    cout << "Read file " + T.name + " in " << getTime(start, clock()) / 1000.0 << "s\n";
     return true;
 }

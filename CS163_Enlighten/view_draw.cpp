@@ -49,7 +49,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		dict_name_file >> dictName >> dictPath;
 		T.name = dictName; 
 		T.path = dictPath; 
-		inputTxtFile(T, dictPath);
+		//inputTxtFile(T, dictPath);
 		readJson(T, dictPath);
 		T_def.name = dictName;
 		T_def.path = dictPath;

@@ -16,7 +16,7 @@ bool build_definition_trie_TxtFile(Trie& T_def, string fileName) {
             vector <string> words = splitword(def);
             for (auto w : words)
                 if (!insert(T_def, w, word)) {
-                    cout << "Can't insert " << w << ": " << word << endl;
+                    //cout << "Can't insert " << w << ": " << word << endl;
                 }
                 else count++;
             string prefix = "";
@@ -31,7 +31,7 @@ bool build_definition_trie_TxtFile(Trie& T_def, string fileName) {
         else continue;
     }
 
-    cout << "Read data from " << fileName << ": " << count << " words in " << getTime(start, clock()) << " ms\n";
+    //cout << "Read data from " << fileName << ": " << count << " words in " << getTime(start, clock())/1000.0 << "s\n";
     f.close();
     return true;
 }

@@ -123,14 +123,14 @@ bool inputTxtFile(Trie& T, string fileName) {
         getline(f, s, '\n');
         if (getstr(s, word, def)) {
             if (!insert(T, word, def)) {
-                cout << "Can't insert " << word << ": " << def << endl;
+                //cout << "Can't insert " << word << ": " << def << endl;
             }
             else count++;
         }
         else continue;
     }
 
-    cout << "Read data from " << fileName << ": " << count << " words in " << getTime(start, clock()) << " ms\n";
+    cout << "Read data from " << fileName << ": " << count << " words in " << getTime(start, clock())/1000.0 << "s\n";
     f.close();
     return true;
 }
@@ -191,7 +191,7 @@ bool inputBinaryFile(Trie& T, string fileName) {
     }
     clock_t start = clock();
     readBinaryFile(f, T.root);
-    cout << "Read data from " << fileName << " in " << getTime(start, clock()) << " ms\n";
+    cout << "Read data from " << fileName << " in " << getTime(start, clock())/1000.0 << "s\n";
     f.close();
     return true;
 }
