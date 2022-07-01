@@ -66,6 +66,8 @@ int main()
         default: {
             saveDatasets(dataset);
             window.close();
+            page = -1;
+            break;
         }
         }
     }
