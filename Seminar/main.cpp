@@ -3,6 +3,7 @@
 #include "windows.h"
 using namespace std;
 
+/* Testing huffman coding
 int main(){
     /// Testing min_heap
     //min_heap pq = min_heap();
@@ -46,3 +47,4 @@ int main(){
     }
     Tree = HuffmanTree(w2, w1, n);
 }
+*/
