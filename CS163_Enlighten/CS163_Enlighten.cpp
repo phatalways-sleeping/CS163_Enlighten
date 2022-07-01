@@ -3,15 +3,11 @@
 
 int main()
 {
-    /*Trie emo;
+    Trie emo;
     //insert(emo, "CMIIW","Correct me if I'm wrong");
-    inputTxtFile(emo, "ENLIGHTEN_DATA/DATA/EMOTIONAL/EMOTIONAL.txt");
-   // Node* w = search(emo, "CMIIW");
-   // if (w && w->def.size()) cout << w->def.back() << endl;
-    writeJson(emo, "ENLIGHTEN_DATA/DATA/EMOTIONAL/EMOTIONAL.json");
-       cout << "ok?";
-    return 0;
-    */
+    //readJson(emo, "ENLIGHTEN_DATA/DATA/ENGLISH_DEFINITIONS/ENG.json");
+    //while (1);
+ 
     // trie_autocorrect("Datasets5000.txt");
     Enlighten dataset;
     string &username = dataset.username;

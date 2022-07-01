@@ -66,7 +66,7 @@ void saveDatasets(Enlighten dataset) {
 		clock_t start = clock();
 		writeJson(T, path);
 		//cout << "Save file " << T.name << ": Ok\n";
-		cout << "Save file " << T.name<<  "in " << getTime(start, clock()) / 1000.0 << "s\n";
+		cout << "Save file " << T.name<<  " in " << getTime(start, clock()) / 1000.0 << "s\n";
 	}
 	// save history
 	string path;
