@@ -125,6 +125,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;
@@ -716,6 +717,7 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;
@@ -1038,6 +1040,7 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;

@@ -107,6 +107,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;

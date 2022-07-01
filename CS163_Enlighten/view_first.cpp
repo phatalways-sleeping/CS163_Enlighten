@@ -14,6 +14,7 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				deallocate(b1);
 				return;
@@ -65,6 +66,7 @@ void setRole(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 				deallocate(admin);
 				deallocate(user);
+				saveDatasets(dataset);
 				window.close();
 				return;
 			}
@@ -148,6 +150,7 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				return;
 			}

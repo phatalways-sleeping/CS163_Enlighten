@@ -9,4 +9,3 @@ bool like_compare(UserDef x, UserDef y);
 string cutWordtype(string x);
 string cutDefinition(string x);
 
-void saveDatasets(Enlighten dataset);

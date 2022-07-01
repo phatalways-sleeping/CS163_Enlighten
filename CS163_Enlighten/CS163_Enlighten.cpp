@@ -63,10 +63,13 @@ int main()
         case 13:
             myList(window, page, dataset);
             break;
-        default:
+        default: {
+            saveDatasets(dataset);
             window.close();
+        }
         }
     }
     //writeUserProfile(PROFILE, dataset.username, dataset.user);
+ 
     return 0;
 }

@@ -27,6 +27,7 @@ void revision(RenderWindow &window, int &page, Enlighten &dataset, int &level, b
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;
@@ -152,6 +153,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 			{
 			case Event::Closed:
 			{
+				saveDatasets(dataset);
 				window.close();
 				page = 0;
 				break;
