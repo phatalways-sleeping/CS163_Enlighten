@@ -64,12 +64,11 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 		a[i] = createObjectTest("Graphic/e" + to_string(i + 1) + ".png");
 	}
 	int i = 0;
+	
 	// save dictionary
-	window.clear();
-	//if (i == 3) i = 0;
-	window.draw(a[i++]->draw);
-	window.display();
+
 	for (Trie T : dataset.user_Trie){
+		
 		string path = T.path;
 		while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
 		path += "json";
@@ -78,25 +77,21 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 		//cout << "Save file " << T.name << ": Ok\n";
 		cout << "Save file " << T.name<<  " in " << getTime(start, clock()) / 1000.0 << "s\n";
 	}
+	for (int loop = 0; loop < 3; loop++) {
+		sleepHere(30.0);
+		window.clear();
+		window.draw(a[(i++) % 3]->draw);
+		window.display();
+	}
 	// save history
 	string path;
 	if (dataset.is_admin) path = ADMIN;
 	else path = USERS;
-	window.clear();
-	if (i == 3) i = 0;
-	window.draw(a[i++]->draw);
-	window.display();
+
 	update(dataset.username, SEARCH_HISTORY, dataset.history, path);
 	// save fav
-	window.clear();
-	if (i == 3) i = 0;
-	window.draw(a[i++]->draw);
-	window.display();
+	
 	update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
-	window.clear();
-	if (i == 3) i = 0;
-	window.draw(a[i++]->draw);
-	window.display();
 	for (int i = 0; i < 3; i++)
 		delete a[i];
 }

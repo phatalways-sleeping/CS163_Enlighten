@@ -254,6 +254,8 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 			new_word.read(s.enter_defi.s);
 			new_word.word = s.enter_word.s;
 			new_word.type = s.enter_type.s;
+			for (auto def : new_word.definitions)
+				insert(dataset.user_Trie[dataset.cur_id], new_word.word, new_word.type, def);
 			return -1;
 		}
 		else if (add_status == -1)

@@ -211,6 +211,8 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 		if (check_search == 1)
 		{
 			// added new word
+			for (auto def : new_word.definitions)
+				insert(dataset.user_Trie[dataset.cur_id], new_word.word, new_word.type, def);
 		}
 		else if (check_search > 0)
 		{
