@@ -117,8 +117,6 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			{
 			case Event::Closed:
 			{
-				saveDatasets(dataset);
-				window.close();
 				page = -1;
 				return;
 			}

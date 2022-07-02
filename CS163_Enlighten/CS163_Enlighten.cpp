@@ -1,5 +1,6 @@
 #pragma once
 #include "header.h"
+#include "test_function.h"
 
 int main()
 {
@@ -60,9 +61,8 @@ int main()
             myList(window, page, dataset);
             break;
         default: {
-            saveDatasets(dataset);
+            saveDatasets(window, dataset);
             window.close();
-            page = -1;
             break;
         }
         }

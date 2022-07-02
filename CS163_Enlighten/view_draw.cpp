@@ -30,8 +30,6 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		//playSound("hmc.mp3");
 		if (window.pollEvent(event) && event.type == Event::Closed)
 		{
-			saveDatasets(dataset);
-			window.close();
 			page = -1;
 			return;
 		}

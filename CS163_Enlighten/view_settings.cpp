@@ -36,8 +36,6 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			{
 			case Event::Closed:
 			{
-				saveDatasets(dataset);
-				window.close();
 				page = 0;
 				break;
 			}

@@ -56,9 +56,19 @@ string cutDefinition(string x) {
 	}
 	return "";
 }
-
-void saveDatasets(Enlighten dataset) {
+void saveDatasets(RenderWindow& window, Enlighten dataset)
+{
+	Object* a[3];
+	for (int i = 0; i < 3; i++)
+	{
+		a[i] = createObjectTest("Graphic/e" + to_string(i + 1) + ".png");
+	}
+	int i = 0;
 	// save dictionary
+	window.clear();
+	//if (i == 3) i = 0;
+	window.draw(a[i++]->draw);
+	window.display();
 	for (Trie T : dataset.user_Trie){
 		string path = T.path;
 		while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
@@ -72,7 +82,21 @@ void saveDatasets(Enlighten dataset) {
 	string path;
 	if (dataset.is_admin) path = ADMIN;
 	else path = USERS;
+	window.clear();
+	if (i == 3) i = 0;
+	window.draw(a[i++]->draw);
+	window.display();
 	update(dataset.username, SEARCH_HISTORY, dataset.history, path);
 	// save fav
+	window.clear();
+	if (i == 3) i = 0;
+	window.draw(a[i++]->draw);
+	window.display();
 	update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
+	window.clear();
+	if (i == 3) i = 0;
+	window.draw(a[i++]->draw);
+	window.display();
+	for (int i = 0; i < 3; i++)
+		delete a[i];
 }

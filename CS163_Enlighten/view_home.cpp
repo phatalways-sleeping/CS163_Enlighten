@@ -56,9 +56,7 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 			{
 			case Event::Closed:
 			{
-				saveDatasets(dataset);
-				window.close();
-				delete fav.first, fav.second;
+				page = 0;
 				return;
 			}
 			case Event::MouseButtonReleased:

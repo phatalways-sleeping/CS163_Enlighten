@@ -521,4 +521,5 @@ struct Admin
 	}
 };
 
-void saveDatasets(Enlighten dataset);
+
+void saveDatasets(RenderWindow& window, Enlighten dataset);
