@@ -169,6 +169,10 @@ bool insert(Trie& T, string word, string type, string def);
 bool playSound(string fileName);
 
 
+//-------------------Deallocate data---------------------
+void saveDatasets(RenderWindow& window, Enlighten dataset);
+void deallocateDataset(Enlighten& dataset);
+
 
 struct Confirmation
 {
@@ -522,4 +526,3 @@ struct Admin
 };
 
 
-void saveDatasets(RenderWindow& window, Enlighten dataset);

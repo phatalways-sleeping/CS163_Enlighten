@@ -14,10 +14,8 @@ void Scene1(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 			case Event::Closed:
 			{
-				saveDatasets(window, dataset);
-				window.close();
-				deallocate(b1);
-				return;
+				page = 0;
+				break;
 			}
 			case Event::MouseButtonReleased:
 			{
@@ -64,11 +62,8 @@ void setRole(RenderWindow &window, int &page, Enlighten &dataset)
 			{
 			case Event::Closed:
 			{
-				deallocate(admin);
-				deallocate(user);
-				saveDatasets(window, dataset);
-				window.close();
-				return;
+				page = 0;
+				break;
 			}
 			case Event::MouseButtonReleased:
 			{
@@ -150,9 +145,8 @@ void logIn(RenderWindow& window, int& page, string& user_name, Enlighten& datase
 			{
 			case Event::Closed:
 			{
-				saveDatasets(window, dataset);
-				window.close();
-				return;
+				page = 0;
+				break;
 			}
 			case Event::MouseButtonReleased:
 			{

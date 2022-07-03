@@ -62,6 +62,7 @@ int main()
             break;
         default: {
             saveDatasets(window, dataset);
+            deallocateDataset(dataset);
             window.close();
             break;
         }

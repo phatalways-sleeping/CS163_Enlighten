@@ -112,6 +112,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 		do_search.result[i]->text.setString(dataset.history[i]);
 	}
 	int search_status = 0, add_status = 0, count = 0;
+	bool isBreak = false;
 	while (page == 5)
 	{
 		if (sort_user_list) {
@@ -148,9 +149,11 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
 									wordDisplay(window, page, is_fav, dataset, do_search.result[i]->s);
-								return;
+								isBreak = true;
+								break;
 							}
 						}
+						if (isBreak) break;
 					}
 					if (isHere(do_search.switch_dict.left, mouse))
 					{
@@ -361,7 +364,8 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 							page = 12;
 							searchResult(window, page, do_search.search_info->s, dataset, is_fav, 0, 0);
 						}
-						return;
+						isBreak = true;
+						break;
 					}
 					texting(do_search.search_info, event.text.unicode, 30);
 					vector<string> completeList;
@@ -421,7 +425,9 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 			default:
 				break;
 			}
+			if (isBreak) break;
 		}
+		if (isBreak) break;
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);
@@ -794,9 +800,11 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 								//update(dataset.username, WHAT_LIST, dataset.history, path);
 								page = 5;
 								wordDisplay(window, page, is_fav, dataset, name[i]->s);
-								return;
+								isBreak = true;
+								break;
 							}
 						}
+						if (isBreak) break;
 					}
 				}
 				break;

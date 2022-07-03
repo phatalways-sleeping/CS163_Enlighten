@@ -57,7 +57,8 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 			case Event::Closed:
 			{
 				page = 0;
-				return;
+				isBreak = true;
+				break;
 			}
 			case Event::MouseButtonReleased:
 			{

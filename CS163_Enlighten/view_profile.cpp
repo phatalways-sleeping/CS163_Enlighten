@@ -3,7 +3,7 @@
 
 void profile(RenderWindow& window, int& page, Enlighten& dataset)
 {
-	vector<int> level_point;
+	vector<int> level_point(0);
 	level_point.push_back(5000);
 	level_point.push_back(8000);
 	level_point.push_back(10000);
@@ -117,7 +117,7 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			{
 			case Event::Closed:
 			{
-				page = -1;
+				page = 0;
 				return;
 			}
 			case Event::MouseButtonReleased:

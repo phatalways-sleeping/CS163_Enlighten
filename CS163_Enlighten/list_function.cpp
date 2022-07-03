@@ -95,3 +95,9 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 	for (int i = 0; i < 3; i++)
 		delete a[i];
 }
+
+void deallocateDataset(Enlighten& dataset)
+{
+	for (auto i : dataset.user_Trie) reset(i);
+	for (auto i : dataset.def_Trie) reset(i);
+}
