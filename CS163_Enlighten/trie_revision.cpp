@@ -22,8 +22,9 @@ pair<string, string> randomWord(Trie T) {
 vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHistory, vector<string> favoriteList) {
     srand(time(NULL));
     vector<vector<string>> listWord(0);
-    vector<string> mergeList = searchHistory;
-    for (auto s : favoriteList) mergeList.push_back(s);
+    vector<string> mergeList(0);
+    for (auto s : searchHistory) if (search(T, s)) mergeList.push_back(s);
+    for (auto s : favoriteList) if (search(T, s)) mergeList.push_back(s);
     sort(mergeList.begin(), mergeList.end());
     mergeList.erase(unique(mergeList.begin(), mergeList.end()), mergeList.end());
     int numOld = 0;
