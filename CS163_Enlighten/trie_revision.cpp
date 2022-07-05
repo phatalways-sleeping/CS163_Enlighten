@@ -1,7 +1,7 @@
 #pragma once
 #include "header.h"
 
-pair<string, string> randomWord(Trie T) {
+bool randomWord(Trie T, pair<string, string>& ques) {
     Node* root = T.root;
     string word = "";
     while (root) {
@@ -12,11 +12,16 @@ pair<string, string> randomWord(Trie T) {
         for (int i = 0; i < TRIE_LIMIT; ++i) {
             if (root->child[i]) validChild.push_back(i);
         }
+        if (validChild.size() == 0) break;
         int nextChild = validChild[Rand(0ll, validChild.size() - 1)];
-        if (nextChild == -1) return { word, root->def[Rand(0ll, root->def.size() - 1)] };
+        if (nextChild == -1) {
+            ques = { word, root->def[Rand(0ll, root->def.size() - 1)] };
+            return true;
+        }
         word += char(nextChild + DEC);
         root = root->child[nextChild];
     }
+    return false;
 }
 
 vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHistory, vector<string> favoriteList) {
@@ -31,16 +36,14 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHist
     if (level == 1) numOld = 10;
     else if (level == 2) numOld = 5;
     numOld = min(numOld, (int) mergeList.size());
+    cerr << numOld << '\n';
 
     for (int i = 0; i < 10; ++i) {
         vector<string> word(0);
         pair<string, string> A;
         while (1) {
             if (i >= numOld) {
-                A = randomWord(T);
-                while (A.first == A.second) {
-                    A = randomWord(T);
-                }
+                while (!randomWord(T, A) || A.first == A.second) {}
             }
             else {
                 A.first = mergeList[Rand(0, mergeList.size() - 1)];
@@ -57,18 +60,12 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHist
             }
             if (isStop) break;
         }
-        pair<string, string> B = randomWord(T);
-        while (B.first == B.second || B.first == A.first) {
-            B = randomWord(T);
-        }
-        pair<string, string> C = randomWord(T);
-        while (C.first == C.second || C.first == A.first || C.first == B.first) {
-            C = randomWord(T);
-        }
-        pair<string, string> D = randomWord(T);
-        while (D.first == D.second || D.first == A.first || D.first == B.first || D.first == C.first) {
-            D = randomWord(T);
-        }
+        pair<string, string> B;
+        while (!randomWord(T, B) || B.first == B.second || B.first == A.first) {}
+        pair<string, string> C;
+        while (!randomWord(T, C) || C.first == C.second || C.first == A.first || C.first == B.first) {}
+        pair<string, string> D;
+        while (!randomWord(T, D) || D.first == D.second || D.first == A.first || D.first == B.first || D.first == C.first) {}
         if (Rand(0ll, 1ll)) {
             word.push_back(A.first); word.push_back(A.second); word.push_back(A.second); word.push_back(B.second); word.push_back(C.second); word.push_back(D.second);
         }

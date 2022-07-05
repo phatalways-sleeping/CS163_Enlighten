@@ -118,6 +118,11 @@ struct Node
 	Node *child[TRIE_LIMIT];
 	Node()
 	{
+		def.clear();
+		definitions.clear();
+		user_definitions.clear();
+		antonyms.clear();
+		synonyms.clear();
 		for (int i = 0; i < TRIE_LIMIT; i++)
 			child[i] = NULL;
 	}

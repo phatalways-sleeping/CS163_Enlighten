@@ -25,7 +25,7 @@ Node* search(Trie &T, string word) {
         }
         else root = root->child[ch];
     }
-    if (!root || root->word.empty()) return NULL;
+    if (!root || root->word.empty() || root->def.empty()) return NULL;
     return root;
 }
 

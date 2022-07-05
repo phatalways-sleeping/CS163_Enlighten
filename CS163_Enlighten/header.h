@@ -147,7 +147,7 @@ void fillCompleteList(Node *cur, string word, vector<string> &completeList, int 
 vector<string> autocomplete(Trie T, string word, int limit);
 
 //-----------------------Revision-----------------------------
-pair<string, string> randomWord(Trie T);
+bool randomWord(Trie T, pair<string, string>& ques);
 vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHistory, vector<string> favoriteList);
 
 //-------------------Demo trie function------------------------
