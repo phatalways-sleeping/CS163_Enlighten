@@ -1,4 +1,4 @@
-#include "header.h"
+﻿#include "header.h"
 #include "user.cpp"
 
 void profile(RenderWindow& window, int& page, Enlighten& dataset)
@@ -32,8 +32,11 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 			break;
 		}
 	}
-	p_score_cur = (int)us.scores; 
-	int percent = p_score_want / p_score_cur - 1;
+	p_score_cur = (int)us.scores;
+	int percent;
+	// bug khi p_score_cur = 0
+	if (p_score_cur != 0) percent = p_score_want / p_score_cur - 1;
+	else percent = 1; // chưa biết fix như nào nên để thế này :v
 	if (!percent)
 	{
 		p_low_level++;
