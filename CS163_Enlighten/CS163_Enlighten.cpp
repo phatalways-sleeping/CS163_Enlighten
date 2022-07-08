@@ -35,8 +35,8 @@ int main()
             break;
         case 4:
             home(window, page, username, is_fav, dataset);
-            //if (page == -3)
-              //  page = 4;
+            if (page == -3)
+                page = 4;
             break;
         case 5:
             wordDisplay(window, page, is_fav, dataset, "nhuvinh");
@@ -63,7 +63,7 @@ int main()
             myList(window, page, dataset);
             break;
         default: {
-            saveDatasets(window, dataset);
+            //saveDatasets(window, dataset);
             deallocateDataset(dataset);
             window.close();
             break;

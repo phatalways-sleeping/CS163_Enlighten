@@ -307,7 +307,7 @@ int searching(RenderWindow &window, int &status, SearchBar &s, Vector2f &mouse, 
 						// switch dictionary
 						dataset.cur_id = id;
 						status = 0;
-						return 1;
+						return 2;
 					}
 				}
 			}

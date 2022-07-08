@@ -257,10 +257,11 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 			for (auto def : new_word.definitions)
 				insert(dataset.user_Trie[dataset.cur_id], new_word.word, new_word.type, def);
 		}
-		else if (check_search > 0)
+		else if (check_search == 2)
 		{
+			cout << "hehe";
 			// switch to other dictionary
-			//page = -3;
+			page = -3;
 		}
 		window.display();
 	}
