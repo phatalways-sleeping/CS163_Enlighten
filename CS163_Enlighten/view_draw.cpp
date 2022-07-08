@@ -68,11 +68,12 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		T_def.name = dictName;
 		T_def.path = dictPath;
-		//build_definition_trie_TxtFile(T_def,dictPath);
+		build_definition_trie(T_def, T);
 		
 
 
 		//sleepHere(3.0);
+		T.isChanged = false;
 		dataset.user_Trie.push_back(T);
 		dataset.def_Trie.push_back(T_def);
 	}

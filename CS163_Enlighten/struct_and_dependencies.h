@@ -132,6 +132,7 @@ struct Edit;
 
 struct Trie
 {
+	bool isChanged = false;
 	string name;
 	string path;
 	Node *root = new Node();
@@ -152,11 +153,13 @@ struct Enlighten
 	vector<string> favorite;
 	vector<string> history;
 	vector<string> dictionary_name;
+	bool changed[20];
 	Profile user;
 	Enlighten() {
 		is_admin = false;
 		cur_id = 0;
 		user_Trie.clear();
+		for (int i = 0; i < 20; i++) changed[i] = false;
 	}
 };
 

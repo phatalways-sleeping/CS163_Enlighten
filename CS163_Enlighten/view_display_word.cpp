@@ -12,6 +12,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 		page = 4;
 		return;
 	}
+	dataset.user_Trie[cur_id].isChanged = true;
 	//vector<string> &all_defi = search_result(dataset.user_Trie[cur_id], word_here);
 	vector<string>& all_defi = word_info->def;
 	vector<UserDef>& user_defi = word_info->user_definitions;

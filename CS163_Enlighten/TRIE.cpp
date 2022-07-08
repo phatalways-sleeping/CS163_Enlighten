@@ -45,6 +45,7 @@ bool insert(Trie& T, string word, string def) {
     vector <string> examples;
     pair <string, string> type_and_defi = { "", def };
     root->definitions.push_back({ type_and_defi, examples });
+    T.isChanged = true;
     return true;
 }
 bool insert(Trie& T, string word, string type, string def) {
@@ -63,6 +64,7 @@ bool insert(Trie& T, string word, string type, string def) {
     vector <string> examples;
     pair <string, string> type_and_defi = { type, def };
     root->definitions.push_back({ type_and_defi, examples });
+    T.isChanged = true;
     return true;
 }
 
@@ -75,6 +77,7 @@ bool edit(Trie& T, string word, int id, string def) {
         else root = root->child[ch];
     }
     root->def[id] = def;
+    T.isChanged = true;
     return true;
 }
 
@@ -87,6 +90,7 @@ bool remove(Trie& T, string word) {
         else root = root->child[ch];
     }
     root->def.clear();
+    T.isChanged = true;
     return true;
 }
 

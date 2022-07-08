@@ -69,8 +69,10 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 	window.clear();
 	window.draw(a[i]->draw);
 	window.display();
-	for (Trie T : dataset.user_Trie)
+	for (int i = 0; i < dataset.user_Trie.size(); i++) //if (changed[i])
 	{
+		Trie T = dataset.user_Trie[i];
+		if (!T.isChanged) continue;
 		string path = T.path;
 		while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
 		path += "json";
@@ -79,12 +81,12 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 		//cout << "Save file " << T.name << ": Ok\n";
 		cout << "Save file " << T.name<<  " in " << getTime(start, clock()) / 1000.0 << "s\n";
 	}
-	for (int loop = 0; loop < 3; loop++) {
+	/*for (int loop = 0; loop < 3; loop++) {
 		sleepHere(30.0);
 		window.clear();
 		window.draw(a[(i++) % 3]->draw);
 		window.display();
-	}
+	}*/
 	// save history
 	string path;
 	if (dataset.is_admin) path = ADMIN;

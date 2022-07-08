@@ -11,3 +11,6 @@ bool like_compare(UserDef x, UserDef y);
 string cutWordtype(string x);
 string cutDefinition(string x);
 
+bool visitAllNode(Node* root, vector <pair<string, string>>& word_def);
+
+bool build_definition_trie(Trie& T_def, Trie T);

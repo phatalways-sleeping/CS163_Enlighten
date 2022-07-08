@@ -24,6 +24,7 @@ bool insert(Trie& T, string word, const Node& current) {
         string def = info.first.second;
         root->def.push_back(def);
     }
+    T.isChanged = true;
     return true;
 }
 
@@ -37,6 +38,7 @@ bool remove_eng(Trie& T, string word) {
     }
     root->antonyms.clear(); root->definitions.clear(); root->synonyms.clear();
     root->def.clear(); root->user_definitions.clear(); root->word.clear();
+    T.isChanged = true;
     return true;
 }
 
@@ -96,6 +98,7 @@ bool edit_eng(Trie& T, string word, string username, string new_definition) {
     Node* current = search(T, word);
     if (!current) return false;
     current->user_definitions.push_back(UserDef(username, new_definition));
+    T.isChanged = true;
     return true;
 }
 

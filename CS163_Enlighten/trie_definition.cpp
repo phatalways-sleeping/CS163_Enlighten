@@ -1,5 +1,6 @@
 #pragma once
 #include "header.h"
+#include "test_function.h"
 bool build_definition_trie_TxtFile(Trie& T_def, string fileName) {
     ifstream f(fileName);
     if (!f.is_open()) {
@@ -33,6 +34,51 @@ bool build_definition_trie_TxtFile(Trie& T_def, string fileName) {
 
     //cout << "Read data from " << fileName << ": " << count << " words in " << getTime(start, clock())/1000.0 << "s\n";
     f.close();
+    return true;
+}
+
+bool visitAllNode(Node *root, vector <pair<string, string>> &word_def) { // false -> empty
+    if (root) {
+        if (!root->word.empty())
+        for (auto defs : root->definitions) {
+            word_def.push_back({ root->word, defs.first.second });
+        }
+        for (int i = 0; i < TRIE_LIMIT; i++) {
+            if (root->child[i] != NULL) visitAllNode(root->child[i], word_def);
+        }
+        return true;
+    }
+    return false;    
+}
+
+bool build_definition_trie(Trie& T_def, Trie T) {
+    vector <pair<string, string>> word_def;
+    int count = 0;
+    if (!visitAllNode(T.root, word_def)) return false;
+    clock_t start = clock();
+    for (int i = 0; i < word_def.size(); i++) {
+        string s, word = word_def[i].first, def = word_def[i].second;
+        //cout << word << " " << def << endl;
+        if (word.size() && def.size()) {
+            vector <string> words = splitword(def);
+            for (auto w : words)
+                if (!insert(T_def, w, word)) {
+                    //cout << "Can't insert " << w << ": " << word << endl;
+                }
+                else count++;
+            string prefix = "";
+            for (auto w : words) {
+                prefix += w;
+                if (!insert(T_def, prefix, word)) {
+                    //cout << "Can't insert " << def << ": " << word << endl;
+                }
+                else count++;
+            }
+        }
+        else continue;
+    }
+
+    cout << "Build definitions tree : " << count << " words in " << getTime(start, clock())/1000.0 << "s\n";
     return true;
 }
 
