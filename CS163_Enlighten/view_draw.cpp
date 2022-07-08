@@ -61,8 +61,11 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 				}
 			}
 		}
-		else readJson(T, dictPath);
-		//inputTxtFile(T, dictPath);
+		else {
+			readJson(T, dictPath);
+			//if (dictName != "DATASETS130000")readJson(T, dictPath);
+			//else inputTxtFile(T, dictPath);
+		}
 		T_def.name = dictName;
 		T_def.path = dictPath;
 		//build_definition_trie_TxtFile(T_def,dictPath);
