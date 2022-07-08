@@ -101,7 +101,7 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 void testQA(RenderWindow &window, int &page, Enlighten& dataset, int level, bool& difficulty);
 void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& dataset, string word_here);
 void searchResult(RenderWindow& window, int& page, string word, Enlighten& dataset, bool& is_fav, bool right_word, bool is_normal);
-void profile(RenderWindow& window, int& page, Enlighten& dataset);
+void profile(RenderWindow& window, int& page, Enlighten& dataset, bool& is_admin);
 
 //------------------check word/definition in fav/his list---------
 bool inVector(string str, vector <string> list, int& cur_id);

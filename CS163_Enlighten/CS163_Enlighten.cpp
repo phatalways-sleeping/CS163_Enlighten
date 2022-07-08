@@ -54,7 +54,7 @@ int main()
             testQA(window, page, dataset, level, difficulty);
             break;
         case 11:
-            profile(window, page, dataset);
+            profile(window, page, dataset, is_admin);
             break;
         case 12:
             searchResult(window, page, "hello", dataset, is_fav, 1, 1);
@@ -63,7 +63,7 @@ int main()
             myList(window, page, dataset);
             break;
         default: {
-            //saveDatasets(window, dataset);
+            saveDatasets(window, dataset);
             deallocateDataset(dataset);
             window.close();
             break;

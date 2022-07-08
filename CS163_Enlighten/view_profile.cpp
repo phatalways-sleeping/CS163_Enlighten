@@ -1,7 +1,7 @@
 ﻿#include "header.h"
 #include "user.cpp"
 
-void profile(RenderWindow& window, int& page, Enlighten& dataset)
+void profile(RenderWindow& window, int& page, Enlighten& dataset, bool& is_admin)
 {
 	vector<int> level_point(0);
 	level_point.push_back(5000);
@@ -214,14 +214,29 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 		}
 		if (res == -1)
 		{
-			if (changePassword(dataset.username, text1.s, text2.s, ADMIN))
+			if (is_admin)
 			{
-				check = 1;
-				// successfully change the password
+				if (changePassword(dataset.username, text1.s, text2.s, ADMIN))
+				{
+					check = 1;
+					// successfully change the password
+				}
+				else
+				{
+					check = 2;
+				}
 			}
 			else
 			{
-				check = 2;
+				if (changePassword(dataset.username, text1.s, text2.s, USERS))
+				{
+					check = 1;
+					// successfully change the password
+				}
+				else
+				{
+					check = 2;
+				}
 			}
 		}
 		window.display();
