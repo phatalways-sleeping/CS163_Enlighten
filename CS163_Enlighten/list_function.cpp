@@ -66,9 +66,11 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 	int i = 0;
 	
 	// save dictionary
-
-	for (Trie T : dataset.user_Trie){
-		
+	window.clear();
+	window.draw(a[i]->draw);
+	window.display();
+	for (Trie T : dataset.user_Trie)
+	{
 		string path = T.path;
 		while (path.size() && path.back() != '.') path.pop_back(); // make sure json file
 		path += "json";

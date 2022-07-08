@@ -21,7 +21,6 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 	Profile& us = dataset.user;
 	checkAchievements(dataset);
 	// variables need input data
-	string p_username = us.username, p_level = "Level " + to_string(us.level) + " - A Great Explorer";
 	int p_low_level = us.level, p_high_level = us.level + 1;
 	int p_score_cur = 0, p_score_want = 0;
 	for (int i = 0; i < lv.require.size(); i++)
@@ -75,6 +74,7 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset)
 	{
 		check1.push_back(check2[i]);
 	}
+	string p_username = us.username, p_level = "Level " + to_string(p_low_level) + " - A Great Explorer";
 	Event event;
 	Object screen = createObject("Graphic/p11.png");
 	pair<Object*, Object*> settings = createElement("settings", 0.0f, 448.0f);
