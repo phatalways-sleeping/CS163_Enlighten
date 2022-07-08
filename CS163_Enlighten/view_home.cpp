@@ -2,7 +2,7 @@
 
 void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav, Enlighten &dataset)
 {
-
+	int cur_id = dataset.cur_id;
 	Object screen = createObject("Graphic/p4.png");
 	Info *sh[12], welcome = createInfo("Graphic/Roboto-Regular.ttf", "Welcome, " + user_name, 354.0f, 186.0f, 64);
 	Object home1 = createObject("Graphic/home1.png", 0.0f, 168.0f);
@@ -19,20 +19,48 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 	LeftRight left_right;
 	SearchBar do_search;
 	Vocabulary new_word;
+	int cur_his_id = 0;
 	for (int i = 0; i < 12; i++)
 	{
-		if (i >= dataset.history.size())
+		bool found = false;
+		while (!found && cur_his_id < dataset.history.size()) {
+			Node* info = search(dataset.user_Trie[cur_id], dataset.history[cur_his_id]);
+			if (!info || info->definitions.empty()) {
+				cur_his_id++;
+			}
+			else {
+				found = true;
+				break;
+			}
+		}
+		if (!found || cur_his_id >= dataset.history.size())
 		{
 			sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", "", 464.0f, 510.0f, 20);
 			continue;
 		}
-		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", dataset.history[i], 464.0f, 510.0f, 20);
+		
+		sh[i] = createInfoTest("Graphic/Oswald-Medium.ttf", dataset.history[cur_his_id], 464.0f, 510.0f, 20);
+		cur_his_id++;
 		changePos(sh[i], 464.0f + 150.0f * (i >= 6) - round(sh[i]->bound.width / 2), 480.0f + 44.0f * (i % 6));
 	}
 	int size_searchBar = min(3, (int)dataset.history.size());
-	for (int i = 0; i < size_searchBar; ++i) {
-		do_search.result[i]->s = dataset.history[i];
-		do_search.result[i]->text.setString(dataset.history[i]);
+	int temp = 0;
+	for (int i = 0; i < size_searchBar && temp < dataset.history.size(); ++i) {
+		bool found = false;
+		while (!found && temp < dataset.history.size()) {
+			string w = dataset.history[temp];
+			Node* info = search(dataset.user_Trie[cur_id], w);
+			if (!info || info->definitions.empty()) {
+				temp++;
+			}
+			else {
+				do_search.result[i]->s = w;
+				do_search.result[i]->text.setString(w);
+				found = true;
+				temp++;
+			}
+		}
+
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	bool isBreak = false;
@@ -163,9 +191,23 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 					
 					if (do_search.search_info->s.empty()) {
 						size_searchBar = min(3, (int)dataset.history.size());
-						for (int i = 0; i < size_searchBar; ++i) {
-							do_search.result[i]->s = dataset.history[i];
-							do_search.result[i]->text.setString(dataset.history[i]);
+						int temp = 0;
+						for (int i = 0; i < size_searchBar && temp < dataset.history.size(); ++i) {
+							bool found = false;
+							while (!found && temp < dataset.history.size()) {
+								string w = dataset.history[temp];
+								Node* info = search(dataset.user_Trie[cur_id], w);
+								if (!info || info->definitions.empty()) {
+									temp++;
+								}
+								else {
+									do_search.result[i]->s = w;
+									do_search.result[i]->text.setString(w);
+									found = true;
+									temp++;
+								}
+							}
+
 						}
 					}
 					else {
@@ -218,7 +260,7 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 		else if (check_search > 0)
 		{
 			// switch to other dictionary
-			
+			//page = -3;
 		}
 		window.display();
 	}

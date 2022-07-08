@@ -89,9 +89,23 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 	int check = 0;
 	bool sort_user_list = false;
 	int size_searchBar = min(3, (int)dataset.history.size());
-	for (int i = 0; i < size_searchBar; ++i) {
-		do_search.result[i]->s = dataset.history[i];
-		do_search.result[i]->text.setString(dataset.history[i]);
+	int temp = 0;
+	for (int i = 0; i < size_searchBar && temp < dataset.history.size(); ++i) {
+		bool found = false;
+		while (!found && temp < dataset.history.size()) {
+			string w = dataset.history[temp];
+			Node* info = search(dataset.user_Trie[cur_id], w);
+			if (!info || info->definitions.empty()) {
+				temp++;
+			}
+			else {
+				do_search.result[i]->s = w;
+				do_search.result[i]->text.setString(w);
+				found = true;
+				temp++;
+			}
+		}
+
 	}
 	int search_status = 0, add_status = 0, count = 0;
 	bool isBreak = false;
@@ -452,9 +466,23 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 
 					if (do_search.search_info->s.empty()) {
 						size_searchBar = min(3, (int)dataset.history.size());
-						for (int i = 0; i < size_searchBar; ++i) {
-							do_search.result[i]->s = dataset.history[i];
-							do_search.result[i]->text.setString(dataset.history[i]);
+						int temp = 0;
+						for (int i = 0; i < size_searchBar && temp < dataset.history.size(); ++i) {
+							bool found = false;
+							while (!found && temp < dataset.history.size()) {
+								string w = dataset.history[temp];
+								Node* info = search(dataset.user_Trie[cur_id], w);
+								if (!info || info->definitions.empty()) {
+									temp++;
+								}
+								else {
+									do_search.result[i]->s = w;
+									do_search.result[i]->text.setString(w);
+									found = true;
+									temp++;
+								}
+							}
+
 						}
 					}
 					else {
