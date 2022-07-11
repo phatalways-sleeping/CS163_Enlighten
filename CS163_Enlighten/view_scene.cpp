@@ -450,6 +450,19 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 				}
 				break;
 			}
+			case Event::KeyReleased:
+				if (event.key.code == Keyboard::F && search_status < 1)
+				{
+					search_status = 1;
+					do_search.search_info->check = true;
+				}
+				else if (event.key.code == Keyboard::Escape)
+				{
+					search_status = 0;
+					do_search.search_info->s = "";
+					do_search.search_info->text.setString("");
+				}
+				break;
 			default:
 				break;
 			}
@@ -928,6 +941,19 @@ void searchResult(RenderWindow& window, int& page, string result_word, Enlighten
 				}
 				break;
 			}
+			case Event::KeyReleased:
+				if (event.key.code == Keyboard::F && search_status < 1)
+				{
+					search_status = 1;
+					do_search.search_info->check = true;
+				}
+				else if (event.key.code == Keyboard::Escape)
+				{
+					search_status = 0;
+					do_search.search_info->s = "";
+					do_search.search_info->text.setString("");
+				}
+				break;
 			default:
 				break;
 			}
@@ -1303,6 +1329,19 @@ void myList(RenderWindow &window, int &page, Enlighten &dataset)
 				}
 				break;
 			}
+			case Event::KeyReleased:
+				if (event.key.code == Keyboard::F && search_status < 1)
+				{
+					search_status = 1;
+					do_search.search_info->check = true;
+				}
+				else if (event.key.code == Keyboard::Escape)
+				{
+					search_status = 0;
+					do_search.search_info->s = "";
+					do_search.search_info->text.setString("");
+				}
+				break;
 			default:
 				break;
 			}

@@ -514,6 +514,17 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 					if ((int)admin.status == 2 && check == 0)
 						admin.status = Admin::State::Close;
 				}
+				else if (event.key.code == Keyboard::F && search_status < 1 && admin.status == Admin::State::Close)
+				{
+					search_status = 1;
+					do_search.search_info->check = true;
+				}
+				else if (event.key.code == Keyboard::Escape && admin.status == Admin::State::Close)
+				{
+					search_status = 0;
+					do_search.search_info->s = "";
+					do_search.search_info->text.setString("");
+				}
 				break;
 			}
 			default:
@@ -525,8 +536,16 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 		window.clear();
 		window.draw(screen.draw);
 		window.draw(home1.draw);
+		if (admin.status == Admin::State::Close)
+		{
 		drawWhich(window, settings, mouse);
 		drawWhich(window, revision, mouse);
+		}
+		else
+		{
+			window.draw(settings.first->draw);
+			window.draw(revision.first->draw);
+		}
 		drawWhich(window, fav, mouse);
 		drawWhich(window, user, mouse);
 		drawWhich(window, del, mouse);
@@ -785,7 +804,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 				break;
 			}
 		}
-		int check_search = searching(window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
+		int check_search = searching((int)admin.status, window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
 		if (check_search == 1)
 		{
 			// added new word

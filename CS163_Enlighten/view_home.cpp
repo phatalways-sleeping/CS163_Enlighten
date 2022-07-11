@@ -231,6 +231,19 @@ void home(RenderWindow &window, int &page, const string &user_name, bool &is_fav
 				}
 				break;
 			}
+			case Event::KeyReleased:
+				if (event.key.code == Keyboard::F && search_status < 1)
+				{
+					search_status = 1;
+					do_search.search_info->check = true;
+				}
+				else if (event.key.code == Keyboard::Escape)
+				{
+					search_status = 0;
+					do_search.search_info->s = "";
+					do_search.search_info->text.setString("");
+				}
+				break;
 			default:
 				break;
 			}

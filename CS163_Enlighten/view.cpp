@@ -402,7 +402,7 @@ void texting(Info &text, Uint32 unicode, unsigned int limit)
 
 void texting(Info *&text, Uint32 unicode, unsigned int limit)
 {
-	if (unicode == 9)
+	if (unicode == 9 || unicode == 27)
 		return;
 	if (unicode == 13 || unicode == '\n')
 		return;
