@@ -235,9 +235,10 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ResetDict)
 				{
-					string name = dataset.user_Trie[dataset.cur_id].path.substr(dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//") + 1);
-					int i = name.find_last_of(".");
-					string folder = upper(name.substr(0, i));
+					int index = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
+					string folderlink = dataset.user_Trie[dataset.cur_id].path.substr(0, index);
+					int i = folderlink.find_last_of("\\//");
+					string folder = upper(folderlink.substr(i + 1));
 					if (resetCurrentDataset(use_data, folder, original_data_path)) 
 					{
 						check = 1;
