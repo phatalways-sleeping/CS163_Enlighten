@@ -84,7 +84,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 	}
 	Event event;
 
-	bool flag = false, is_fixed = false;
+	bool flag = false, is_fixed = false, is_okay = false;
 	definition.s = cur_defi;
 	definition.text.setString(definition.s);
 	int check = 0;
@@ -507,6 +507,16 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 				}
 				break;
 			}
+			case Event::KeyPressed:
+			{
+				if ((event.key.code == Keyboard::LControl || event.key.code == Keyboard::RControl) && admin.status == Admin::State::Close)
+				{
+					admin.status = Admin::State::Open;
+					is_okay = true;
+				}
+
+				break;
+			}
 			case Event::KeyReleased:
 			{
 				if (event.key.code == Keyboard::Backspace || event.key.code == Keyboard::Delete)
@@ -525,8 +535,40 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 					do_search.search_info->s = "";
 					do_search.search_info->text.setString("");
 				}
+				else if ((event.key.code == Keyboard::LControl || event.key.code == Keyboard::RControl))
+				{
+					is_okay = false;
+				}
+				else if (admin.status == Admin::State::Open)
+				{
+					admin.status = Admin::State::DoSth;
+					if (event.key.code == Keyboard::Num1 && user_cur_page * 3 < (int)user_defi.size())
+					{
+						admin.button = Admin::AButton::Add;
+					}
+					else if (event.key.code == Keyboard::Num2)
+					{
+						admin.button = Admin::AButton::Edit;
+						flag = true;
+						edit_word.reset(existed_word);
+						check = -1;
+					}
+					else if (event.key.code == Keyboard::Num3)
+					{
+						admin.button = Admin::AButton::Rem;
+					}
+					else if (event.key.code == Keyboard::Num4 && user_cur_page * 3 < (int)user_defi.size())
+					{
+						admin.button = Admin::AButton::Del;
+					}
+					else
+					{
+						admin.status = Admin::State::Open;
+					}
+				}
 				break;
 			}
+			
 			default:
 				break;
 			}
@@ -714,7 +756,7 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 				cout << "Update " << JSONPATH << ": OK\n";
 			}*/
 		}
-		bool done = admin.draw(window, mouse, check, (int)user_defi.size(), user_cur_page, index, flag);
+		bool done = admin.draw(is_okay, window, mouse, check, (int)user_defi.size(), user_cur_page, index, flag);
 		if (done) cout << " ok\n";
 		if (done)
 		{

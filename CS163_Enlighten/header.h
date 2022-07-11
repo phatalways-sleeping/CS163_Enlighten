@@ -421,7 +421,7 @@ struct Admin
 	Confirmation confirm = create();
 
 
-	bool draw(RenderWindow& window, Vector2f& mouse, int& check, int max_size, int id, int& index, bool& flag)
+	bool draw(bool& is_okay, RenderWindow& window, Vector2f& mouse, int& check, int max_size, int id, int& index, bool& flag)
 	{
 		switch (status)
 		{
@@ -438,7 +438,7 @@ struct Admin
 			drawWhich(window, edit, mouse);
 			drawWhich(window, rem, mouse);
 			drawWhich(window, del, mouse);
-			if (!isHere(border.bound, mouse))
+			if (!isHere(border.bound, mouse) && !is_okay)
 			{
 				status = State::Close;
 			}
