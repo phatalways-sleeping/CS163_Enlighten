@@ -144,6 +144,13 @@ void wordDisplayAdmin(RenderWindow& window, int& page, bool& is_fav, Enlighten& 
 							if (isHere(do_search.SE[i], mouse) && !do_search.result[i]->s.empty()) {
 								search_status = 0;
 								page = 5;
+								for (int j = 0; j < dataset.history.size(); j++) {
+									if (dataset.history[j] == do_search.result[i]->s) {
+										dataset.history.erase(dataset.history.begin() + j);
+										break;
+									}
+								}
+								dataset.history.insert(dataset.history.begin(), do_search.result[i]->s);
 								if (dataset.is_admin)
 									wordDisplayAdmin(window, page, is_fav, dataset, do_search.result[i]->s);
 								else
