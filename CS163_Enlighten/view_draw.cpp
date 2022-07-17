@@ -68,7 +68,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		}
 		T_def.name = dictName;
 		T_def.path = dictPath;
-		//build_definition_trie(T_def, T);
+		build_definition_trie(T_def, T);
 		
 
 

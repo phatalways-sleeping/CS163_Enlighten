@@ -61,13 +61,16 @@ bool build_definition_trie(Trie& T_def, Trie T) {
         //cout << word << " " << def << endl;
         if (word.size() && def.size()) {
             vector <string> words = splitword(def);
-            for (auto w : words)
+            for (auto w : words) 
                 if (!insert(T_def, w, word)) {
                     //cout << "Can't insert " << w << ": " << word << endl;
                 }
                 else count++;
             string prefix = "";
+            int cnt_prefix = 0;
             for (auto w : words) {
+                cnt_prefix++;
+                if (cnt_prefix >= 5) break;
                 prefix += w;
                 if (!insert(T_def, prefix, word)) {
                     //cout << "Can't insert " << def << ": " << word << endl;
