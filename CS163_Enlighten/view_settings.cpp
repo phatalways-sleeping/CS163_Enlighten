@@ -251,9 +251,8 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == ChangeData)
 				{
-					int i = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
-					string folderpath = dataset.user_Trie[dataset.cur_id].path.substr(0, i);
-					if (changeDataset(text2.s, folderpath)) { // text2.s only be the path to the FOLDER contains the datasets
+					string folder = findFolder(text1.s, dict_name_path);
+					if (changeDataset(text2.s, folder)) { // text2.s only be the path to the FOLDER contains the datasets
 
 					}
 					else {

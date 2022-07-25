@@ -1,5 +1,26 @@
 #include"header.h"
 
+void resetAllData(Enlighten& dataset, string original_data_path) {
+	for (Trie& T : dataset.user_Trie) {
+		reset(T);
+	}
+	for (Trie& T : dataset.def_Trie) {
+		reset(T);
+	}
+}
+
+void removeCurrentDataset(Enlighten& dataset) {
+	if (dataset.user_Trie.empty() || dataset.user_Trie.size() >= dataset.cur_id) return;
+	dataset.user_Trie.erase(dataset.user_Trie.begin() + dataset.cur_id);
+}
+
+void addNewDataset(Enlighten& dataset, string original_data_path) {
+
+}
+
+void changeCurrentDataset(Enlighten& dataset, string new_data_path, string original_data_path) {
+
+}
 
 void duplicateOriginalData(const string original_data_path, const string use_data) {
 	filesystem::remove_all(use_data);
@@ -202,6 +223,27 @@ bool addToUseData(string path, string destination) {
 	// Copying the new dataset into the newly created folder
 	filesystem::copy_file(path, destination + "/" + dataset_folder + "/" + dataset_name);
 	return true;
+}
+
+string findFolder(string name, string dictionary_link) {
+	ifstream infile(dictionary_link);
+	if (infile.fail()) return "";
+	name = upper(name);
+	int number;
+	string folder;
+	infile >> number;
+	string line;
+	while (getline(infile, line)) {
+		int sep = line.find_first_of(" ");
+		if (line.substr(0, sep) != name) continue;
+		line = line.substr(sep + 1);
+		int index = line.find_last_of("\\//");
+		string folderlink = line.substr(0, index);
+		int i = folderlink.find_last_of("\\//");
+		folder = upper(folderlink.substr(i + 1));
+	}
+	infile.close();
+	return folder;
 }
 
 bool changeDataset(string folderpath, string destination) {
