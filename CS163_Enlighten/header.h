@@ -11,6 +11,7 @@ bool addNewDataSets(string path, string destination);
 bool addToUseData(string path, string destination);
 string upper(string s);
 bool changeDataset(string folderpath, string destination);
+string findFolder(string name, string dictionary_link);
 
 //------------------Login Functions---------------------
 bool login(string username, string password, string path, vector<string> &search_history, vector<string> &favorite_list);
