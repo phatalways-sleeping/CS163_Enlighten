@@ -22,19 +22,20 @@ void profile(RenderWindow& window, int& page, Enlighten& dataset, bool& is_admin
 	checkAchievements(dataset);
 	// variables need input data
 	int p_low_level = us.level, p_high_level = us.level + 1;
-	int p_score_cur = 0, p_score_want = 0;
+	int p_score_cur = 0, p_score_want = 0, low_low = 0;
 	for (int i = 0; i < lv.require.size(); i++)
 	{
 		if (us.level + 1 == lv.require[i].second)
 		{
 			p_score_want = lv.require[i].first;
+			if (i > 0) low_low = lv.require[i - 1].first;
 			break;
 		}
 	}
 	p_score_cur = (int)us.scores;
 	int percent;
 	// bug khi p_score_cur = 0
-	if (p_score_cur != 0) percent = p_score_want / p_score_cur - 1;
+	if (p_score_cur != 0) percent = (p_score_want) / (p_score_cur);
 	else percent = 1; // chưa biết fix như nào nên để thế này :v
 	if (!percent)
 	{
