@@ -18,6 +18,52 @@ void resetCurData(Enlighten& dataset, string original_data_path) {
 	dataset.user_Trie[cur_id] = T;
 	dataset.def_Trie[cur_id] = T;
 }
+
+void resetAllData(Enlighten& dataset, string original_data_path) {
+	for (Trie& T : dataset.user_Trie) {
+		reset(T);
+	}
+	for (Trie& T : dataset.def_Trie) {
+		reset(T);
+	}
+	dataset.user_Trie.clear();
+	dataset.def_Trie.clear();
+
+	int count = 0, number_of_dataset;
+	ifstream dict_name_file(original_data_path + "//DICTIONARY.TXT");
+	dict_name_file >> number_of_dataset;
+	//dict_name_file.ignore('\n');
+	while (count < number_of_dataset)
+	{
+
+		count++;
+
+		// input text file
+		Trie T;
+		Trie T_def;
+		string dictName, dictPath;
+		dict_name_file >> dictName >> dictPath;
+		T.name = dictName;
+		readJson(T, dictPath);
+		cout << dictName << " " << dictPath << endl;
+		dictPath.erase(dictPath.find("ORIGINAL_"), 9);
+
+		T.path = dictPath;
+		T_def.name = dictName;
+		T_def.path = dictPath;
+
+		build_definition_trie(T_def, T);
+
+
+
+		//sleepHere(3.0);
+		T.isChanged = true;
+		dataset.user_Trie.push_back(T);
+		dataset.def_Trie.push_back(T_def);
+	}
+
+	dict_name_file.close();
+}
 void addNewDataset(Enlighten& dataset, string original_data_path) {
 
 }
