@@ -40,6 +40,7 @@ bool insert(Trie& T, string word, string def) {
         }
         root = root->child[ch];
     }
+    while (def.size() > 90) def.pop_back();
     (root->def).push_back(def);
     root->word = word;
     vector <string> examples;
@@ -59,7 +60,9 @@ bool insert(Trie& T, string word, string type, string def) {
         }
         root = root->child[ch];
     }
+    while (def.size() > 90) def.pop_back();
     (root->def).push_back(def);
+
     root->word = word;
     vector <string> examples;
     pair <string, string> type_and_defi = { type, def };

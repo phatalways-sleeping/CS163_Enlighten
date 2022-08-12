@@ -21,7 +21,8 @@ bool insert(Trie& T, string word, const Node& current) {
     root->word = word; root->definitions = current.definitions; root->antonyms = current.antonyms; root->synonyms = current.synonyms; 
     root->user_definitions = current.user_definitions;
     for (auto info : current.definitions) {
-        string def = info.first.second;
+        string &def = info.first.second;
+        while (def.size() > 90) def.pop_back();
         root->def.push_back(def);
     }
     T.isChanged = true;
