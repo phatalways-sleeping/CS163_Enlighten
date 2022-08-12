@@ -1,7 +1,23 @@
 #include"header.h"
 #include "test_function.h"
 
+void resetCurData(Enlighten& dataset, string original_data_path) {
 
+	int cur_id = dataset.cur_id;
+	reset(dataset.user_Trie[cur_id]);
+	reset(dataset.def_Trie[cur_id]);
+	Trie T;
+	Trie T_def;
+	T_def.name = T.name = dataset.user_Trie[cur_id].name;
+	T_def.path = T.path = dataset.user_Trie[cur_id].path;
+	string path = T.path;
+	path.insert(path.find("DATA") + 5, "ORIGINAL_");
+	readJson(T, path);
+	build_definition_trie(T_def, T);
+	T.isChanged = true;
+	dataset.user_Trie[cur_id] = T;
+	dataset.def_Trie[cur_id] = T;
+}
 void addNewDataset(Enlighten& dataset, string original_data_path) {
 
 }
