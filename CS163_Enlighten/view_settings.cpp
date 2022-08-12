@@ -231,23 +231,13 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 			{
 				if (button == ResetAllDict)
 				{
-					duplicateOriginalData(original_data_path, use_data);
+					resetAllData(dataset, original_data_path);
+					//duplicateOriginalData(original_data_path, use_data);
 				}
 				else if (button == ResetDict)
 				{
-					int index = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
-					string folderlink = dataset.user_Trie[dataset.cur_id].path.substr(0, index);
-					int i = folderlink.find_last_of("\\//");
-					string folder = upper(folderlink.substr(i + 1));
-					if (resetCurrentDataset(use_data, folder, original_data_path)) 
-					{
-						check = 1;
-						// successfully reset
-					}
-					else
-					{
-						check = 2;
-					}
+					resetCurData(dataset, original_data_path);
+					check = 1;
 				}
 				else if (button == ChangeData)
 				{
@@ -261,16 +251,8 @@ void settings(RenderWindow &window, int &page, const bool &is_admin, Enlighten &
 				}
 				else if (button == RemDict)
 				{
-					int index_of_split = dataset.user_Trie[dataset.cur_id].path.find_last_of("\\//");
-					string name = dataset.user_Trie[dataset.cur_id].path.substr(index_of_split + 1);
-					if (removeDatasets(use_data + "//" + name) && removeDatasets(original_data_path + "//" + name)) {
-						// successfully removed
-						check = 1;
-					}
-					else
-					{
-						check = 2;
-					}
+					removeCurrentDataset(dataset);
+					check = 1;
 				}
 				else if (button == ImportNew)
 				{

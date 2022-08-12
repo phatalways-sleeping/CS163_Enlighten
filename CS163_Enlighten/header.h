@@ -3,6 +3,9 @@
 #include "struct_and_dependencies.h"
 
 //------------------Functions with Data--------------------------
+void resetAllData(Enlighten& dataset, string original_data_path);
+void resetCurData(Enlighten& dataset, string original_data_path);
+void removeCurrentDataset(Enlighten& dataset);
 void duplicateOriginalData(const string original_data_path, const string use_data);
 bool deallocateDuplicatedData(const string use_data);
 bool removeDatasets(string source);

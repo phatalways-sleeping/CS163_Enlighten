@@ -4,6 +4,7 @@
 
 const int special_value = 1;
 const string dict_name_path = "ENLIGHTEN_DATA/DATA/DICTIONARY.TXT";
+const string origin_dict_name_path = "ENLIGHTEN_DATA/ORIGINAL_DATA/DICTIONARY.TXT";
 vector <pair<string, bool>> nullvector();
 int likeStatus(string user, vector <pair<string, bool>> list, int& cur_id);
 bool like_compare(UserDef x, UserDef y);

@@ -69,6 +69,12 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 	window.clear();
 	window.draw(a[i]->draw);
 	window.display();
+	ofstream dict_name(dict_name_path);
+	dict_name << dataset.user_Trie.size() << endl;
+	for (Trie T : dataset.user_Trie) {
+		dict_name << T.name << " " << T.path << endl;
+	}
+	dict_name.close();
 	for (int i = 0; i < dataset.user_Trie.size(); i++) //if (changed[i])
 	{
 		Trie T = dataset.user_Trie[i];

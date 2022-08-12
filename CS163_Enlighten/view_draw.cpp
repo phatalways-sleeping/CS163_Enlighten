@@ -47,25 +47,7 @@ void loadingDataset(RenderWindow &window, Enlighten &dataset, int &page, int num
 		dict_name_file >> dictName >> dictPath;
 		T.name = dictName; 
 		T.path = dictPath; 
-		if (T.name == "ENG") {
-			for (int i = 0; i < 26; i++) {
-				dict_name_file >> dictName >> dictPath;
-				readJson(T, dictPath);
-				if (i % 5 == 0) {
-					window.clear();
-					window.draw(screen.draw);
-					if (count < 10)
-						window.draw(loading[count]->draw);
-					count++;
-					window.display();
-				}
-			}
-		}
-		else {
-			readJson(T, dictPath);
-			//if (dictName != "DATASETS130000")readJson(T, dictPath);
-			//else inputTxtFile(T, dictPath);
-		}
+		readJson(T, dictPath);
 		T_def.name = dictName;
 		T_def.path = dictPath;
 		build_definition_trie(T_def, T);
