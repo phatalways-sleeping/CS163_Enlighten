@@ -64,6 +64,18 @@ void resetAllData(Enlighten& dataset, string original_data_path) {
 
 	dict_name_file.close();
 }
+
+void removeCurrentDataset(Enlighten& dataset) {
+	if (dataset.user_Trie.empty() || dataset.user_Trie.size() <= dataset.cur_id) return;
+	dataset.user_Trie.erase(dataset.user_Trie.begin() + dataset.cur_id);
+	dataset.cur_id = 0;
+	ofstream dict_name(dict_name_path);
+	dict_name << dataset.user_Trie.size() << endl;
+	for (Trie T : dataset.user_Trie) {
+		dict_name << T.name << " " << T.path << endl;
+	}
+	dict_name.close();
+}
 void addNewDataset(Enlighten& dataset, string original_data_path) {
 
 }
