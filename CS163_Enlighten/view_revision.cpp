@@ -129,6 +129,7 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 	pair<Object *, Object *> tryAgain = createElement("p9_try", 590.0f, 470.0f);
 	pair<Object *, Object *> cancel = createElement("p0_cancel", 328.0f, 470.0f);
 	Object bar_done = createObject("Graphic/p9_total.png", 200.0f, 271.0f);
+	bool update_score = false;
 	int curQuestion = 0;
 	int correctAnswer = 0;
 	for (int i = 0; i < 4; i++)
@@ -283,6 +284,13 @@ void testQA(RenderWindow &window, int &page, Enlighten &dataset, int level, bool
 			drawWhich(window, cancel, mouse);
 			drawWhich(window, tryAgain, mouse);
 			result_here.text.setString("Your point is " + to_string(total_point));
+			if (!update_score)
+			{
+				update_score = true;
+				dataset.user.scores += (double)total_point;
+			}
+			//cerr << dataset.user.scores << endl << total_point;
+			//dataset.user.scores += total_point;
 			changePos(result_here, 560.0f - round(result_here.bound.width / 2), 410.0f);
 			window.draw(result_here.text);
 		}
