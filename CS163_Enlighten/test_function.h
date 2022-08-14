@@ -2,7 +2,7 @@
 #include <string>
 
 
-const int special_value = 1;
+const int special_value = 2;
 const string dict_name_path = "ENLIGHTEN_DATA/DATA/DICTIONARY.TXT";
 const string origin_dict_name_path = "ENLIGHTEN_DATA/ORIGINAL_DATA/DICTIONARY.TXT";
 vector <pair<string, bool>> nullvector();

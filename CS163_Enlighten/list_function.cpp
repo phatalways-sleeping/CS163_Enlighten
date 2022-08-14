@@ -29,7 +29,7 @@ vector <pair<string, bool>> nullvector() {
 }
 
 bool like_compare(UserDef x, UserDef y) {
-	return x.like > y.like;
+	return x.like - x.dislike > y.like - y.dislike;
 }
 string cutWordtype(string x) {
 	if (x.size() <= 3) return "";
