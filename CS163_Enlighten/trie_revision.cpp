@@ -32,7 +32,7 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHist
     for (auto s : favoriteList) if (search(T, s)) mergeList.push_back(s);
     sort(mergeList.begin(), mergeList.end());
     mergeList.erase(unique(mergeList.begin(), mergeList.end()), mergeList.end());
-    int numOld = 0;
+    int numOld = 0, limSize = 60;
     if (level == 1) numOld = 10;
     else if (level == 2) numOld = 5;
     numOld = min(numOld, (int) mergeList.size());
@@ -73,6 +73,12 @@ vector<vector<string>> revisionWord(Trie T, int level, vector<string> searchHist
             word.push_back(A.second); word.push_back(A.first); word.push_back(A.first); word.push_back(B.first); word.push_back(C.first); word.push_back(D.first);
         }
         for (int j = 0; j < 10; ++j) swap(word[Rand(2ll, 5ll)], word[Rand(2ll, 5ll)]);
+        for (int j = 0; j < word.size(); ++j) {
+            if (word[j].size() > limSize) {
+                while (word[j].size() > limSize) word[j].pop_back();
+                word[j] += "...";
+            }
+        }
         listWord.push_back(word);
     }
     return listWord;
