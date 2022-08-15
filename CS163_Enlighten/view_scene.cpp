@@ -458,7 +458,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 				break;
 			}
 			case Event::KeyReleased:
-				if (event.key.code == Keyboard::F && search_status < 1)
+				if (event.key.code == Keyboard::F && search_status < 1 && !flag)
 				{
 					search_status = 1;
 					do_search.search_info->check = true;
