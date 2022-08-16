@@ -16,6 +16,7 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 		page = 4;
 		return;
 	}
+	dataset.user_Trie[cur_id].isChanged = true;
 	//vector<string> &all_defi = search_result(dataset.user_Trie[cur_id], word_here);
 	vector<string> &all_defi = word_info->def;
 	vector<UserDef>& user_defi = word_info->user_definitions;
@@ -242,11 +243,11 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 							// delete user_definition
 							sort_user_list = true;
 							user_defi.erase(user_defi.begin() + id);
-							if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+							/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 								cout << "Can't write file " << JSONPATH << endl;
 							else {
 								cout << "Update " << JSONPATH << ": OK\n";
-							}
+							}*/
 						}
 						int like_id = -1;
 						like_status[i] = likeStatus(dataset.username, user_defi[id].list, like_id); /// like / dislike
@@ -609,11 +610,11 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 			user_defi.push_back(UserDef(dataset.username, edit_word.enter_type.s + edit_word.enter_defi.s));
 			// them dinh nghia cua nguoi dung
 			// sua file data ?
-			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
-				cout << "Can't write file " << JSONPATH << endl;
+			/*if (!writejson(dataset.user_trie[cur_id], jsonpath))
+				cout << "can't write file " << jsonpath << endl;
 			else {
-				cout << "Update " << JSONPATH << ": OK\n";
-			}
+				cout << "update " << jsonpath << ": ok\n";
+			}*/
 		}
 		else if (check_me == 2)
 		{
@@ -630,11 +631,11 @@ void wordDisplay(RenderWindow &window, int &page, bool &is_fav, Enlighten &datas
 			word_type.s = existed_word.type;
 			definition.text.setString(definition.s);
 			word_type.text.setString(word_type.s);
-			if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
+			/*if (!writeJson(dataset.user_Trie[cur_id], JSONPATH))
 				cout << "Can't write file " << JSONPATH << endl;
 			else {
 				cout << "Update " << JSONPATH << ": OK\n";
-			}
+			}*/
 		}
 		int check_search = searching(window, search_status, do_search, mouse, add_status, dataset, event, count, new_word);
 		if (check_search == 1)

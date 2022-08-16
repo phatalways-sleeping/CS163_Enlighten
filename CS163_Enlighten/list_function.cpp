@@ -104,6 +104,7 @@ void saveDatasets(RenderWindow& window, Enlighten dataset)
 	update(dataset.username, FAVORITE_LIST, dataset.favorite, path);
 	for (int i = 0; i < 3; i++)
 		delete a[i];
+	cout << "OK\n";
 }
 
 void deallocateDataset(Enlighten& dataset)

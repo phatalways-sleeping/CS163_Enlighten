@@ -70,7 +70,7 @@ int main()
         }
         }
     }
-    writeUserProfile(PROFILE, dataset.username, dataset.user);
+    //writeUserProfile(PROFILE, dataset.username, dataset.user);
  
     return 0;
 }
